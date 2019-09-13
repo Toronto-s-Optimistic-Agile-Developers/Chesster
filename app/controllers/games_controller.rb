@@ -75,6 +75,6 @@ class GamesController < ApplicationController
     end
 
     def player_id
-      player_id = current_user.id
+      current_user.id = player_id
     end
 end
