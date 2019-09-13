@@ -1,6 +1,7 @@
 class GamesController < ApplicationController
   
-  before_action :authenticate_user!, :set_game, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:create, :edit, :update, :destroy] 
+  before_action :set_game, only: [:create, :edit, :update, :destroy]
 
   # GET /games
   # GET /games.json
@@ -15,7 +16,7 @@ class GamesController < ApplicationController
 
   # GET /games/new
   def new
-    @game = Game.new
+    @game.create(game_params)
   end
 
   # GET /games/1/edit
@@ -25,7 +26,7 @@ class GamesController < ApplicationController
   # POST /games
   # POST /games.json
   def create
-    @game = Game.new(game_params)
+    @game = current_user.games.new(game_params)
 
     respond_to do |format|
       if @game.save
