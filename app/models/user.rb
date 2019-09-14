@@ -5,6 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :games
-
+  extend FriendlyId
+  friendly_id :username, use: :slugged
+  validates :user, presence: true
   
 end
