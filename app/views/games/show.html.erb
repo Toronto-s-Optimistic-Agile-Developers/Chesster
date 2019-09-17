@@ -7,6 +7,7 @@
   <%= @game.black_id %>
 </p>
 
+<%= render 'board', game: @game %>
 
 <%= link_to 'Edit', edit_game_path(@game) %> |
 <%= link_to 'Back', games_path %>

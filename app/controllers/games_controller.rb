@@ -12,6 +12,7 @@ class GamesController < ApplicationController
   # GET /games/1
   # GET /games/1.json
   def show
+    @game = Game.find(params[:id])
   end
 
   # GET /games/new
@@ -64,17 +65,16 @@ class GamesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    
     def set_game
       @game = Game.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def game_params
-      params.require(:game).permit(:username, :player_id, :white_id, :black_id)
+      params.require(:game).permit(:name)
     end
 
-    def player_id
-      current_user.id = player_id
-    end
+    # def player_id
+    #   current_user.id = player_id
+    # end
 end
