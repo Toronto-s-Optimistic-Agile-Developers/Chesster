@@ -1,6 +1,7 @@
 class Game < ApplicationRecord
   belongs_to :user
   has_many :peices
-  # validates :username, presence: true, length: { minimum: 4, maximun: 10 }
-validates :name, presence: true
+
+  validates :name, presence: true
+
 end
