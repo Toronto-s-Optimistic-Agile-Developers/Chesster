@@ -1,5 +1,6 @@
-class PiecesController < ApplicationController
+# frozen_string_literal: true
 
+class PiecesController < ApplicationController
   private
 
   def piece_params
