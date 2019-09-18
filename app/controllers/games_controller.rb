@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 class GamesController < ApplicationController
   
   before_action :authenticate_user!, only: [:create, :edit, :update, :destroy] 
@@ -78,3 +79,34 @@ class GamesController < ApplicationController
       current_user.id = player_id
     end
 end
+=======
+class GamesController < ApplicationController
+  
+  before_action :authenticate_user!
+  
+  def new
+    @game = Game.new
+  end
+
+  def create
+    @game = Game.create(game_params)
+    redirect_to game_path(@game)
+  end
+
+  def show
+  end
+
+  def index
+    redirect_to #path ??
+  end
+
+  def update
+  end
+
+  private
+
+  def game_params
+    params.require(:game).permit(:name, :white_id, :black_id)
+  end
+
+>>>>>>> 6d0cfcb939150325807db57d6c09403f60bc8f89

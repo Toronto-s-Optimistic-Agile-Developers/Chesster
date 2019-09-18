@@ -25,6 +25,10 @@ gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'simple_form'
 gem 'devise'
+<<<<<<< HEAD
+=======
+gem 'friendly_id', '~> 5.2.4'
+>>>>>>> 6d0cfcb939150325807db57d6c09403f60bc8f89
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
@@ -74,5 +78,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 group :development, :test do
   gem 'rspec-rails', '~> 3.5'
   gem 'factory_bot_rails'
+<<<<<<< HEAD
+=======
+  gem 'rubocop', require: false
+>>>>>>> 6d0cfcb939150325807db57d6c09403f60bc8f89
 end
 

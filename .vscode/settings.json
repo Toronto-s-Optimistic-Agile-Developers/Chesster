@@ -6,6 +6,11 @@
     "markdown",
     "latex",
     "plaintext",
+<<<<<<< HEAD
     "erb"
+=======
+    "erb",
+    "ruby"
+>>>>>>> 6d0cfcb939150325807db57d6c09403f60bc8f89
   ]
 }
