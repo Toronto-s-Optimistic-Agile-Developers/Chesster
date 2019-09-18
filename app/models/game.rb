@@ -1,6 +1,7 @@
-class Game < ApplicationRecord
+class Game < Board < ApplicationRecord
   belongs_to :user
-  has_many :peices
-  validates :username, presence: true, length: { minimum: 4, maximun: 10 }
+  has_many :pieces
+
+  validates :name, presence: true
 
 end
