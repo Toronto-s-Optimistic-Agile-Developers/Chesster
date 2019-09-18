@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 2019_09_17_014043) do
 
   create_table "games", force: :cascade do |t|
     t.string "username"
+    t.string "name"
     t.integer "player_id"
     t.integer "white_id"
     t.integer "black_id"
