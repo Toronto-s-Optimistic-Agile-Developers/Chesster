@@ -1,0 +1,11 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Games</h1>
+<br>
+<% @games.each do |game| %>
+  <%= link_to 'Play', game %>
+<% end %>
+
+<br>
+
+<%= link_to 'New Game', new_game_path %>

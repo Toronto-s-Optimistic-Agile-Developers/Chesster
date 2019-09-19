@@ -25,6 +25,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'simple_form'
 gem 'devise'
+gem 'friendly_id', '~> 5.2.4'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
@@ -61,8 +62,8 @@ group :test do
   gem 'chromedriver-helper'
 end
 
-gem 'popper_js', '~> 1.11.1'
-gem 'bootstrap', '4.0.0.alpha6'
+gem 'popper_js', '~> 1.14.5'
+gem 'bootstrap', '~> 4.3.1'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.3.3'
@@ -74,5 +75,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 group :development, :test do
   gem 'rspec-rails', '~> 3.5'
   gem 'factory_bot_rails'
+  gem 'rubocop', require: false
 end
 
