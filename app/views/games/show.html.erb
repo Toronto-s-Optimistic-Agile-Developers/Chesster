@@ -10,7 +10,7 @@
     <table>
     <% (0..7).each do |y_coord| %>
         <% (0..7).each do |x_coord| %>
-          <td data-x-coord = <%= x_coord %> data-y-coord = <%= y_coord %> class = <%= "#{(y_coord % 2 == x_coord % 2 ? "white-tile" : "black-tile")}" %> >
+          <td data-x-coord = <%= x_coord %> data-y-coord = <%= y_coord %> class = <%= "#{(y_coord.odd? == x_coord.odd? ? "white-tile" : "black-tile")}" %> >
           </td>	
         <% end %>
         </tr>	
