@@ -70,6 +70,7 @@ end
 
 gem 'bootstrap', '~> 4.3.1'
 gem 'popper_js', '~> 1.14.5'
+gem "font-awesome-rails"
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.3.3'
