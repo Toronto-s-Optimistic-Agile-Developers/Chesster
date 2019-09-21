@@ -2,15 +2,21 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [:google_oauth2, :facebook]
+
+  def self.from_omniauth(auth)
+  where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+    user.email = auth.info.email
+    user.provider = auth.provider
+    user.uid = auth.uid
+    user.password = Devise.friendly_token[0,20]
+  end
+end
+
 
   has_many :games
-<<<<<<< HEAD
-
-=======
   extend FriendlyId
   friendly_id :username, use: :slugged
-  validates :user, presence: true
->>>>>>> 6d0cfcb939150325807db57d6c09403f60bc8f89
-  
+  #validates :user, presence: true
 end
+>>>>>>> 1284bebaef62edf7c164123120eaba13241d1a65
