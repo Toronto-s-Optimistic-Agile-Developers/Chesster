@@ -7,14 +7,15 @@ class GamesController < ApplicationController
 
   def create
     @game = Game.create(game_params)
-    redirect_to game_path(@game)
+    redirect_to root_path
   end
 
   def show
+    @game = Game.find(params[:id])
   end
 
   def index
-    redirect_to #path ??
+    redirect_to root_index
   end
 
   def update
