@@ -19,4 +19,3 @@ end
   friendly_id :username, use: :slugged
   #validates :user, presence: true
 end
->>>>>>> 1284bebaef62edf7c164123120eaba13241d1a65
