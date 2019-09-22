@@ -9,12 +9,16 @@ FactoryBot.define do
     password_confirmation { 'secretPassword' }
     username { 'OptimisticToad' }
   end
-
-  factory :game do
-    username { 'OptimisticToad' }
-    player_id { 1 }
-    white_id { 2 }
-    black_id { 3 }
-    association :user
+  
+  factory :game_white_player, class: Game do
+    name 'example game'
+    white_id 1
+  end
+#  factory :game do
+#    username { 'OptimisticToad' }
+#    player_id { 1 }
+#    white_id { 2 }
+#    black_id { 3 }
+#    association :user
   end
 end

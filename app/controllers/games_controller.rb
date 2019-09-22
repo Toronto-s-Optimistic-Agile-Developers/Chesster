@@ -14,6 +14,10 @@ class GamesController < ApplicationController
   end
 
   def show
+    @game = Game.find(params[:id])
+    #@pieces = @game.pieces
+    @black_player = @game.black_id
+    @white_player = @game.white_id
   end
 
   def index
@@ -26,15 +30,20 @@ class GamesController < ApplicationController
       @game.black_id = current_user
       @game.save
       redirect_to game_path(@game)
-    else :text, :status => :unprocessable_entity
+    else
       redirect_to games_path
-
-
   end
+end
+
+def destroy
+  @game = Game.find(params[:id])
+  @game.destroy
+  redirect_to root_path
+end
 
   private
 
   def game_params
-    params.require(:game).permit(:name, :game_id, :white_id, :black_id)
+    params.require(:game).permit(:current_user, :name, :game_id, :white_id, :black_id)
   end
 end
