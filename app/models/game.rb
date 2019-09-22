@@ -1,4 +1,4 @@
-class Game ApplicationRecord
+class Game  < ApplicationRecord
   belongs_to :user
   has_many :pieces
 
