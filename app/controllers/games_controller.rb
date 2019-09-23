@@ -15,7 +15,7 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
-    #@pieces = @game.pieces
+    @pieces = @game.pieces
     @black_player = @game.black_id
     @white_player = @game.white_id
   end
@@ -44,6 +44,7 @@ end
   private
 
   def game_params
-    params.require(:game).permit(:current_user, :name, :game_id, :white_id, :black_id)
+
+    params.require(:game).permit(:current_user, :name, :game_id, :white_id, :black_id, :username)
   end
 end

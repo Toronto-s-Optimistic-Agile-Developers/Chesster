@@ -17,4 +17,75 @@
   font-family: "Helvetica Neue", Helvetica;
   font-weight: 200;
   box-shadow: 0px 1px 3px #2a2a2a;
+
+
+.white-tile {
+  width: 12.5%;
+  height: 12.5%;
+  background-color: white;
+  border: 1px solid rgb(44, 43, 43);
+  ;
+  background: image_url('whitetile.png') center fixed;
+}
+
+.black-tile {
+  width: 12.5%;
+  height: 12.5%;
+  background-color: rgb(193, 154, 107);
+  border: 1px solid rgb(44, 43, 43);
+  background: image_url('blacktile.png') center fixed;
+}
+
+table {
+  height: 500px;
+  width: 500px;
+  -moz-box-shadow: 1px 1px 1px 1px #707070;
+  -webkit-box-shadow: 1px 1px 1px 1px #707070;
+  box-shadow: 1px 1px 1px 1px #707070;
+  z-index: 2px;
+}
+
+.chess {
+  position: relative;
+  width: 500px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.board {
+  display: inline-block;
+  position: fixed;
+}
+
+
+.y_labels {
+  margin-top: -500px;
+  width: 10px;
+  margin-left: -20px;
+  background-color: rgb(193, 154, 107) !important;
+}
+
+.x_labels {
+  height: 10px;
+  width: 500px;
+  background-color: rgb(165, 136, 125) !important;
+}
+
+#labels {
+  position: fixed;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+}
+
+.white {
+  color: rgb(129, 126, 124) !important;
+  font-weight: bold;
+  font-size: 100vw;
+}
+
+.black {
+  background-color: rgb(49, 45, 43) !important;
+  font-weight: bold;
+  font-size: 100vw;
 }
