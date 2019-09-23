@@ -8,11 +8,8 @@ Rails.application.routes.draw do
 
   root to: "static_pages#show"
 
-
   resources :moves
   resources :games
-    resources :pieces
-    # , only: %i[show edit update]
-
+  resources :pieces
 end
 
