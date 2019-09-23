@@ -1,22 +1,10 @@
-<h1 class="text-center">
-  <%= @game.name %>
-</h1>
-
-<br>
-<div class="board">
-  
-</div>
-
-<%= link_to 'Back', games_path %>
 <p id="notice"><%= notice %></p>
-
 <h1 class="text-center">
   <%= @game.name %>
 </h1>
-<br>
-<br>
+<br />
 <div class="chess" align="center">
-  <div board="board">
+  <div class="board">
     <table>
     <% (0..7).each do |y_coord| %>
         <% (0..7).each do |x_coord| %>
@@ -43,10 +31,10 @@
         <% end %>
       </tr>
     </table>
+    <br />
   </div>
 </div>
-<br />
+
 
 
 <%= link_to 'Back', games_path %>
-<br />

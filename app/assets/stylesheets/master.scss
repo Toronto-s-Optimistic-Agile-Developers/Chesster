@@ -31,12 +31,13 @@ table {
   width: 500px;
   margin-right: auto;
   margin-left: auto;
+  margin-bottom: 10px;
 }
 
-.board {
-  display: inline-block;
-  position: fixed;
-}
+// .board {
+//   display: inline-block;
+//   position: fixed;
+// }
 
 
 .y_labels {
@@ -50,6 +51,8 @@ table {
   height: 10px;
   width: 500px;
   background-color: rgb(165, 136, 125) !important;
+  margin-bottom: 10px;
+ 
 }
 
 #labels {
