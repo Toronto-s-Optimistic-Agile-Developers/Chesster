@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Game < Board < ApplicationRecord
+class Game  < ApplicationRecord
   belongs_to :user
   has_many :pieces
 

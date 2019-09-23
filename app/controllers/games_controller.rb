@@ -7,15 +7,16 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.create(game_params)
+    @game = current_user.games.create(game_params)
     redirect_to game_path(@game)
   end
 
   def show
+    @game = Game.find(params[:id])
   end
 
   def index
-    redirect_to #path ??
+    @games = Game.all
   end
 
   def update
@@ -24,6 +25,7 @@ class GamesController < ApplicationController
   private
 
   def game_params
-    params.require(:game).permit(:name, :white_id, :black_id)
+    params.require(:game).permit(:name, :white_id, :black_id, :username)
   end
+end
 
