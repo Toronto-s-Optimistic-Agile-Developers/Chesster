@@ -28,4 +28,3 @@ class GamesController < ApplicationController
     params.require(:game).permit(:name, :white_id, :black_id, :username)
   end
 end
-
