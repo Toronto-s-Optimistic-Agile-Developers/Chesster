@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Game < ApplicationRecord
-  belongs_to :white_id, class_name: 'User'
+  belongs_to :white_id, class_name: 'User', optional: true
   belongs_to :black_id, class_name: 'User', optional: true
 
   has_many :pieces
@@ -12,7 +12,7 @@ class Game < ApplicationRecord
     black_id.blank?
   end
   
-  validates :name, presence: true
+  #validates :name, presence: true
   def set_up_board!
   # Pawns
     (1..8).each do |x_coord|
