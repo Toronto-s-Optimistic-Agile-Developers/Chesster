@@ -11,8 +11,8 @@
     <% (0..7).each do |y_coord| %>
         <% (0..7).each do |x_coord| %>
           <td data-x-coord = <%= x_coord %> data-y-coord = <%= y_coord %> class = <%= "#{(y_coord.odd? == x_coord.odd? ? "white-tile" : "black-tile")}" %>> 
-            <% if board_piece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
-              <span class=<%= "#{@piece.color"} %>><%= @piece.image.html_safe %></span>
+            <% if false && board_piece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
+              <span class=<%= "#{@piece.color}" %>><%= @piece.image.html_safe %></span>
             <% end %>
           </td>
           <% end %>
