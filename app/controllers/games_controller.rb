@@ -12,7 +12,8 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game = Game.find(params[:id])
+    @game = Game.find_by_id(params[:id])
+    @pieces = @game.pieces
   end
 
   def index
@@ -28,4 +29,3 @@ class GamesController < ApplicationController
     params.require(:game).permit(:name, :white_id, :black_id, :username)
   end
 end
-
