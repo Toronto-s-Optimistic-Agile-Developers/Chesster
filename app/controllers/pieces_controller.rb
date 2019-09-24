@@ -1,21 +1,28 @@
 class PiecesController < ApplicationController
-  def new
-    @piece = game.pieces.new
+  
+  def create
+    @pieces = current_game.pieces.create(piece_params)
   end
 
-  def create
-    @piece = game.pieces.create(piece_params)
-    if @piece.valid?
-      redirect_to games_path(@game)
-    else
-      render :new, status: :unprocessable_entity
-    end
+  def show
+    @piece = Piece.find(params[:id])
+  end
+
+
+  def update
+    @piece = Piece.find(params[:id])
+    @game = @piece.game
+    x = piece_params[:x_coord]
+    y = piece_params[:y_coord]
+    
   end
 
   private
 
   def piece_params
-    params.require(:piece).permit(:name, :color, :x_coord, :y_coord, :game_id, :player_id, :image, :type)
+    params.require(:piece).permit(:color, :x_coord, :y_coord, :type)
   end
+
+  
 end
 
