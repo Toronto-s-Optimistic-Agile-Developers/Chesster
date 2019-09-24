@@ -1,80 +1,89 @@
 @import "bootstrap";
+@import "font-awesome";
 
-.white-tile {
-  width: 12.5%;
-  height: 12.5%;
-  background-color: white;
-  border: 1px solid rgb(44, 43, 43);
-  ;
-  background: image_url('whitetile.png') center fixed;
-}
-
-.black-tile {
-  width: 12.5%;
-  height: 12.5%;
-  background-color: rgb(193, 154, 107);
-  border: 1px solid rgb(44, 43, 43);
-  background: image_url('blacktile.png') center fixed;
+.booyah-box {
+  -moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
+  -webkit-box-shadow: 1px 1px 2px 0 #d0d0d0;
+  box-shadow: 1px 1px 2px 0 #d0d0d0;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  padding: 20px;
 }
 
-table {
-  height: 500px;
-  width: 500px;
-  -moz-box-shadow: 1px 1px 1px 1px #707070;
-  -webkit-box-shadow: 1px 1px 1px 1px #707070;
-  box-shadow: 1px 1px 1px 1px #707070;
-  z-index: 2px;
+.navbar {
+  font-family: "Helvetica Neue", Helvetica;
+  font-weight: 200;
+  box-shadow: 0px 1px 3px #2a2a2a;
 }
 
-.set-board {
-  position: relative;
-  width: 500px;
-  height: 500px;
-  margin-right: auto;
-  margin-left: auto;
-}
+  .white-tile {
+    width: 12.5%;
+    height: 12.5%;
+    background-color: white;
+    border: 1px solid rgb(44, 43, 43);
+    background: image_url('whitetile.png') center fixed;
+  }
 
-.chess {
-  position: fixed;
-  width: 500px;
-  margin-bottom: 10px;
-}
+  .black-tile {
+    width: 12.5%;
+    height: 12.5%;
+    background-color: rgb(193, 154, 107);
+    border: 1px solid rgb(44, 43, 43);
+    background: image_url('blacktile.png') center fixed;
+  }
 
-.y_labels {
-  margin-top: -500px;
-  width: 10px;
-  margin-left: -20px;
-  background-color: rgb(193, 154, 107) !important;
-}
+  table {
+    height: 500px;
+    width: 500px;
+    -moz-box-shadow: 1px 1px 1px 1px #707070;
+    -webkit-box-shadow: 1px 1px 1px 1px #707070;
+    box-shadow: 1px 1px 1px 1px #707070;
+    z-index: 2px;
+  }
 
-.x_labels {
-  height: 10px;
-  width: 500px;
-  background-color: rgb(165, 136, 125) !important;
-  margin-bottom: 10px;
- 
-}
+  .chess {
+    position: relative;
+    width: 500px;
+    margin-right: auto;
+    margin-left: auto;
+  }
 
-#labels {
-  position: fixed;
-  color: white;
-  text-align: center;
-  font-weight: bold;
-}
+  .board {
+    display: inline-block;
+    position: fixed;
+  }
 
-.white {
-  color: rgb(129, 126, 124) !important;
-  font-weight: bold;
-  font-size: 100vw;
-}
+  .y_labels {
+    margin-top: -500px;
+    width: 10px;
+    margin-left: -20px;
+    background-color: rgb(193, 154, 107) !important;
+  }
 
-.black {
-  background-color: rgb(49, 45, 43) !important;
-  font-weight: bold;
-  font-size: 100vw;
-}
-.piece-error {
-  text-align: center;
-  color: red;
-  font-weight: bold;
-}
+  .x_labels {
+    height: 10px;
+    width: 500px;
+    background-color: rgb(165, 136, 125) !important;
+  }
+
+  #labels {
+    position: fixed;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .white {
+    color: rgb(129, 126, 124) !important;
+    font-weight: bold;
+    font-size: 100vw;
+  }
+
+  .black {
+    background-color: rgb(49, 45, 43) !important;
+    font-weight: bold;
+    font-size: 100vw;
+  }
