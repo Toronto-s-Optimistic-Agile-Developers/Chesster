@@ -5,7 +5,6 @@
   height: 12.5%;
   background-color: white;
   border: 1px solid rgb(44, 43, 43);
-  ;
   background: image_url('whitetile.png') center fixed;
 }
 
@@ -16,6 +15,14 @@
   border: 1px solid rgb(44, 43, 43);
   background: image_url('blacktile.png') center fixed;
 }
+.black-tile:hover, .black-tile:focus {
+  opacity: .7;
+}
+
+.white-tile:hover, .white-tile:focus {
+  opacity: .7;
+}
+
 
 table {
   height: 500px;
@@ -65,13 +72,18 @@ table {
 .white {
   color: rgb(129, 126, 124) !important;
   font-weight: bold;
-  font-size: 100vw;
+  font-size: 50px;
+  vertical-align: middle;
+  text-shadow: #636060 1px 1px 0;
 }
 
 .black {
-  background-color: rgb(49, 45, 43) !important;
+  color: rgb(87, 72, 65) !important;
   font-weight: bold;
-  font-size: 100vw;
+  font-size: 50px;
+  vertical-align: middle;
+  text-shadow: 2px white;
+  text-shadow: #d6d4d4 1px 1px 0;
 }
 .piece-error {
   text-align: center;

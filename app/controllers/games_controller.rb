@@ -8,12 +8,13 @@ class GamesController < ApplicationController
 
   def create
     @game = current_user.games.create(game_params)
+    @game.set_up_board!
     redirect_to game_path(@game)
   end
 
   def show
     @game = Game.find_by_id(params[:id])
-    @pieces = @game.pieces
+    @piece = Piece.all
   end
 
   def index
