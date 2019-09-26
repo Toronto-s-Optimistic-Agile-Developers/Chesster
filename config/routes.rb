@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   resources :moves
   resources :games
   resources :games do
+      patch :join
+      put :join
     resources :pieces, only: %i[show edit update]
   end
 end
