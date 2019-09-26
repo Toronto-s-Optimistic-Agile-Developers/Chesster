@@ -8,21 +8,18 @@
   <div class="chess" align="center">
     <div class="board">
       <table>
-          <% (0..7).each do |y_coord| %>
-            <% (0..7).each do |x_coord| %>
-            <td data-x-coord=<%=x_coord %> data-y-coord =
-                <%= y_coord %> class =
-                <%= "#{(y_coord.odd? == x_coord.odd? ? "white-tile" : "black-tile")}" %>>
-                <% if board_piece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
-                    <span class="<%= board_piece.color %>" title="<%= board_piece.name %>">
-                        <%= board_piece.unicode_symbol.html_safe %>
-                        </span>
-                
-                <% end %>
+        <% (0..7).each do |y_coord| %>
+          <% (0..7).each do |x_coord| %>
+            <td data-x-coord=<%=x_coord %> data-y-coord=<%= y_coord %> class=<%= "#{(y_coord.odd? == x_coord.odd? ? "white-tile" : "black-tile")}" %>>
+              <% if board_piece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
+                <span class="<%= board_piece.color %>" title="<%= board_piece.name %>">
+                  <%= board_piece.unicode_symbol.html_safe %>
+                </span>
+              <% end %>
             </td>
-            <% end %>
-            </tr>
-            <% end %>
+          <% end %>
+          </tr>
+        <% end %>
       </table>
     </div>
     <div id="labels">
