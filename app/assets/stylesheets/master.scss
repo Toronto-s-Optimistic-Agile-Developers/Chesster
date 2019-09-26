@@ -55,6 +55,11 @@ table {
   z-index: 2px;
 }
 
+table ::selection {
+  color: none;
+  background: none;
+}
+
 .set-board {
   position: relative;
   width: 500px;
