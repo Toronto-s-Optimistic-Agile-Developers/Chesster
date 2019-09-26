@@ -1,4 +1,5 @@
 
+
 <p id="notice"><%= notice %></p>
 <h1 class="text-center">
   <%= @game.name %>
@@ -8,17 +9,22 @@
   <div class="chess" align="center">
     <div class="board">
       <table>
-        <% (0..7).each do |y_coord| %>
-          <% (0..7).each do |x_coord| %>
-            <td data-x-coord=<%= x_coord %> data-y-coord=<%= y_coord %> class=<%= "#{(y_coord.odd? == x_coord.odd? ? "white-tile" : "black-tile")}" %>>
-            <% board_piece = Piece.where(x_coord: x_coord, y_coord: y_coord).first %>
-						<% if board_piece.present? %>
-							<span class="<%=board_piece.color%>" data='{"id": <%= piece.id %> data-x-coord=<%= board_piece.x_coord %> data-y_coord=<%= board_piece.y_coord %>><%= board_piece.image %></span>
+          <% (0..7).each do |y_coord| %>
+            <% (0..7).each do |x_coord| %>
+            <td data-x-coord=<%=x_coord %> data-y-coord =
+                <%= y_coord %> class =
+                <%= "#{(y_coord.odd? == x_coord.odd? ? "white-tile" : "black-tile")}" %>>
+                <% if board_piece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
+                <span>
+                    <div class="piece" id="<%= board_piece.color %>">
+                        <%= board_piece.unicode_symbol.html_safe %>
+                    </div>
+                </span>
+                <% end %>
+            </td>
             <% end %>
-                </td>
-        <% end %> 
-      </tr>
-      <% end %>
+            </tr>
+            <% end %>
       </table>
     </div>
     <div id="labels">

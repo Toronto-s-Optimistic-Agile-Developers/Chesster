@@ -71,16 +71,12 @@ table {
 
 .white {
   color: rgb(129, 126, 124) !important;
-  font-weight: bold;
-  font-size: 50px;
   vertical-align: middle;
   text-shadow: #636060 1px 1px 0;
 }
 
 .black {
   color: rgb(87, 72, 65) !important;
-  font-weight: bold;
-  font-size: 50px;
   vertical-align: middle;
   text-shadow: 2px white;
   text-shadow: #d6d4d4 1px 1px 0;
@@ -89,4 +85,8 @@ table {
   text-align: center;
   color: red;
   font-weight: bold;
+}
+.pieces {
+  font-size: 46px;
+  font-weight: 300;
 }
