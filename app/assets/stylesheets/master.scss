@@ -15,11 +15,14 @@
   border: 1px solid rgb(44, 43, 43);
   background: image_url('blacktile.png') center fixed;
 }
-.black-tile:hover, .black-tile:focus {
+
+.black-tile:hover,
+.black-tile:focus {
   opacity: .7;
 }
 
-.white-tile:hover, .white-tile:focus {
+.white-tile:hover,
+.white-tile:focus {
   opacity: .7;
 }
 
@@ -44,7 +47,8 @@ table {
 .chess {
   position: fixed;
   width: 500px;
-  margin-bottom: 10px;
+  margin-bottom: 50px;
+  padding: 10px;
 }
 
 .y_labels {
@@ -59,7 +63,6 @@ table {
   width: 500px;
   background-color: rgb(165, 136, 125) !important;
   margin-bottom: 10px;
- 
 }
 
 #labels {
@@ -73,20 +76,85 @@ table {
   color: rgb(129, 126, 124) !important;
   vertical-align: middle;
   text-shadow: #636060 1px 1px 0;
+  font-size: 50px;
+  font-weight: 500;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .black {
   color: rgb(87, 72, 65) !important;
   vertical-align: middle;
-  text-shadow: 2px white;
   text-shadow: #d6d4d4 1px 1px 0;
+  font-size: 50px;
+  font-weight: 500;
+  text-align: center !important;
+  vertical-align: middle;
 }
-.piece-error {
-  text-align: center;
-  color: red;
-  font-weight: bold;
-}
-.pieces {
-  font-size: 46px;
-  font-weight: 300;
+
+@media (max-width: 768px) {
+  table {
+    height: 200px;
+    width: 200px;
+    -moz-box-shadow: 1px 1px 1px 1px #707070;
+    -webkit-box-shadow: 1px 1px 1px 1px #707070;
+    box-shadow: 1px 1px 1px 1px #707070;
+    z-index: 2px;
+  }
+  
+  .set-board {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  
+  .chess {
+    position: fixed;
+    width: 200px;
+    margin-bottom: 50px;
+    padding: 10px;
+  }
+  
+  .y_labels {
+    margin-top: -200px;
+    width: 10px;
+    margin-left: -20px;
+    background-color: rgb(193, 154, 107) !important;
+  }
+  
+  .x_labels {
+    height: 10px;
+    width: 252px;
+    background-color: rgb(165, 136, 125) !important;
+    margin-bottom: 10px;
+  }
+  
+  #labels {
+    position: fixed;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .white {
+    color: rgb(129, 126, 124) !important;
+    vertical-align: middle;
+    text-shadow: #636060 1px 1px 0;
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    vertical-align: middle;
+  }
+  
+  .black {
+    color: rgb(87, 72, 65) !important;
+    vertical-align: middle;
+    text-shadow: #d6d4d4 1px 1px 0;
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center !important;
+    vertical-align: middle;
+  }
 }

@@ -1,5 +1,4 @@
-
-
+<meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=3.0, minimum-scale=0.86">
 <p id="notice"><%= notice %></p>
 <h1 class="text-center">
   <%= @game.name %>
@@ -15,11 +14,10 @@
                 <%= y_coord %> class =
                 <%= "#{(y_coord.odd? == x_coord.odd? ? "white-tile" : "black-tile")}" %>>
                 <% if board_piece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
-                <span>
-                    <div class="piece" id="<%= board_piece.color %>">
+                    <span class="<%= board_piece.color %>" title="<%= board_piece.name %>">
                         <%= board_piece.unicode_symbol.html_safe %>
-                    </div>
-                </span>
+                        </span>
+                
                 <% end %>
             </td>
             <% end %>
