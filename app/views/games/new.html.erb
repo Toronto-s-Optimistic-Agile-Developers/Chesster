@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <h1>New Game</h1>
 
 <%= render 'form', game: @game %>
@@ -6,10 +7,16 @@
 <%= link_to 'Back', games_path %>
 =======
 <div class="sign-up">
+=======
+>>>>>>> 4c4dda23982dc1e51239b4eea9346c9ab49afc5a
   <h1>Create a Game</h1>
     <%= simple_form_for @game do |f| %>
       <%= f.input   :name %>
-      <%= f.button  :submit  %>
+      <%= f.input   :white_id, as: :hidden, :input_html => { :value => current_user.id } %>
+      <%= f.button  :submit %>
     <% end %>
+<<<<<<< HEAD
 </div>
 >>>>>>> ac1d245d5fa738f76c7a3295c75ad4d91ad434b8
+=======
+>>>>>>> 4c4dda23982dc1e51239b4eea9346c9ab49afc5a
