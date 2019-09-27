@@ -1,7 +1,6 @@
-<div class="sign-up">
   <h1>Create a Game</h1>
     <%= simple_form_for @game do |f| %>
       <%= f.input   :name %>
-      <%= f.button  :submit  %>
+      <%= f.input   :white_id, as: :hidden, :input_html => { :value => current_user.id } %>
+      <%= f.button  :submit %>
     <% end %>
-</div>

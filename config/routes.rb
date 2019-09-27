@@ -12,8 +12,10 @@ Rails.application.routes.draw do
 
 
   resources :moves
-  resources :games
   resources :games do
-    resources :pieces, only: %i[show edit update]
+    member do
+      patch :join
+    end
   end
+    resources :pieces, only: %i[show edit update]
 end
