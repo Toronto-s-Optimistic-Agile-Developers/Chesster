@@ -13,6 +13,7 @@
 =======
 <h1> Available Games </h1>
 
+<<<<<<< HEAD
   <div class="sign-up">
     <% @game.each do |game| %>
       <h3><%= game.white_id.nil? ? 'White is available' : 'Black is available' %></h3>
@@ -22,3 +23,22 @@
   </div>
  
 >>>>>>> ac1d245d5fa738f76c7a3295c75ad4d91ad434b8
+=======
+  <% if @unmatched_games.present? %>
+    <% @unmatched_games.each do |game| %>
+      <h5 class="text-center"><%= "Game #{game.id}" %></h5>
+        <% if game.white_id.blank? %>
+          <%= simple_form_for game, url: join_game_path(game) do |f| %>
+            <%= f.input :white_id, as: :hidden, :input_html => { :value => current_user.id } %>
+            <%= f.submit "Join as white player", class: "btn btn-secondary" %>
+            <% end %>       
+        <% else %>
+          <%= simple_form_for game, url: join_game_path(game) do |f| %>
+            <%= f.input :black_id, as: :hidden, :input_html => { :value => current_user.id } %>
+            <%= f.submit "Join as black player", class: "btn btn-inverse" %>
+          <% end %>
+          <% end %>
+          <% end %>
+          <% end %>
+          
+>>>>>>> 4c4dda23982dc1e51239b4eea9346c9ab49afc5a

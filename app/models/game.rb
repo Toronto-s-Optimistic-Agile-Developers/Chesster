@@ -1,15 +1,16 @@
 # frozen_string_literal: true
 
 class Game < ApplicationRecord
-  belongs_to :white_id, class_name: 'User', optional: true
-  belongs_to :black_id, class_name: 'User', optional: true
+  belongs_to :white_player, class_name: 'User', optional: true
+  belongs_to :black_player, class_name: 'User', optional: true
 
   has_many :pieces
+  has_many :users
+  
+  scope :available, -> { where(black_player: nil) }
 
-  scope :available, -> { where(black_id: nil) }
-
-  def available?
-    black_id.blank?
+  def unmatched_games
+    Game.where(black_player: nil) && Game.where(white_player: !nil)
   end
   
   #validates :name, presence: true
