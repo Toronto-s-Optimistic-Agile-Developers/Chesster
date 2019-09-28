@@ -82,6 +82,11 @@
   font-family: 'Grenze', serif;
   width: 60px;
 }
+
+.rotate-board:hover, .rotate-board:focus {
+  background-color: green;
+}
+
 .left {
   display: inline-block;
   width: 47%;
