@@ -33,16 +33,16 @@ class Piece < ApplicationRecord
         false
       end
     end
-    def move_to!(x, y)
-      rival_piece = game.pieces.find_by(x_coord: x, y_coord: y)
-      if rival_piece.present? && rival_piece.color != color
-        rival_piece.update_attributes(x_coord: nil, y_coord: nil, captured: true)
-        update_attributes(x_coord: x, y_coord: y)
-      elsif rival_piece.present? == false
-        update_attributes(x_coord: x, y_coord: y)
-      else
-        flash[:danger] = "Move cannot be completed."
-      end
+
+  def move_to!(x, y)
+    rival_piece = game.pieces.find_by(x_coord: x, y_coord: y)
+    if rival_piece.present? && rival_piece.color != color
+      rival_piece.update_attributes(x_coord: nil, y_coord: nil, captured: true)
+      update_attributes(x_coord: x, y_coord: y)
+    elsif rival_piece.present? == false
+      update_attributes(x_coord: x, y_coord: y)
+    else
+      flash[:danger] = "Move cannot be completed."
     end
   end
 end
