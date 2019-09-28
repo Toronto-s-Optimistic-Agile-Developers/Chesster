@@ -1,5 +1,6 @@
 @import "bootstrap";
 @import "font-awesome";
+@import url('https://fonts.googleapis.com/css?family=Grenze:700i&display=swap');
 
 .booyah-box {
   -moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
@@ -18,7 +19,6 @@
   font-weight: 200;
   box-shadow: 0px 1px 3px #2a2a2a;
 }
-
 .white-tile {
   width: 12.5%;
   height: 12.5%;
@@ -45,6 +45,57 @@
   opacity: .7;
 }
 
+.rotate td {
+  width: 33.5%;
+}
+.left {
+  float:left;
+} 
+.right {
+  float:right;
+} 
+.roate {
+  z-index: -1;
+  padding: 0;
+}
+.rotate table {
+ height: auto;
+ width: 80%;
+ border: none;
+ text-align:none;
+ padding: none;
+ box-shadow: none;
+ vertical-align: center;
+ padding: none;
+ margin-top: -60px;
+ margin-left:auto;
+ margin-right: auto;
+}
+.rotate-board {
+  cursor: pointer;
+  color: rgb(247, 244, 244);
+  background-color: #5553e9;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 7px;
+  border: 1px solid silver;
+  font-family: 'Grenze', serif;
+  width: 60px;
+}
+.left {
+  display: inline-block;
+  width: 47%;
+  text-align:center;
+}
+
+.right {
+  display: inline-block;
+  width: 47%;
+  text-align:center;
+  clear: right;
+  -webkit-align-content: right;
+  align-content: right;
+}
 
 table {
   height: 500px;
@@ -52,12 +103,6 @@ table {
   -moz-box-shadow: 1px 1px 1px 1px #707070;
   -webkit-box-shadow: 1px 1px 1px 1px #707070;
   box-shadow: 1px 1px 1px 1px #707070;
-  z-index: 2px;
-}
-
-table ::selection {
-  color: none;
-  background: none;
 }
 
 .set-board {
@@ -66,6 +111,7 @@ table ::selection {
   height: 500px;
   margin-right: auto;
   margin-left: auto;
+  z-index: 2px;
 }
 
 .chess {
@@ -87,13 +133,17 @@ table ::selection {
   width: 500px;
   background-color: rgb(165, 136, 125) !important;
   margin-bottom: 10px;
+  vertical-align: middle;
+ 
 }
-
 #labels {
   position: fixed;
-  color: white;
   text-align: center;
   font-weight: bold;
+  color: rgb(211, 208, 208);
+  font-family: 'Oswald', sans-serif;
+  text-shadow: 1px 4px 3px rgba(0,0,0,0.2);
+  font-family: 'Grenze', serif;
 }
 
 .white {
@@ -157,9 +207,8 @@ table ::selection {
   
   #labels {
     position: fixed;
-    color: white;
     text-align: center;
-    font-weight: bold;
+    font-weight: 200;
   }
   
   .white {
@@ -179,6 +228,9 @@ table ::selection {
     font-size: 20px;
     font-weight: 500;
     text-align: center !important;
-    vertical-align: middle;
   }
+}
+table ::selection {
+  color: none;
+  background: none;
 }
