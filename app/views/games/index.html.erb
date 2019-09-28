@@ -1,5 +1,29 @@
+<<<<<<< HEAD
+<p id="notice"><%= notice %></p>
+
+<h1>Games</h1>
+<br>
+<% @games.each do |game| %>
+  <%= link_to 'Play', game %>
+<% end %>
+
+<br>
+
+<%= link_to 'New Game', new_game_path %>
+=======
 <h1> Available Games </h1>
 
+<<<<<<< HEAD
+  <div class="sign-up">
+    <% @game.each do |game| %>
+      <h3><%= game.white_id.nil? ? 'White is available' : 'Black is available' %></h3>
+        <h3>Game <%=game.game_id %> <%= game.name %>
+        <%= button_to 'Join game', game_path(game.id), { action: :update, method: :patch } %>
+    <% end %>
+  </div>
+ 
+>>>>>>> ac1d245d5fa738f76c7a3295c75ad4d91ad434b8
+=======
   <% if @unmatched_games.present? %>
     <% @unmatched_games.each do |game| %>
       <h5 class="text-center"><%= "Game #{game.id}" %></h5>
@@ -17,3 +41,4 @@
           <% end %>
           <% end %>
           
+>>>>>>> 4c4dda23982dc1e51239b4eea9346c9ab49afc5a

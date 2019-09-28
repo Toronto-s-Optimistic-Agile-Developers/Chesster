@@ -16,49 +16,49 @@ class Game < ApplicationRecord
   #validates :name, presence: true
   def set_up_board!
   # Pawns
-    (1..8).each do |x_coord|
-      Pawn.create(game_id: id, color: white, x_coord: x_coord, y_coord: 6, user_id: white_id, name: "White_Pawn", image: "&#9817;")
+    (0..7).each do |x_coord|
+      Pawn.create(game_id: id, color: "white", x_coord: x_coord, y_coord: 6, name: "White_Pawn")
     end
 
-    (1..8).each do |x_coord|
-      Pawn.create(game_id: id, color: black, x_coord: x_coord, y_coord: 1, user_id: black_id, name: "Black_Pawn", image: "&#9823;")
+    (0..7).each do |x_coord|
+      Pawn.create(game_id: id, color: "black", x_coord: x_coord, y_coord: 1, name: "Black_Pawn")
     end
 
     # Rooks
-    [1, 8].each do |x_coord|
-      Rook.create(game_id: id, color: white, x_coord: x_coord, y_coord: 7, user_id: white_id, name: "White_Rook", image: "&#9814;")
+    [0, 7].each do |x_coord|
+      Rook.create(game_id: id, color: "white", x_coord: x_coord, y_coord: 7,  name: "White_Rook")
     end
 
-    [1, 8].each do |x_coord|
-      Rook.create(game_id: id, color: black, x_coord: x_coord, y_coord: 0, user_id: black_id, name: "Black_Rook", image: "&#9820;")
+    [0, 7].each do |x_coord|
+      Rook.create(game_id: id, color: "black", x_coord: x_coord, y_coord: 0, name: "Black_Rook")
     end
 
     # Knights
-    [2, 7].each do |x_coord|
-      Knight.create(game_id: id, color: white, x_coord: x_coord, y_coord: 7, user_id: white_id, name: "White_Knight", image: "&#9816;")
+    [1, 6].each do |x_coord|
+      Knight.create(game_id: id, color: "white", x_coord: x_coord, y_coord: 7, name: "White_Knight")
     end
 
-    [2, 7].each do |x_coord|
-      Knight.create(game_id: id, color: black, x_coord: x_coord, y_coord: 0, user_id: black_id, name: "Black_Knight", image: "&#9822;")
+    [1, 6].each do |x_coord|
+      Knight.create(game_id: id, color: "black", x_coord: x_coord, y_coord: 0, name: "Black_Knight")
     end
 
     #Bishops
-    [3, 6].each do |x_coord|
-      Bishop.create(game_id: id, color: white, x_coord: x_coord, y_coord: 7, user_id: white_id, name: "White_Bishop", image: "&#9815;")
+    [2, 5].each do |x_coord|
+      Bishop.create(game_id: id, color: "white", x_coord: x_coord, y_coord: 7, name: "White_Bishop")
     end
 
-    [3, 6].each do |x_coord|
-      Bishop.create(game_id: id, color: black, x_coord: x_coord, y_coord: 0, user_id: black_id, name: "Black_Bishop", image: "&#9821;")
+    [2, 5].each do |x_coord|
+      Bishop.create(game_id: id, color: "black", x_coord: x_coord, y_coord: 0, name: "Black_Bishop")
     end
 
     #King
-    King.create(game_id: id, color: white, x_coord: 4, y_coord: 7, user_id: white_id, name: "White_King", image: "&#x2654;")
+    King.create(game_id: id, color: "white", x_coord: 4, y_coord: 7, name: "White_King")
 
-    King.create(game_id: id, color: black, x_coord: 4, y_coord: 0, user_id: black_id, name: "Black_King", image: "&#9818;")
+    King.create(game_id: id, color: "black", x_coord: 4, y_coord: 0, name: "Black_King")
 
     #Queen
-    Queen.create(game_id: id, color: white, x_coord: 3, y_coord: 7, user_id: white_id, name: "White_Queen", image: "&#9813;")
+    Queen.create(game_id: id, color: "white", x_coord: 3, y_coord: 7, name: "White_Queen")
 
-    Queen.create(game_id: id, color: black, x_coord: 3, y_coord: 0, user_id: black_id, name: "Black_Queen", image: "&#9819;")
+    Queen.create(game_id: id, color: "black", x_coord: 3, y_coord: 0, name: "Black_Queen")
   end
 end
