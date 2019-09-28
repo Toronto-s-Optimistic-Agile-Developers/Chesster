@@ -1,6 +1,9 @@
+<meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=3.0, minimum-scale=0.86">
 <p id="notice"><%= notice %></p>
 <h1 class="text-center">
   <%= @game.name %>
+  <%= @game.white_id %>
+  <%= @game.black_id %>
 </h1>
 <br />
 <div class="set-board">
@@ -9,11 +12,11 @@
       <table>
         <% (0..7).each do |y_coord| %>
           <% (0..7).each do |x_coord| %>
-            <td data-x-coord=<%= x_coord %> data-y-coord=<%= y_coord %> class=<%= "#{(y_coord.odd? == x_coord.odd? ? "white-tile" : "black-tile")}" %>>
-              <% if piece = @game.pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
-                  <span class=<%= "#{piece.color}" %>><%= piece.image %></span>
-                <% else %>
-                <p class="piece-error">No piece</p>
+            <td data-x-coord=<%=x_coord %> data-y-coord=<%= y_coord %> class=<%= "#{(y_coord.odd? == x_coord.odd? ? "white-tile" : "black-tile")}" %>>
+              <% if board_piece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
+                <span class="<%= board_piece.color %>" title="<%= board_piece.name %>">
+                  <%= board_piece.unicode_symbol.html_safe %>
+                </span>
               <% end %>
             </td>
           <% end %>
@@ -46,7 +49,6 @@
     </div>
   </div>
 </div>
-
 
 
 <%= link_to 'Back', games_path %>

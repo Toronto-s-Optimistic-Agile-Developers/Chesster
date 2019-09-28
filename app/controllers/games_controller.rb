@@ -1,15 +1,15 @@
 class GamesController < ApplicationController
   
-  before_action :authenticate_user!, only: [:create, :new]
+  before_action :authenticate_user!
   
   def new
     @game = Game.new
   end
 
   def create
-    @game = Game.create(game_params)
-    @game.white_id = current_user
+    @game = current_user.games.create(white_id: current_user.id, name: game_params["name"])
     @game.save
+    @game.set_up_board!
     redirect_to game_path(@game)
   end
 
@@ -19,30 +19,24 @@ class GamesController < ApplicationController
   end
 
   def index
-    @game = Game.available
+    @unmatched_games = Game.where(:white_id => nil).where.not(:black_id => nil).or (Game.where.not(:white_id => nil).where(:black_id => nil))
   end
 
   def join
-    @game = Game.find(params[:id])
-    if @game.available?
-      @game.black_id = current_user
-      @game.save
-      redirect_to game_path(@game)
-    else
-      redirect_to games_path
+    @game = Game.find_by_id(params[:id])
+    @game.update(black_id: current_user.id)
+    redirect_to game_path(@game)
   end
-end
 
-def destroy
-  @game = Game.find(params[:id])
-  @game.destroy
-  redirect_to root_path
-end
+  def update
+    @game = current_game
+    @game.update(game_params)
+    @game.reload
+  end
 
   private
 
   def game_params
-
-    params.require(:game).permit(:current_user, :name, :game_id, :white_id, :black_id, :username)
+    params.require(:game).permit(:name, :white_id, :black_id)
   end
 end
