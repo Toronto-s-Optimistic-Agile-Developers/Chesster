@@ -8,7 +8,7 @@ class Piece < ApplicationRecord
     end
   
     def color
-      color ? 'white' : 'black'
+      piece.color ? "white" : "black"
     end
   
     def white?
