@@ -34,8 +34,8 @@ class Piece < ApplicationRecord
       end
     end
 
-  def move_to!(x, y)
-    rival_piece = game.pieces.find_by(x_coord: x, y_coord: y)
+  def move_to!(x_path, y_path)
+    rival_piece = piece.find_by(x_coord: x, y_coord: y)
     if rival_piece.present? && rival_piece.color != color
       rival_piece.removed?
       update_attributes(x_coord: x, y_coord: y)
@@ -46,10 +46,19 @@ class Piece < ApplicationRecord
     end
   end
 
+  def on_the_board?
+    if y_path < 0 || y_path > 7 
+      return true
+    elsif x_path < 0 || x_path > 7
+      return true
+    else
+      flash[:danger] = "Your piece must remain on the board!"
+    end
+  end
+
   def is_obstructed?(x_path, y_path) 
-
+    self.on_the_board?
     return true if self.game.tile_taken?(x_path, y_path) && self.color == self.game.pieces.where(x_coord: x_path, y_coord: y_path).first.color
-
     return false if self.type == "Knight"
 
     if self.y_coord == y_path 

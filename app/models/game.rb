@@ -13,7 +13,7 @@ class Game < ApplicationRecord
   end
 
   def tile_taken?(x_path, y_path)
-    pieces.where(position_x: x_path, position_y: y_path).first.present?
+    pieces.where(x_coord: x_path, y_coord: y_path).first.present?
   end 
   
   #validates :name, presence: true
@@ -54,12 +54,12 @@ class Game < ApplicationRecord
       Bishop.create(game_id: id, color: "black", x_coord: x_coord, y_coord: 0, name: "Black_Bishop")
     end
 
-    #King
+    #Kings
     King.create(game_id: id, color: "white", x_coord: 4, y_coord: 7, name: "White_King")
 
     King.create(game_id: id, color: "black", x_coord: 4, y_coord: 0, name: "Black_King")
 
-    #Queen
+    #Queens
     Queen.create(game_id: id, color: "white", x_coord: 3, y_coord: 7, name: "White_Queen")
 
     Queen.create(game_id: id, color: "black", x_coord: 3, y_coord: 0, name: "Black_Queen")
