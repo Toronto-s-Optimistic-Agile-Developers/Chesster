@@ -24,10 +24,6 @@ class Piece < ApplicationRecord
         piece.captured = true
       end
   end
-  
-    def valid_move?
-    end
-  
     def has_moved?
       if piece.initial_postion?
         false
@@ -35,14 +31,12 @@ class Piece < ApplicationRecord
     end
 
   def move_to!(x_path, y_path)
-    rival_piece = piece.find_by(x_coord: x, y_coord: y)
+    rival_piece = self.find_by(x_coord: x_path, y_coord: y_path)
     if rival_piece.present? && rival_piece.color != color
       rival_piece.removed?
-      update_attributes(x_coord: x, y_coord: y)
+      update_attributes(x_coord: x_path, y_coord: y_path)
     elsif rival_piece.present? == false
       update_attributes(x_coord: x, y_coord: y)
-    else
-      flash[:danger] = "Move cannot be completed."
     end
   end
 
@@ -52,9 +46,15 @@ class Piece < ApplicationRecord
     elsif x_path < 0 || x_path > 7
       return true
     else
-      flash[:danger] = "Your piece must remain on the board!"
+      return false
     end
   end 
+
+  def valid_move?
+    if self.on_the_board? == false
+      flash[:danger] = "Move cannot be completed."
+    end
+  end
 
   def is_obstructed?(x_path, y_path) 
     self.on_the_board?
