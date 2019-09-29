@@ -41,7 +41,7 @@ class Piece < ApplicationRecord
   end 
 
   def valid_move?
-    if self.on_the_board? == false
+    if self.on_the_board? false
       flash[:danger] = "Move cannot be completed."
     end
   end
