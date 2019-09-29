@@ -54,7 +54,7 @@ class Piece < ApplicationRecord
     else
       flash[:danger] = "Your piece must remain on the board!"
     end
-  end
+  end 
 
   def is_obstructed?(x_path, y_path) 
     self.on_the_board?
