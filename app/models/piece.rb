@@ -30,16 +30,6 @@ class Piece < ApplicationRecord
       end
     end
 
-  def move_to!(x_path, y_path)
-    rival_piece = self.find_by(x_coord: x_path, y_coord: y_path)
-    if rival_piece.present? && rival_piece.color != color
-      rival_piece.removed?
-      update_attributes(x_coord: x_path, y_coord: y_path)
-    elsif rival_piece.present? == false
-      update_attributes(x_coord: x, y_coord: y)
-    end
-  end
-
   def on_the_board?
     if y_path < 0 || y_path > 7 
       return true
@@ -56,8 +46,18 @@ class Piece < ApplicationRecord
     end
   end
 
+  def move_to!(x_path, y_path)
+    rival_piece = self.find_by(x_coord: x_path, y_coord: y_path)
+    if rival_piece.present? && rival_piece.color != color
+      rival_piece.removed?
+      update_attributes(x_coord: x_path, y_coord: y_path)
+    elsif rival_piece.present? == false
+      update_attributes(x_coord: x, y_coord: y)
+    end
+  end
+
   def is_obstructed?(x_path, y_path) 
-    self.on_the_board?
+    self.valid_move?
     return true if self.game.tile_taken?(x_path, y_path) && self.color == self.game.pieces.where(x_coord: x_path, y_coord: y_path).first.color
     return false if self.type == "Knight"
 
@@ -109,5 +109,5 @@ class Piece < ApplicationRecord
       end   
     end 
     false
-  end 
+  end
 end
