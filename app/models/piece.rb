@@ -8,15 +8,15 @@ class Piece < ApplicationRecord
     end
   
     def color
-      piece.color ? "white" : "black"
+      piece.color = ? "white" : "black"
     end
   
     def white?
-      white
+      piece.color = "white"
     end
   
     def black?
-      !white
+      piece.color != white?
     end
   
     def removed?
@@ -37,7 +37,7 @@ class Piece < ApplicationRecord
   def move_to!(x, y)
     rival_piece = game.pieces.find_by(x_coord: x, y_coord: y)
     if rival_piece.present? && rival_piece.color != color
-      rival_piece.update_attributes(x_coord: nil, y_coord: nil, captured: true)
+      rival_piece.removed?
       update_attributes(x_coord: x, y_coord: y)
     elsif rival_piece.present? == false
       update_attributes(x_coord: x, y_coord: y)
@@ -48,8 +48,7 @@ class Piece < ApplicationRecord
 
   def is_obstructed?(x_path, y_path) 
 
-
-    return true if self.game.tile_taken?(x_path, y_path) && self.color == self.game.pieces.where(x_coord:x_path, y_coord: y_path).first.color
+    return true if self.game.tile_taken?(x_path, y_path) && self.color == self.game.pieces.where(x_coord: x_path, y_coord: y_path).first.color
 
     return false if self.type == "Knight"
 
@@ -58,7 +57,7 @@ class Piece < ApplicationRecord
         (x_coord + 1).upto(x_path - 1) do |x|
           return true if self.game.tile_taken?(x, y_path)
         end 
-      else # West
+      else 
         (x_coord - 1).downto(x_path + 1) do |x|
           return true if self.game.tile_taken?(x, y_path)
         end 

@@ -13,12 +13,12 @@
   <table>
       <tr>
         <td class="left">
-          <p class="rotate-board" id="Rotate_Left">⤎ Rotate</p>
+          <p class="rotate-board" id="Flip_Board">Flip board</p>
         </td>
         <td>
         </td>
         <td class=right>
-          <p class="rotate-board" id="Rotate_Right">Rotate ⤏</p>
+          <p class="rotate-board" id="Rotate_Board">Rotate board</p>
         </td>
       </tr>
     </table>
@@ -71,23 +71,23 @@
 
   <%= link_to 'Back', games_path %>
   <script>
-  var rotation = 0;
+    var rotation = 0;
 
-  jQuery.fn.rotate = function(degrees) {
-      $(this).css({'-webkit-transform' : 'rotate('+ degrees +'deg)',
-                  '-moz-transform' : 'rotate('+ degrees +'deg)',
-                  '-ms-transform' : 'rotate('+ degrees +'deg)',
-                  'transform' : 'rotate('+ degrees +'deg)'});
-  };
+    jQuery.fn.rotate = function(degrees) {
+        $(this).css({'-webkit-transform' : 'rotate('+ degrees +'deg)',
+                    '-moz-transform' : 'rotate('+ degrees +'deg)',
+                    '-ms-transform' : 'rotate('+ degrees +'deg)',
+                    'transform' : 'rotate('+ degrees +'deg)'});
+    };
 
-  $('#Rotate_Right').click(function() {
-      rotation += 90;
-      $('.set-board').rotate(rotation);
-  });
+    $('#Rotate_Board').click(function() {
+        rotation += 90;
+        $('.set-board, .chess td, #labels td').rotate(rotation);
+    });
 
-  $('#Rotate_Left').click(function() {
-      rotation -=90;
-      $('.set-board').rotate(rotation);
-  });
+    $('#Flip_Board').click(function() {
+        rotation -=180;
+        $('.set-board, .chess td, #labels td').rotate(rotation);
+    });
   </script>
 </body>
