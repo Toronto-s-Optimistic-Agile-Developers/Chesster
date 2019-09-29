@@ -13,7 +13,7 @@ class Game < ApplicationRecord
   end
 
   def tile_taken?(x_path, y_path)
-    pieces.where(x_coord: x_path, y_coord: y_path).first.present?
+    pieces.where(x_coord: x_path, y_coord: y_path).first.present? 
   end 
   
   #validates :name, presence: true
