@@ -67,6 +67,45 @@ RSpec.describe GamesController, type: :controller do
       expect(response).to have_http_status(:success)
     end
   end
+<<<<<<< HEAD
+end
+
+describe 'PUT #update' do
+  it 'updates requested game' do
+    user = FactoryBot.create(:user)
+    sign_in user
+    game = game = FactoryBot.create(:game)
+    put :update
+    game.reload
+    skip('Add assertions for updated state')
+  end
+
+  it 'redirects to game' do
+    user = FactoryBot.create(:user)
+    sign_in user
+    game = game = FactoryBot.create(:game)
+    put :update
+    expect(response).to redirect_to(game)
+  end
+end
+
+describe 'DELETE #destroy' do
+  it 'destroys requested game' do
+    user = FactoryBot.create(:user)
+    sign_in user
+    game = game = FactoryBot.create(:game)
+    expect do
+      delete :destroy
+    end.to change(Game, :count).by(-1)
+  end
+
+  it 'redirects to games list' do
+    user = FactoryBot.create(:user)
+    sign_in user
+    game = game = FactoryBot.create(:game)
+    delete :destroy
+    expect(response).to redirect_to(games_url)
+=======
 
 
   describe 'PUT #update' do
@@ -105,12 +144,18 @@ RSpec.describe GamesController, type: :controller do
       delete :destroy
       expect(response).to redirect_to(games_url)
     end
+>>>>>>> f1d37445f8ec89cf30881bc21942ee2a9fc4d320
   end
 
   describe 'set_up_board!' do
     it 'Adds correct number of white Pawns to board' do
+<<<<<<< HEAD
+      user = FactoryBot.create(:user)
+      sign_in user
+=======
         user = FactoryBot.create(:user)
         sign_in user
+>>>>>>> f1d37445f8ec89cf30881bc21942ee2a9fc4d320
       game = Game.create!
       game.set_up_board!
 
@@ -213,6 +258,11 @@ RSpec.describe GamesController, type: :controller do
     end
   end
 
+<<<<<<< HEAD
+  # Adds black pieces to board
+
+=======
+>>>>>>> f1d37445f8ec89cf30881bc21942ee2a9fc4d320
   describe 'set_up_board!' do
     it 'Adds correct number of black Pawns to board' do
       user = FactoryBot.create(:user)
@@ -317,3 +367,8 @@ RSpec.describe GamesController, type: :controller do
     end
   end
 end
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> f1d37445f8ec89cf30881bc21942ee2a9fc4d320
