@@ -7,10 +7,7 @@ class Knight < Piece
     return false if x_coord == x_path || y_coord == y_path
     return true if knight_moves?(x, y)
     false
-    end 
-    
-
-  end
+  end 
 
   def knight_moves?(x_path, y_path)
     (x_path == 1 && y_path == 2) || (x_path == 2 && y_path == 1)
