@@ -15,6 +15,7 @@ end
 private
 def find_piece
   @piece = Piece.find(params[:id])
+  @color = @piece.color
   @game = @piece.game
 end
 def piece_params

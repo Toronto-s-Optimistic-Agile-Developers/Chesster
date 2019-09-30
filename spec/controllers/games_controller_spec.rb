@@ -91,7 +91,11 @@ RSpec.describe GamesController, type: :controller do
 end
 
 describe 'PUT #update' do
+<<<<<<< HEAD
   it 'updates the requested game' do
+=======
+  it 'updates requested game' do
+>>>>>>> 6840c3d6ca743bd45d2be38b5efc09344b15b433
     user = FactoryBot.create(:user)
     sign_in user
     game = game = FactoryBot.create(:game)
@@ -100,7 +104,11 @@ describe 'PUT #update' do
     skip('Add assertions for updated state')
   end
 
+<<<<<<< HEAD
   it 'redirects to the game' do
+=======
+  it 'redirects to game' do
+>>>>>>> 6840c3d6ca743bd45d2be38b5efc09344b15b433
     user = FactoryBot.create(:user)
     sign_in user
     game = game = FactoryBot.create(:game)
@@ -110,7 +118,11 @@ describe 'PUT #update' do
 end
 
 describe 'DELETE #destroy' do
+<<<<<<< HEAD
   it 'destroys the requested game' do
+=======
+  it 'destroys requested game' do
+>>>>>>> 6840c3d6ca743bd45d2be38b5efc09344b15b433
     user = FactoryBot.create(:user)
     sign_in user
     game = game = FactoryBot.create(:game)
@@ -119,7 +131,11 @@ describe 'DELETE #destroy' do
     end.to change(Game, :count).by(-1)
   end
 
+<<<<<<< HEAD
   it 'redirects to the games list' do
+=======
+  it 'redirects to games list' do
+>>>>>>> 6840c3d6ca743bd45d2be38b5efc09344b15b433
     user = FactoryBot.create(:user)
     sign_in user
     game = game = FactoryBot.create(:game)
@@ -164,12 +180,18 @@ describe 'DELETE #destroy' do
       delete :destroy
       expect(response).to redirect_to(games_url)
     end
+>>>>>>> f1d37445f8ec89cf30881bc21942ee2a9fc4d320
   end
 
   describe 'set_up_board!' do
     it 'Adds correct number of white Pawns to board' do
+<<<<<<< HEAD
+      user = FactoryBot.create(:user)
+      sign_in user
+=======
         user = FactoryBot.create(:user)
         sign_in user
+>>>>>>> f1d37445f8ec89cf30881bc21942ee2a9fc4d320
       game = Game.create!
       game.set_up_board!
 
@@ -272,6 +294,11 @@ describe 'DELETE #destroy' do
     end
   end
 
+<<<<<<< HEAD
+  # Adds black pieces to board
+
+=======
+>>>>>>> f1d37445f8ec89cf30881bc21942ee2a9fc4d320
   describe 'set_up_board!' do
     it 'Adds correct number of black Pawns to board' do
       user = FactoryBot.create(:user)
@@ -377,3 +404,8 @@ describe 'DELETE #destroy' do
 >>>>>>> f1d37445f8ec89cf30881bc21942ee2a9fc4d320
   end
 end
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> f1d37445f8ec89cf30881bc21942ee2a9fc4d320
