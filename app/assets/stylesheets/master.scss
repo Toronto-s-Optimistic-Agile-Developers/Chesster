@@ -1,5 +1,4 @@
 @import "bootstrap";
-@import url('https://fonts.googleapis.com/css?family=Grenze:700i&display=swap');
 @import "font-awesome";
 
 .booyah-box {
@@ -28,10 +27,12 @@
   background: image_url('whitetile.png') center fixed;
 }
 
-.navbar {
-  font-family: "Helvetica Neue", Helvetica;
-  font-weight: 200;
-  box-shadow: 0px 1px 3px #2a2a2a;
+.black-tile {
+  width: 12.5%;
+  height: 12.5%;
+  background-color: rgb(193, 154, 107);
+  border: 1px solid rgb(44, 43, 43);
+  background: image_url('blacktile.png') center fixed;
 }
 
 .black-tile:hover,
@@ -66,9 +67,12 @@
  box-shadow: none;
  vertical-align: center;
  padding: none;
- margin-top: -60px;
+ margin-top: -70px;
  margin-left:auto;
  margin-right: auto;
+}
+.rotate th {
+  padding-bottom: 0px !important;
 }
 .rotate-board {
   cursor: pointer;
@@ -79,7 +83,7 @@
   border-radius: 7px;
   border: 1px solid rgb(53, 51, 51);
   font-family: 'Grenze', serif;
-  width: 80px;
+  width: 70px;
   text-align: center;
 }
 
@@ -93,6 +97,12 @@ table {
   -moz-box-shadow: 1px 1px 1px 1px #707070;
   -webkit-box-shadow: 1px 1px 1px 1px #707070;
   box-shadow: 1px 1px 1px 1px #707070;
+  z-index: 2px;
+}
+
+table ::selection {
+  color: none;
+  background: none;
 }
 
 .set-board {
@@ -101,7 +111,6 @@ table {
   height: 500px;
   margin-right: auto;
   margin-left: auto;
-  z-index: 2px;
 }
 
 .chess {
@@ -111,28 +120,45 @@ table {
   padding: 10px;
 }
 
-  .chess {
-    position: relative;
-    width: 500px;
-    margin-right: auto;
-    margin-left: auto;
-  }
+.y_labels {
+  margin-top: -500px;
+  width: 10px;
+  margin-left: -20px;
+  background-color: rgb(193, 154, 107) !important;
+}
 
 .x_labels {
   height: 10px;
   width: 500px;
   background-color: rgb(165, 136, 125) !important;
   margin-bottom: 10px;
-  vertical-align: middle;
- 
 }
 
-  .y_labels {
-    margin-top: -500px;
-    width: 10px;
-    margin-left: -20px;
-    background-color: rgb(193, 154, 107) !important;
-  }
+#labels {
+  position: fixed;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+}
+
+.forfeit {
+  background-color: rgb(104, 12, 12);
+  border: 1px solid silver;
+  color: rgb(216, 213, 213);
+  letter-spacing: 2px;
+  padding-right: 4px;
+  padding-left: 4px;
+  margin: auto;
+  border-radius: 2px;
+  text-align: center;
+}
+
+.forfeit:hover, .forfeit:focus {
+  background-color: black;
+  color: whitesmoke;
+  border: 2px solid red;
+  font-weight: 700;
+}
 
 .white {
   color: rgb(129, 126, 124) !important;
@@ -195,8 +221,9 @@ table {
   
   #labels {
     position: fixed;
+    color: white;
     text-align: center;
-    font-weight: 200;
+    font-weight: bold;
   }
   
   .white {
@@ -216,9 +243,6 @@ table {
     font-size: 20px;
     font-weight: 500;
     text-align: center !important;
+    vertical-align: middle;
   }
-}
-table ::selection {
-  color: none;
-  background: none;
 }
