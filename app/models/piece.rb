@@ -7,9 +7,9 @@ class Piece < ApplicationRecord
       y = piece_params[:y_coord]
     end
   
-    def color
-      piece.color = ? "white" : "black"
-    end
+    #def color
+      #piece.color = ? "white" : "black"
+    #end
   
     def white?
       piece.color = "white"

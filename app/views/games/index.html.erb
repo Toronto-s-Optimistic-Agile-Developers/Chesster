@@ -1,20 +1,6 @@
 
 <h1> Available Games </h1>
 
-
-<%= link_to 'New Game', new_game_path %>
-
-<h1> Available Games </h1>
-
-  <div class="sign-up">
-    <% @game.each do |game| %>
-      <h3><%= game.white_id.nil? ? 'White is available' : 'Black is available' %></h3>
-        <h3>Game <%=game.game_id %> <%= game.name %>
-        <%= button_to 'Join game', game_path(game.id), { action: :update, method: :patch } %>
-    <% end %>
-  </div>
- 
-
   <% if @unmatched_games.present? %>
     <% @unmatched_games.each do |game| %>
       <h5 class="text-center"><%= "Game #{game.id}" %></h5>

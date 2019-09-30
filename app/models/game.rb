@@ -1,24 +1,22 @@
 # frozen_string_literal: true
 
 class Game < ApplicationRecord
-  belongs_to :white_id, class_name: 'User', optional: true
-  belongs_to :black_id, class_name: 'User', optional: true
+
+  belongs_to :white_player, class_name: 'User', optional: true
+  belongs_to :black_player, class_name: 'User', optional: true
 
   has_many :pieces
+  has_many :users
+  
+  scope :available, -> { where(black_player: nil) }
 
-  scope :available, -> { where(black_id: nil) }
-
-  def available?
-    black_id.blank?
+  def unmatched_games
+    Game.where(black_player: nil) && Game.where(white_player: !nil)
   end
 
   def tile_taken?(x_path, y_path)
     pieces.where(x_coord: x_path, y_coord: y_path).first.present? 
   end 
-
-  def unmatched_games
-    Game.where(black_player: nil) && Game.where(white_player: !nil)
-  end
   
   #validates :name, presence: true
   def set_up_board!
@@ -58,15 +56,12 @@ class Game < ApplicationRecord
       Bishop.create(game_id: id, color: "black", x_coord: x_coord, y_coord: 0, name: "Black_Bishop")
     end
 
-
     #Kings
-
     King.create(game_id: id, color: "white", x_coord: 4, y_coord: 7, name: "White_King")
 
     King.create(game_id: id, color: "black", x_coord: 4, y_coord: 0, name: "Black_King")
 
     #Queens
-
     Queen.create(game_id: id, color: "white", x_coord: 3, y_coord: 7, name: "White_Queen")
 
     Queen.create(game_id: id, color: "black", x_coord: 3, y_coord: 0, name: "Black_Queen")
