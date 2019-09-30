@@ -7,17 +7,17 @@ class Piece < ApplicationRecord
       y = piece_params[:y_coord]
     end
   
-    # def color
-    #   return piece.color = "white"  || return piece.color = "black"
-    # end
+    #def color
+      #piece.color = ? "white" : "black"
+    #end
   
-    # def white?
-    #   piece.color = "white"
-    # end
+    def white?
+      piece.color = "white"
+    end
   
-    # def black?
-    #   piece.color != white?
-    # end
+    def black?
+      piece.color != white?
+    end
   
     def removed?
       if piece.params[x_coord: nil, y_coord: nil]
