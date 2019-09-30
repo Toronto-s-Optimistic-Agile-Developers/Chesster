@@ -39,6 +39,25 @@
         Dashboard
         <% end %>
       </li>
+      <% if @game != nil %>
+        <% if @game.in_play? %>
+          <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>
+            <% if current_user.id == @game.white_id %>
+              <%= f.input :winner_user_id, as: :hidden, :input_html => { :value => @game.black_id } %>
+              <%= f.input :loser_user_id, as: :hidden, :input_html => { :value => @game.white_id } %>
+            <% else %>
+              <%= f.input :winner_user_id, as: :hidden, :input_html => { :value => @game.white_id } %>
+              <%= f.input :loser_user_id, as: :hidden, :input_html => { :value => @game.black_id } %>
+            
+            <li class="nav-item">
+              <%= link_to forfeit_game_path, class: 'nav-link' do %> 
+                  <%= f.submit "Forfeit", class: "forfeit" %>
+              <% end %>
+            </li>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
     </ul>
   </div>
 </nav>

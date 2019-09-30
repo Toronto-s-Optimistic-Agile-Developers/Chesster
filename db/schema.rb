@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_26_014706) do
+ActiveRecord::Schema.define(version: 2019_09_29_192421) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(version: 2019_09_26_014706) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.integer "user_id"
+    t.integer "winner"
+    t.integer "loser"
     t.index ["id"], name: "index_games_on_id"
     t.index ["player_id"], name: "index_games_on_player_id"
     t.index ["user_id"], name: "index_games_on_user_id"
@@ -51,6 +53,7 @@ ActiveRecord::Schema.define(version: 2019_09_26_014706) do
     t.string "color"
     t.string "name"
     t.boolean "captured", default: false
+    t.string "formatting"
   end
 
   create_table "users", force: :cascade do |t|

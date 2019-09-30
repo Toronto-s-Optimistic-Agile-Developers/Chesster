@@ -67,9 +67,12 @@
  box-shadow: none;
  vertical-align: center;
  padding: none;
- margin-top: -60px;
+ margin-top: -70px;
  margin-left:auto;
  margin-right: auto;
+}
+.rotate th {
+  padding-bottom: 0px !important;
 }
 .rotate-board {
   cursor: pointer;
@@ -80,7 +83,7 @@
   border-radius: 7px;
   border: 1px solid rgb(53, 51, 51);
   font-family: 'Grenze', serif;
-  width: 80px;
+  width: 70px;
   text-align: center;
 }
 
@@ -136,6 +139,25 @@ table ::selection {
   color: white;
   text-align: center;
   font-weight: bold;
+}
+
+.forfeit {
+  background-color: rgb(104, 12, 12);
+  border: 1px solid silver;
+  color: rgb(216, 213, 213);
+  letter-spacing: 2px;
+  padding-right: 4px;
+  padding-left: 4px;
+  margin: auto;
+  border-radius: 2px;
+  text-align: center;
+}
+
+.forfeit:hover, .forfeit:focus {
+  background-color: black;
+  color: whitesmoke;
+  border: 2px solid red;
+  font-weight: 700;
 }
 
 .white {
