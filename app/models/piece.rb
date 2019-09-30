@@ -44,6 +44,7 @@ class Piece < ApplicationRecord
     if self.on_the_board? false
       flash[:danger] = "Move cannot be completed."
     end
+    return false unless legal_move?(x, y)
   end
 
   def move_to!(x_path, y_path)
