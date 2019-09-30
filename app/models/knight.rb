@@ -12,7 +12,7 @@ class Knight < Piece
 
   end
 
-  def knight_moves?(x, y)
+  def knight_moves?(x_path, y_path)
     (x_path == 1 && y_path == 2) || (x_path == 2 && y_path == 1)
   end
 end
