@@ -67,8 +67,6 @@
     </div>
   </div>
 
-
-
   <%= link_to 'Back', games_path %>
   <script>
     var rotation = 0;
@@ -85,9 +83,11 @@
         $('.set-board, .chess td, #labels td').rotate(rotation);
     });
 
+
     $('#Flip_Board').click(function() {
         rotation -=180;
         $('.set-board, .chess td, #labels td').rotate(rotation);
     });
   </script>
 </body>
+
