@@ -48,7 +48,7 @@ class Piece < ApplicationRecord
 
   def move_to!(x_path, y_path)
     rival_piece = self.find_by(x_coord: x_path, y_coord: y_path)
-    if rival_piece.present? && rival_piece.color != color
+    if rival_piece.present? && rival_piece.color ! color
       rival_piece.removed?
       update_attributes(x_coord: x_path, y_coord: y_path)
     elsif rival_piece.present? == false
@@ -85,25 +85,25 @@ class Piece < ApplicationRecord
       if self.x_coord < x_path && self.y_coord < y_path 
         (x_coord + 1).upto(x_path - 1) do |x|
           (y_coord + 1).upto(y_path - 1) do |y|
-            return true if self.game.tile_taken?(x, y) && (x - x_coord) == (y - y_coord)
+            return true if self.game.tile_taken?(x, y) && (x - x_coord) == (y - y_coord).abs
           end 
         end 
       elsif self.x_coord > x_path && self.y_coord < y_path 
         (x_coord - 1).downto(x_path + 1) do |x|
           (y_coord + 1).upto(y_path - 1) do |y|
-            return true if self.game.tile_taken?(x, y) && (x - x_coord) == (y - y_coord)
+            return true if self.game.tile_taken?(x, y) && (x - x_coord) == (y - y_coord).abs
           end 
         end 
       elsif self.x_coord < x_path && self.y_coord > y_path 
         (x_coord + 1).upto(x_path - 1) do |x|
           (y_coord - 1).downto(y_path + 1) do |y|
-            return true if self.game.tile_taken?(x, y) && (x - x_coord) == (y - y_coord)
+            return true if self.game.tile_taken?(x, y) && (x - x_coord) == (y - y_coord).abs
           end 
         end 
       elsif self.x_coord > x_path && self.y_coord > y_path 
         (x_coord - 1).downto(x_path + 1) do |x|
           (y_coord - 1).downto(y_path + 1) do |y|
-            return true if self.game.tile_taken?(x, y) && (x - x_coord) == (y - y_coord)
+            return true if self.game.tile_taken?(x, y) && (x - x_coord) == (y - y_coord).abs
           end 
         end
       end   
