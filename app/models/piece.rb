@@ -7,16 +7,12 @@ class Piece < ApplicationRecord
       y = piece_params[:y_coord]
     end
   
-    #def color
-      #piece.color = ? "white" : "black"
-    #end
-  
     def white?
-      piece.color = "white"
+      piece.color == 'white'
     end
   
     def black?
-      piece.color != white?
+      !white?
     end
   
     def removed?
@@ -30,7 +26,7 @@ class Piece < ApplicationRecord
       end
     end
 
-  def on_the_board?
+  def on_the_board?(x_path, y_path)
     if y_path < 0 || y_path > 7 
       return true
     elsif x_path < 0 || x_path > 7
@@ -40,10 +36,12 @@ class Piece < ApplicationRecord
     end
   end 
 
-  def valid_move?
-    if self.on_the_board? false
-      flash[:danger] = "Move cannot be completed."
+  def valid_move?(x_path, y_path)
+    if on_the_board?(x_path, y_path) || (x_coord == x_path && y_coord == y_path)
+      return true if legal_move?(x_path, y_path)
     end
+    flash[:danger] = "Move cannot be completed."
+    return false
   end
 
   def move_to!(x_path, y_path)
