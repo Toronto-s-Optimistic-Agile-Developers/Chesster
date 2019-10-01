@@ -46,7 +46,7 @@ class Piece < ApplicationRecord
 
   def move_to!(x_path, y_path)
     rival_piece = self.find_by(x_coord: x_path, y_coord: y_path)
-    if rival_piece.present? && rival_piece.color ! color
+    if rival_piece.present? && rival_piece.color != piece.color
       rival_piece.removed?
       update_attributes(x_coord: x_path, y_coord: y_path)
     elsif rival_piece.present? == false
