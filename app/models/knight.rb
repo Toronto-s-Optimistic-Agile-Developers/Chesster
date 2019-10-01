@@ -4,12 +4,8 @@ class Knight < Piece
 	end
 
   def legal_move?(x_path, y_path)
-    return false if x_coord == x_path || y_coord == y_path
-    return true if knight_moves?(x, y)
-    false
-  end 
-
-  def knight_moves?(x_path, y_path)
-    (x_path == 1 && y_path == 2) || (x_path == 2 && y_path == 1)
+    x_dif = (x_path - x_coord).abs
+    y_dif = (y_path - y_coord).abs
+    (x_dif == 1 && y_dif == 2) || (x_dif == 2 && y_dif == 1)
   end
 end
