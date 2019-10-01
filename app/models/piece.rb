@@ -54,58 +54,64 @@ class Piece < ApplicationRecord
     end
   end
 
-  def is_obstructed?(x_path, y_path) 
-    self.valid_move?
+  def friendly_piece
     return true if self.game.tile_taken?(x_path, y_path) && self.color == self.game.pieces.where(x_coord: x_path, y_coord: y_path).first.color
     return false if self.type == "Knight"
+  end
 
-    if self.y_coord == y_path 
-      if self.x_coord < x_path 
-        (x_coord + 1).upto(x_path - 1) do |x|
-          return true if self.game.tile_taken?(x, y_path)
+  def is_obstructed?(x_path, y_path) 
+    if friendly_piece || self.valid_move?
+      #horizontal move
+      if self.y_coord == y_path 
+        if self.x_coord < x_path 
+          (x_coord + 1).upto(x_path - 1) do |x|
+            return true if self.game.tile_taken?(x, y_path)
+          end 
+        else 
+          (x_coord - 1).downto(x_path + 1) do |x|
+            return true if self.game.tile_taken?(x, y_path)
+          end 
         end 
-      else 
-        (x_coord - 1).downto(x_path + 1) do |x|
-          return true if self.game.tile_taken?(x, y_path)
-        end 
-      end 
-    elsif self.x_coord == x_path 
-      if self.y_coord < y_path 
-        (y_coord + 1).upto(y_path - 1) do |y|
-          return true if self.game.tile_taken?(x_path, y)
-        end 
-      else 
-        (y_coord - 1).downto(y_path + 1) do |y|
-          return true if self.game.tile_taken?(x_path, y)
-        end 
-      end 
-    elsif 
-      if self.x_coord < x_path && self.y_coord < y_path 
-        (x_coord + 1).upto(x_path - 1) do |x|
+        #vertical movement
+      elsif self.x_coord == x_path 
+        if self.y_coord < y_path 
           (y_coord + 1).upto(y_path - 1) do |y|
-            return true if self.game.tile_taken?(x, y) && (x - x_coord) == (y - y_coord).abs
+            return true if self.game.tile_taken?(x_path, y)
           end 
-        end 
-      elsif self.x_coord > x_path && self.y_coord < y_path 
-        (x_coord - 1).downto(x_path + 1) do |x|
-          (y_coord + 1).upto(y_path - 1) do |y|
-            return true if self.game.tile_taken?(x, y) && (x - x_coord) == (y - y_coord).abs
-          end 
-        end 
-      elsif self.x_coord < x_path && self.y_coord > y_path 
-        (x_coord + 1).upto(x_path - 1) do |x|
+        else 
           (y_coord - 1).downto(y_path + 1) do |y|
-            return true if self.game.tile_taken?(x, y) && (x - x_coord) == (y - y_coord).abs
+            return true if self.game.tile_taken?(x_path, y)
           end 
         end 
-      elsif self.x_coord > x_path && self.y_coord > y_path 
-        (x_coord - 1).downto(x_path + 1) do |x|
-          (y_coord - 1).downto(y_path + 1) do |y|
-            return true if self.game.tile_taken?(x, y) && (x - x_coord) == (y - y_coord).abs
+        #diagonal movement
+      elsif 
+        if self.x_coord < x_path && self.y_coord < y_path 
+          (x_coord + 1).upto(x_path - 1) do |x|
+            (y_coord + 1).upto(y_path - 1) do |y|
+              return true if self.game.tile_taken?(x, y) && (x - x_coord) == (y - y_coord).abs
+            end 
           end 
-        end
-      end   
-    end 
-    false
+        elsif self.x_coord > x_path && self.y_coord < y_path 
+          (x_coord - 1).downto(x_path + 1) do |x|
+            (y_coord + 1).upto(y_path - 1) do |y|
+              return true if self.game.tile_taken?(x, y) && (x - x_coord) == (y - y_coord).abs
+            end 
+          end 
+        elsif self.x_coord < x_path && self.y_coord > y_path 
+          (x_coord + 1).upto(x_path - 1) do |x|
+            (y_coord - 1).downto(y_path + 1) do |y|
+              return true if self.game.tile_taken?(x, y) && (x - x_coord) == (y - y_coord).abs
+            end 
+          end 
+        elsif self.x_coord > x_path && self.y_coord > y_path 
+          (x_coord - 1).downto(x_path + 1) do |x|
+            (y_coord - 1).downto(y_path + 1) do |y|
+              return true if self.game.tile_taken?(x, y) && (x - x_coord) == (y - y_coord).abs
+            end 
+          end
+        end   
+      end 
+      false
+    end
   end
 end
