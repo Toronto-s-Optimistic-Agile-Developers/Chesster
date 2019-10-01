@@ -1,4 +1,5 @@
 @import "bootstrap";
+@import url('https://fonts.googleapis.com/css?family=Grenze:700i&display=swap');
 @import "font-awesome";
 
 .booyah-box {
@@ -151,6 +152,10 @@ table ::selection {
   margin: auto;
   border-radius: 2px;
   text-align: center;
+  -moz-box-shadow: 1px 1px 1px 1px #707070;
+  -webkit-box-shadow: 1px 1px 1px 1px #707070;
+  box-shadow: 1px 1px 1px 1px #707070;
+  border-radius: 2px; 
 }
 
 .forfeit:hover, .forfeit:focus {
