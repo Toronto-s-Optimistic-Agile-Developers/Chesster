@@ -67,7 +67,7 @@
     </div>
   </div>
 <div id="forfeit">
-  <%# <% if @game.users.count > 1 %> %>
+  <%# <% if @game.users.count > 1 %> %> %>
   <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>
       <% if current_user.id == @game.white_id %>
         <%= f.input :winner_user_id, as: :hidden, :input_html => { :value => @game.black_id } %>
@@ -76,8 +76,8 @@
         <%= f.input :winner_user_id, as: :hidden, :input_html => { :value => @game.white_id } %>
         <%= f.input :loser_user_id, as: :hidden, :input_html => { :value => @game.black_id } %>
       <% end %>
+      <%= f.submit "Forfeit", class: "forfeit" %>
     <% end %>
-  <%# <%end%>
   </div>
   <%= link_to 'Back', games_path %>
   <script>
