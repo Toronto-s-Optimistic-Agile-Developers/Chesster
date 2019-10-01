@@ -1,1 +1,107 @@
-hey
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=3.0, minimum-scale=0.86">
+</head>
+<body data-turbolinks="false">
+  <p id="notice"><%= notice %></p>
+  <h1 class="text-center">
+    <%= @game.name %>
+    <%= @game.white_id %>
+    <%= @game.black_id %>
+  </h1>
+  <br />
+  <div class="rotate">
+  <table>
+      <tr>
+        <td class="left">
+          <p class="rotate-board" id="Flip_Board">Flip board</p>
+        </td>
+        <td>
+        </td>
+        <td class=right>
+          <p class="rotate-board" id="Rotate_Board">Rotate board</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="set-board">
+    <div class="chess" align="center">
+      <div class="board">
+        <table>
+          <% (0..7).each do |y_coord| %>
+            <% (0..7).each do |x_coord| %>
+              <td data-x-coord=<%=x_coord %> data-y-coord=<%= y_coord %> class='tile <%= "#{(y_coord.odd? == x_coord.odd? ? "white-tile" : "black-tile")}" %>
+                <%= "highlighted" if y_coord == @piece.y_coord && x_coord == @piece.x_coord %>'>
+                <% if board_piece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
+                  <span class="<%= board_piece.color %>" title="<%= board_piece.name %>">
+                    <%= link_to board_piece.unicode_symbol.html_safe, piece_path(board_piece) %>
+                  </span>
+                <% end %>
+              </td>
+            <% end %>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+      <div id="labels">
+        <table class="y_labels">
+          <% for i in 8.downto(1) %>
+            <td>
+              <div class="label_square"><%= i %></div>
+            </td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+      <div id="labels">
+        <table class="x_labels">
+          <tr>
+            <% x_labels = { 0 => 'A', 1 => 'B', 2 => 'C', 3 => 'D', 4 => 'E', 5 => 'F', 6 => 'G', 7 => 'H' } %>
+            <% for i in 0..7 %>
+              <td>
+                <div class="letters"><%= x_labels[i] %></div>
+              </td>
+            <% end %>
+          </tr>
+        </table>
+        <br />
+      </div>
+    </div>
+  </div>
+
+  <%= link_to 'Back', games_path %>
+  <script>
+    var rotation = 0;
+
+    jQuery.fn.rotate = function(degrees) {
+        $(this).css({'-webkit-transform' : 'rotate('+ degrees +'deg)',
+                    '-moz-transform' : 'rotate('+ degrees +'deg)',
+                    '-ms-transform' : 'rotate('+ degrees +'deg)',
+                    'transform' : 'rotate('+ degrees +'deg)'});
+    };
+
+    $('#Rotate_Board').click(function() {
+        rotation += 90;
+        $('.set-board, .chess td, #labels td').rotate(rotation);
+    });
+
+
+    $('#Flip_Board').click(function() {
+        rotation -=180;
+        $('.set-board, .chess td, #labels td').rotate(rotation);
+    });
+
+    $('.tile').click(function() {
+      update: function( event, ui ) {
+        $.ajax({
+          type: 'PUT',
+          url: ui.item.data('update-url'),
+          dataType: 'json',
+          data: { piece: { :x_coord, y_coord: ui.item.update() } }
+        });
+      }
+    });
+
+  </script>
+</body>
+<%= @piece.inspect %>
+

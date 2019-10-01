@@ -17,11 +17,13 @@ class PiecesController < ApplicationController
 
   def show
     @piece = Piece.find_by_id(params[:id])
+    @game = @piece.game
+    @pieces = @game.pieces  
   end
 
   def update
-    @pieces.update_attributes(type: params[:piece][:type])
-    redirect_to game_path(@games)
+    @pieces.update_attributes(type: params[:piece][:x_coord][:y_coord])
+    redirect_to game_path(@game)
   end
 
   private
