@@ -93,8 +93,8 @@
 }
 
 table {
-  height: 500px;
-  width: 500px;
+  height: 450px;
+  width: 450px;
   -moz-box-shadow: 1px 1px 1px 1px #707070;
   -webkit-box-shadow: 1px 1px 1px 1px #707070;
   box-shadow: 1px 1px 1px 1px #707070;
@@ -108,31 +108,33 @@ table ::selection {
 
 .set-board {
   position: relative;
-  width: 500px;
-  height: 500px;
+  width: 450px;
+  height: 450px;
   margin-right: auto;
   margin-left: auto;
 }
 
 .chess {
   position: fixed;
-  width: 500px;
+  width: 450px;
   margin-bottom: 50px;
   padding: 10px;
 }
 
 .y_labels {
-  margin-top: -500px;
+  margin-top: -450px;
   width: 10px;
   margin-left: -20px;
   background-color: rgb(193, 154, 107) !important;
+  text-shadow: 1px 4px 3px rgba(0,0,0,0.5), 0px -5px 35px rgba(7, 6, 6, 0.3);
 }
 
 .x_labels {
   height: 10px;
-  width: 500px;
+  width: 490px;
   background-color: rgb(165, 136, 125) !important;
   margin-bottom: 10px;
+  text-shadow: 1px 4px 3px rgba(0,0,0,0.5), 0px -5px 35px rgba(7, 6, 6, 0.3);
 }
 
 #labels {
@@ -143,6 +145,7 @@ table ::selection {
 }
 
 .forfeit {
+  cursor: pointer;
   background-color: rgb(104, 12, 12);
   border: 1px solid silver;
   color: rgb(216, 213, 213);
@@ -152,6 +155,10 @@ table ::selection {
   margin: auto;
   border-radius: 2px;
   text-align: center;
+  -moz-box-shadow: 1px 1px 1px 1px rgb(160, 155, 155);
+  -webkit-box-shadow: 1px 1px 1px 1px rgb(160, 155, 155);
+  box-shadow: 1px 1px 1px 1px 1px 1px 1px 1px rgb(160, 155, 155);
+  border-radius: 2px; 
 }
 
 .forfeit:hover, .forfeit:focus {
@@ -159,6 +166,7 @@ table ::selection {
   color: whitesmoke;
   border: 2px solid red;
   font-weight: 700;
+  border-radius: 0;
 }
 
 .white {
