@@ -1,4 +1,4 @@
-`class Piece < ApplicationRecord
+class Piece < ApplicationRecord
   belongs_to :game
   belongs_to :user, required: false
   
@@ -46,7 +46,7 @@
 
   def move_to!(x_path, y_path)
     rival_piece = self.find_by(x_coord: x_path, y_coord: y_path)
-    if rival_piece.present? && rival_piece.color != piece.color
+    if rival_piece.present? && rival_piece.color != color
       rival_piece.removed?
       update_attributes(x_coord: x_path, y_coord: y_path)
     elsif rival_piece.present? == false
@@ -54,64 +54,58 @@
     end
   end
 
-  def friendly_piece
+  def is_obstructed?(x_path, y_path) 
+    self.valid_move?
     return true if self.game.tile_taken?(x_path, y_path) && self.color == self.game.pieces.where(x_coord: x_path, y_coord: y_path).first.color
     return false if self.type == "Knight"
-  end
 
-  def is_obstructed?(x_path, y_path) 
-    if friendly_piece || self.valid_move?
-      #horizontal move
-      if self.y_coord == y_path 
-        if self.x_coord < x_path 
-          (x_coord + 1).upto(x_path - 1) do |x|
-            return true if self.game.tile_taken?(x, y_path)
-          end 
-        else 
-          (x_coord - 1).downto(x_path + 1) do |x|
-            return true if self.game.tile_taken?(x, y_path)
-          end 
+    if self.y_coord == y_path 
+      if self.x_coord < x_path 
+        (x_coord + 1).upto(x_path - 1) do |x|
+          return true if self.game.tile_taken?(x, y_path)
         end 
-        #vertical movement
-      elsif self.x_coord == x_path 
-        if self.y_coord < y_path 
-          (y_coord + 1).upto(y_path - 1) do |y|
-            return true if self.game.tile_taken?(x_path, y)
-          end 
-        else 
-          (y_coord - 1).downto(y_path + 1) do |y|
-            return true if self.game.tile_taken?(x_path, y)
-          end 
+      else 
+        (x_coord - 1).downto(x_path + 1) do |x|
+          return true if self.game.tile_taken?(x, y_path)
         end 
-        #diagonal movement
-      elsif 
-        if self.x_coord < x_path && self.y_coord < y_path 
-          (x_coord + 1).upto(x_path - 1) do |x|
-            (y_coord + 1).upto(y_path - 1) do |y|
-              return true if self.game.tile_taken?(x, y) && (x - x_coord) == (y - y_coord).abs
-            end 
-          end 
-        elsif self.x_coord > x_path && self.y_coord < y_path 
-          (x_coord - 1).downto(x_path + 1) do |x|
-            (y_coord + 1).upto(y_path - 1) do |y|
-              return true if self.game.tile_taken?(x, y) && (x - x_coord) == (y - y_coord).abs
-            end 
-          end 
-        elsif self.x_coord < x_path && self.y_coord > y_path 
-          (x_coord + 1).upto(x_path - 1) do |x|
-            (y_coord - 1).downto(y_path + 1) do |y|
-              return true if self.game.tile_taken?(x, y) && (x - x_coord) == (y - y_coord).abs
-            end 
-          end 
-        elsif self.x_coord > x_path && self.y_coord > y_path 
-          (x_coord - 1).downto(x_path + 1) do |x|
-            (y_coord - 1).downto(y_path + 1) do |y|
-              return true if self.game.tile_taken?(x, y) && (x - x_coord) == (y - y_coord).abs
-            end 
-          end
-        end   
       end 
-      false
-    end
+    elsif self.x_coord == x_path 
+      if self.y_coord < y_path 
+        (y_coord + 1).upto(y_path - 1) do |y|
+          return true if self.game.tile_taken?(x_path, y)
+        end 
+      else 
+        (y_coord - 1).downto(y_path + 1) do |y|
+          return true if self.game.tile_taken?(x_path, y)
+        end 
+      end 
+    elsif 
+      if self.x_coord < x_path && self.y_coord < y_path 
+        (x_coord + 1).upto(x_path - 1) do |x|
+          (y_coord + 1).upto(y_path - 1) do |y|
+            return true if self.game.tile_taken?(x, y) && (x - x_coord) == (y - y_coord)
+          end 
+        end 
+      elsif self.x_coord > x_path && self.y_coord < y_path 
+        (x_coord - 1).downto(x_path + 1) do |x|
+          (y_coord + 1).upto(y_path - 1) do |y|
+            return true if self.game.tile_taken?(x, y) && (x - x_coord) == (y - y_coord)
+          end 
+        end 
+      elsif self.x_coord < x_path && self.y_coord > y_path 
+        (x_coord + 1).upto(x_path - 1) do |x|
+          (y_coord - 1).downto(y_path + 1) do |y|
+            return true if self.game.tile_taken?(x, y) && (x - x_coord) == (y - y_coord)
+          end 
+        end 
+      elsif self.x_coord > x_path && self.y_coord > y_path 
+        (x_coord - 1).downto(x_path + 1) do |x|
+          (y_coord - 1).downto(y_path + 1) do |y|
+            return true if self.game.tile_taken?(x, y) && (x - x_coord) == (y - y_coord)
+          end 
+        end
+      end   
+    end 
+    false
   end
 end
