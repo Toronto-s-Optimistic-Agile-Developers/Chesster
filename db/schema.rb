@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(version: 2019_09_26_014706) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.integer "user_id"
+     t.integer "winner"
+    t.integer "loser"
     t.index ["id"], name: "index_games_on_id"
     t.index ["player_id"], name: "index_games_on_player_id"
     t.index ["user_id"], name: "index_games_on_user_id"
