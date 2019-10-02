@@ -27,11 +27,31 @@ class GamesController < ApplicationController
     @game.update(black_id: current_user.id)
     redirect_to game_path(@game)
   end
+  
+   def forfeit
+    @game = Game.find_by_id(params[:id])
+    if current_user.id == @game.white_id
+      @game.update_attributes(winner: @game.black_id, loser: @game.white_id)
+    else
+      @game.update_attributes(winner: @game.white_id, loser: @game.black_id)
+    end
+    redirect_to games_path
+  end
 
   def update
     @game = current_game
     @game.update(game_params)
     @game.reload
+  end
+
+  def forfeit
+    @game = Game.find_by_id(params[:id])
+    if current_user.id == @game.white_id
+      @game.update_attributes(winner: @game.black_id, loser: @game.white_id)
+    else
+      @game.update_attributes(winner: @game.white_id, loser: @game.black_id)
+    end
+    redirect_to games_path
   end
 
   private

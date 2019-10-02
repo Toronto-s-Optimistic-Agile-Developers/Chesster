@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+# frozen_string_literal: true
+
+=======
+>>>>>>> f1d37445f8ec89cf30881bc21942ee2a9fc4d320
 require 'rails_helper'
 
 RSpec.describe GamesController, type: :controller do
@@ -13,6 +18,8 @@ RSpec.describe GamesController, type: :controller do
       get :show
       expect(response).to have_http_status(:success)
     end
+<<<<<<< HEAD
+=======
     describe 'setup_board!' do
       it 'should add 16 white and 16 black pieces to board' do
         user = FactoryBot.create(:user)
@@ -22,6 +29,7 @@ RSpec.describe GamesController, type: :controller do
         expect(pieces.count).to eq(32)
       end
     end
+>>>>>>> f1d37445f8ec89cf30881bc21942ee2a9fc4d320
   end
 
   describe 'game#new' do
@@ -35,7 +43,11 @@ RSpec.describe GamesController, type: :controller do
     it 'returns a success response' do
       user = FactoryBot.create(:user)
       sign_in user
+<<<<<<< HEAD
+      game = game = FactoryBot.create(:game)
+=======
       game = FactoryBot.create(:game)
+>>>>>>> f1d37445f8ec89cf30881bc21942ee2a9fc4d320
       get :edit
       expect(response).to have_http_status(:success)
     end
@@ -51,7 +63,11 @@ RSpec.describe GamesController, type: :controller do
       end.to change(Game, :count).by(1)
     end
 
+<<<<<<< HEAD
+    it 'redirects to the created game' do
+=======
     it 'redirects to created game' do
+>>>>>>> f1d37445f8ec89cf30881bc21942ee2a9fc4d320
       user = FactoryBot.create(:user)
       sign_in user
       game = game = FactoryBot.create(:game)
@@ -59,7 +75,11 @@ RSpec.describe GamesController, type: :controller do
       expect(response).to redirect_to(Game.last)
     end
 
+<<<<<<< HEAD
+    it "returns a success response (i.e. to display the 'new' template)" do
+=======
     it "returns a success response (i.e. to display 'new' template)" do
+>>>>>>> f1d37445f8ec89cf30881bc21942ee2a9fc4d320
       user = FactoryBot.create(:user)
       sign_in user
       game = game = FactoryBot.create(:game)
@@ -71,7 +91,11 @@ RSpec.describe GamesController, type: :controller do
 end
 
 describe 'PUT #update' do
+<<<<<<< HEAD
+  it 'updates the requested game' do
+=======
   it 'updates requested game' do
+>>>>>>> 6840c3d6ca743bd45d2be38b5efc09344b15b433
     user = FactoryBot.create(:user)
     sign_in user
     game = game = FactoryBot.create(:game)
@@ -80,7 +104,11 @@ describe 'PUT #update' do
     skip('Add assertions for updated state')
   end
 
+<<<<<<< HEAD
+  it 'redirects to the game' do
+=======
   it 'redirects to game' do
+>>>>>>> 6840c3d6ca743bd45d2be38b5efc09344b15b433
     user = FactoryBot.create(:user)
     sign_in user
     game = game = FactoryBot.create(:game)
@@ -90,7 +118,11 @@ describe 'PUT #update' do
 end
 
 describe 'DELETE #destroy' do
+<<<<<<< HEAD
+  it 'destroys the requested game' do
+=======
   it 'destroys requested game' do
+>>>>>>> 6840c3d6ca743bd45d2be38b5efc09344b15b433
     user = FactoryBot.create(:user)
     sign_in user
     game = game = FactoryBot.create(:game)
@@ -99,7 +131,11 @@ describe 'DELETE #destroy' do
     end.to change(Game, :count).by(-1)
   end
 
+<<<<<<< HEAD
+  it 'redirects to the games list' do
+=======
   it 'redirects to games list' do
+>>>>>>> 6840c3d6ca743bd45d2be38b5efc09344b15b433
     user = FactoryBot.create(:user)
     sign_in user
     game = game = FactoryBot.create(:game)
@@ -365,6 +401,7 @@ describe 'DELETE #destroy' do
 
       expect(game.pieces.find_by(x_coord: 3, y_coord: 7).type).to eq 'Queen'
     end
+>>>>>>> f1d37445f8ec89cf30881bc21942ee2a9fc4d320
   end
 end
 <<<<<<< HEAD

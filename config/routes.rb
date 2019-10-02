@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :games do
     member do
       patch :join
+      patch :forfeit
     end
   end
     resources :pieces, only: %i[show edit update]
