@@ -1,4 +1,4 @@
-class Piece < ApplicationRecord
+`class Piece < ApplicationRecord
   belongs_to :game
   belongs_to :user, required: false
   
@@ -111,7 +111,7 @@ class Piece < ApplicationRecord
           end
         end   
       end 
-      return false
+      false
     end
   end
 end

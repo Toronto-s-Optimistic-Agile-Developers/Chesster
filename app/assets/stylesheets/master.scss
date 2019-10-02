@@ -1,5 +1,4 @@
 @import "bootstrap";
-@import url('https://fonts.googleapis.com/css?family=Grenze:700i&display=swap');
 @import "font-awesome";
 
 .booyah-box {
@@ -93,8 +92,8 @@
 }
 
 table {
-  height: 450px;
-  width: 450px;
+  height: 500px;
+  width: 500px;
   -moz-box-shadow: 1px 1px 1px 1px #707070;
   -webkit-box-shadow: 1px 1px 1px 1px #707070;
   box-shadow: 1px 1px 1px 1px #707070;
@@ -106,35 +105,38 @@ table ::selection {
   background: none;
 }
 
+table ::selection {
+  color: none;
+  background: none;
+}
+
 .set-board {
   position: relative;
-  width: 450px;
-  height: 450px;
+  width: 500px;
+  height: 500px;
   margin-right: auto;
   margin-left: auto;
 }
 
 .chess {
   position: fixed;
-  width: 450px;
+  width: 500px;
   margin-bottom: 50px;
   padding: 10px;
 }
 
 .y_labels {
-  margin-top: -450px;
+  margin-top: -500px;
   width: 10px;
   margin-left: -20px;
   background-color: rgb(193, 154, 107) !important;
-  text-shadow: 1px 4px 3px rgba(0,0,0,0.5), 0px -5px 35px rgba(7, 6, 6, 0.3);
 }
 
 .x_labels {
   height: 10px;
-  width: 490px;
+  width: 500px;
   background-color: rgb(165, 136, 125) !important;
   margin-bottom: 10px;
-  text-shadow: 1px 4px 3px rgba(0,0,0,0.5), 0px -5px 35px rgba(7, 6, 6, 0.3);
 }
 
 #labels {
