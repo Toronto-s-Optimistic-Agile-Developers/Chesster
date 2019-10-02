@@ -14,9 +14,9 @@ before_action :authenticate_user!, only: [:new]
     @user = User.find(params[:id])
   end 
 
-private
+  private
 
-def user_params
-  params.require(:user).permit(:name)
-
+  def user_params
+    params.require(:user).permit(:name)
+  end
 end
