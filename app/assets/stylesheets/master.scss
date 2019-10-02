@@ -105,6 +105,11 @@ table ::selection {
   background: none;
 }
 
+table ::selection {
+  color: none;
+  background: none;
+}
+
 .set-board {
   position: relative;
   width: 500px;
@@ -142,6 +147,7 @@ table ::selection {
 }
 
 .forfeit {
+  cursor: pointer;
   background-color: rgb(104, 12, 12);
   border: 1px solid silver;
   color: rgb(216, 213, 213);
@@ -151,6 +157,10 @@ table ::selection {
   margin: auto;
   border-radius: 2px;
   text-align: center;
+  -moz-box-shadow: 1px 1px 1px 1px rgb(160, 155, 155);
+  -webkit-box-shadow: 1px 1px 1px 1px rgb(160, 155, 155);
+  box-shadow: 1px 1px 1px 1px 1px 1px 1px 1px rgb(160, 155, 155);
+  border-radius: 2px; 
 }
 
 .forfeit:hover, .forfeit:focus {
@@ -158,6 +168,7 @@ table ::selection {
   color: whitesmoke;
   border: 2px solid red;
   font-weight: 700;
+  border-radius: 0;
 }
 
 .white {
