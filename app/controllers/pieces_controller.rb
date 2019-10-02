@@ -15,11 +15,13 @@ class PiecesController < ApplicationController
   end
 
   private
+
   def find_piece
     @piece = Piece.find(params[:id])
     @color = @piece.color
     @game = @piece.game
   end
+  
   def piece_params
     params.require(:piece).permit(:name, :color, :x_coord, :y_coord, :game_id, :player_id, :type)
   end
