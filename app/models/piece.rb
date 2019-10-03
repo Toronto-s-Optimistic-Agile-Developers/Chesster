@@ -20,11 +20,17 @@ class Piece < ApplicationRecord
         piece.captured = true
       end
   end
-    def has_moved?
-      if piece.initial_postion?
-        false
-      end
+
+  def has_moved?
+    if piece.initial_postion?
+      false
     end
+  end
+
+  def friendly_piece
+    return true if self.game.tile_taken?(x_path, y_path) && self.color == self.game.pieces.where(x_coord: x_path, y_coord: y_path).first.color
+    return false if self.type == "Knight"
+  end
 
   def on_the_board?(x_path, y_path)
     if y_path < 0 || y_path > 7 
