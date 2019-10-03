@@ -109,9 +109,15 @@ class Piece < ApplicationRecord
           (y_coord - 1).downto(y_path + 1) do |y|
             return true if self.game.tile_taken?(x, y) && (x - x_coord) == (y - y_coord)
           end 
-        end
-      end   
-    end 
-    false
+        elsif self.x_coord > x_path && self.y_coord > y_path 
+          (x_coord - 1).downto(x_path + 1) do |x|
+            (y_coord - 1).downto(y_path + 1) do |y|
+              return true if self.game.tile_taken?(x, y) && (x - x_coord) == (y - y_coord).abs
+            end 
+          end
+        end   
+      end 
+      return false
+    end
   end
 end
