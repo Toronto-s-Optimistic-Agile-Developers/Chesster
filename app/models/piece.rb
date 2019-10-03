@@ -111,7 +111,7 @@ class Piece < ApplicationRecord
           end
         end   
       end 
-      false
+      return false
     end
   end
 end
