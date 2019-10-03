@@ -22,7 +22,7 @@ class PiecesController < ApplicationController
   end
 
   def update
-    @pieces.update_attributes(type: params[:piece][:x_coord][:y_coord])
+    @find_piece.update_attributes(type: params[:piece][:x_coord][:y_coord])
     redirect_to game_path(@game)
   end
 

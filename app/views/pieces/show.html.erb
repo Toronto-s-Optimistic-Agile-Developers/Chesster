@@ -1,5 +1,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=3.0, minimum-scale=0.86">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body data-turbolinks="false">
   <p id="notice"><%= notice %></p>
@@ -26,22 +28,23 @@
   <div class="set-board">
     <div class="chess" align="center">
       <div class="board">
-        <table>
+
+        <table>          
           <% (0..7).each do |y_coord| %>
-            <% (0..7).each do |x_coord| %>
-              <td data-x-coord=<%=x_coord %> data-y-coord=<%= y_coord %> class='tile <%= "#{(y_coord.odd? == x_coord.odd? ? "white-tile" : "black-tile")}" %>
-                <%= "highlighted" if y_coord == @piece.y_coord && x_coord == @piece.x_coord %>'>
-                <% if board_piece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
-                  <span class="<%= board_piece.color %>" title="<%= board_piece.name %>">
-                    <%= link_to board_piece.unicode_symbol.html_safe, piece_path(board_piece) %>
-                  </span>
-                <% end %>
-              </td>
-            <% end %>
+            <% (0..7).each do |x_coord| %>              
+              <td data-x-coord=<%=x_coord %> data-y-coord=<%= y_coord %> class='tile <%= "#{(y_coord.odd? == x_coord.odd? ? "white-tile droppable-tile" : "black-tile droppable-tile")}" %>
+                <%= "highlighted" if y_coord == @piece.y_coord && x_coord == @piece.x_coord %>'>                
+                  <% if board_piece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
+                    <span class="<%= board_piece.color %>" title="<%= board_piece.name %>">
+                      <%= link_to board_piece.unicode_symbol.html_safe, piece_path(board_piece), class: "selectable-piece" %>
+                    </span>               
+                  <% end %>
+                </td>
+              <% end %>
             </tr>
           <% end %>
         </table>
-      </div>
+       </div>
       <div id="labels">
         <table class="y_labels">
           <% for i in 8.downto(1) %>
@@ -90,17 +93,51 @@
         $('.set-board, .chess td, #labels td').rotate(rotation);
     });
 
-    $('.tile').click(function() {
-      update: function( event, ui ) {
-        $.ajax({
-          type: 'PUT',
-          url: ui.item.data('update-url'),
-          dataType: 'json',
-          data: { piece: { :x_coord, y_coord: ui.item.update() } }
+    $("tile").addClass("droppable-tile");
+    $( ".selectable-piece" ).draggable({
+      cancel: "a.ui-icon", 
+      revert: "invalid",
+      containment: "document",
+      snap: ".document td",
+      snapTolerance: 20,
+      helper: "clone",
+      cursor: "move"
+    });
+    $( ".droppable-tile").droppable({
+      accept: ".selectable-piece",
+      tolerance: "pointer",
+      classes: {
+        "ui-droppable-active": "ui-state-active",
+        "ui-droppable-hover": "ui-state-hover"
+      },
+
+      drop: function( event, ui ) {
+        const $newDroppableTile = $(this)
+          $.ajax({
+          beforeSend: function(xhr) {
+          xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+          },
+          type: "PATCH",
+          dataType: 'text',
+          url: "/pieces/" + ui.draggable.attr('id'),
+          data: {
+            piece: {
+              x_coord: $(this).data("x-coord"),
+              y_coord: $(this).data("y-coord")
+            },
+          },
+                    error:  function(xhr){
+            var errorMessage = $.parseJSON(xhr.responseText).message
+            var alertClass = $.parseJSON(xhr.responseText).class
+            $("#alert_msg").addClass(alertClass)
+            $("#alert_msg").html('<p>'+ errorMessage + '</p>')
+          },
+          success: function(){
+            $newDroppableTile.append($(ui.draggable));
+          }
         });
       }
     });
-
   </script>
 </body>
 <%= @piece.inspect %>
