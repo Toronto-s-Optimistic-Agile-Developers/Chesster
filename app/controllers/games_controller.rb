@@ -39,10 +39,7 @@ class GamesController < ApplicationController
   end
 
   def update
-    @game = current_game
-    @game.update(game_params)
-    @game.pieces.move_to!
-    @game.reload
+  
   end
 
   private

@@ -22,12 +22,13 @@ class PiecesController < ApplicationController
   end
 
   def update
-    @piece = Piece.find_by_id(params[:id])
     @game = @piece.game
-    @pieces = @game.pieces  
-    @pieces.update_attributes(piece_params)
-    render plain: 'updated!'
-    redirect_to game_path(@game)
+    # @piece = Piece.find_by_id(params[:id])
+    # @game = @piece.game
+    # @pieces = @game.pieces  
+    # @pieces.update_all(piece_params)
+    # render plain: 'updated!'
+    # redirect_to game_path(@game)
   end
 
   private
