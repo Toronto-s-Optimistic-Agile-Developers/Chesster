@@ -14,6 +14,12 @@ class PiecesController < ApplicationController
     end
   end
 
+  def update
+    if @game.move_to!
+      @game.update_attributes(piece_params)
+    end
+  end  
+
   private
 
   def find_piece
