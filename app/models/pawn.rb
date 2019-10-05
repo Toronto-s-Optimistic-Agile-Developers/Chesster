@@ -4,10 +4,14 @@ class Pawn < Piece
 	end
 
 	def legal_move?(x_path, y_path)
-	  y_dif = (y_path - y_coord).abs
+	  y_dif = (y_path - y_coord)
 		(y_dif == 1)
-		if (x_coord + 1) && (y_coord + 1) || (x_coord - 1) && (y_coord - 1)
-			self.move_to! && != self.friendly_piece
+		x_dif = (y_path - x_coord)
+		(x_dif == 0)
+		if self.has_moved? == false
+			(x_dif == 0 && y_dif == 1) || (x_dif == 0 && y_dif == 2)
+		else
+			(x_dif == 0 && y_dif == 1)
 		end
   end
 end

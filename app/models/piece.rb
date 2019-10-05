@@ -22,8 +22,10 @@ class Piece < ApplicationRecord
   end
 
   def has_moved?
-    if piece.initial_postion?
-      false
+    if piece.initial_postion? == true
+      return false
+    else
+      return true
     end
   end
 
@@ -41,24 +43,6 @@ class Piece < ApplicationRecord
       return false
     end
   end 
-
-  def valid_move?(x_path, y_path)
-    if on_the_board?(x_path, y_path) || (x_coord == x_path && y_coord == y_path)
-      return true if legal_move?(x_path, y_path)
-    end
-    flash[:danger] = "Move cannot be completed."
-    return false
-  end
-
-  def move_to!(x_path, y_path)
-    rival_piece = self.find_by(x_coord: x_path, y_coord: y_path)
-    if rival_piece.present? && rival_piece.color != piece.color
-      rival_piece.removed?
-      update_attributes(x_coord: x_path, y_coord: y_path)
-    elsif rival_piece.present? == false
-      update_attributes(x_coord: x, y_coord: y)
-    end
-  end
 
   def is_obstructed?(x_path, y_path) 
     self.valid_move?
@@ -109,7 +93,7 @@ class Piece < ApplicationRecord
           (y_coord - 1).downto(y_path + 1) do |y|
             return true if self.game.tile_taken?(x, y) && (x - x_coord) == (y - y_coord)
           end 
-        elsif self.x_coord > x_path && self.y_coord > y_path 
+        else self.x_coord > x_path && self.y_coord > y_path 
           (x_coord - 1).downto(x_path + 1) do |x|
             (y_coord - 1).downto(y_path + 1) do |y|
               return true if self.game.tile_taken?(x, y) && (x - x_coord) == (y - y_coord).abs
@@ -118,6 +102,25 @@ class Piece < ApplicationRecord
         end   
       end 
       return false
+    end
+  end
+
+  def valid_move?(x_path, y_path)
+    if on_the_board?(x_path, y_path) || (x_coord == x_path && y_coord == y_path)
+      self.initial_postion? = false
+      return true if legal_move?(x_path, y_path) && ! is_obstructed?(x_path, y_path)
+    end
+    flash[:danger] = "Move cannot be completed."
+    return false
+  end
+
+  def move_to!(x_path, y_path)
+    rival_piece = self.find_by(x_coord: x_path, y_coord: y_path)
+    if rival_piece.present? && rival_piece.color != piece.color
+      rival_piece.removed?
+      update_attributes(x_coord: x_path, y_coord: y_path)
+    elsif rival_piece.present? == false
+      update_attributes(x_coord: x, y_coord: y)
     end
   end
 end

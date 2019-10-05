@@ -23,7 +23,7 @@ class PiecesController < ApplicationController
   end
   
   def piece_params
-    params.require(:piece).permit(:name, :color, :x_coord, :y_coord, :game_id, :player_id, :type)
+    params.require(:piece).permit(:name, :color, :x_coord, :y_coord, :game_id, :player_id, :type, :initial_postion?)
   end
 end
 
