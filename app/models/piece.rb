@@ -107,7 +107,6 @@ class Piece < ApplicationRecord
 
   def valid_move?(x_path, y_path)
     if on_the_board?(x_path, y_path) || (x_coord == x_path && y_coord == y_path)
-      self.initial_postion? = false
       return true if legal_move?(x_path, y_path) && ! is_obstructed?(x_path, y_path)
     end
     flash[:danger] = "Move cannot be completed."
