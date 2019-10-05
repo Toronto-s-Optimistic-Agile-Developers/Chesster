@@ -66,4 +66,16 @@ class Game < ApplicationRecord
 
     Queen.create(game_id: id, color: "black", x_coord: 3, y_coord: 0, name: "Black_Queen")
   end
+  def tile_color(x,y)
+    if y.odd? && x.odd?
+      "black-tile"
+    elsif y.odd? && x.even?
+      "white-tile"
+    elsif y.even? && x.odd?
+      "white-tile"
+    elsif y.even? && x.even?
+      "black-tile"
+    end
+    
+  end
 end
