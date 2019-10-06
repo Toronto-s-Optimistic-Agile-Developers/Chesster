@@ -14,6 +14,17 @@ class PiecesController < ApplicationController
     end
   end
 
+  def update
+    @piece = Piece.find_by(params[:id])
+    x_path = @piece.x_coord
+    y_path = @piece.y_coord
+    if @piece.valid_move? 
+      @piece.move_to!(x_path, y_path)  
+      @piece.initial_postion? = false
+      @piece.update_attributes(piece_params)
+    end
+  end  
+
   private
 
   def find_piece
@@ -23,7 +34,7 @@ class PiecesController < ApplicationController
   end
   
   def piece_params
-    params.require(:piece).permit(:name, :color, :x_coord, :y_coord, :game_id, :player_id, :type)
+    params.require(:piece).permit(:name, :color, :x_coord, :y_coord, :game_id, :player_id, :type, :initial_postion?)
   end
 end
 
