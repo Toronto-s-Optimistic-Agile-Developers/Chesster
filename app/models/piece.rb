@@ -7,16 +7,12 @@ class Piece < ApplicationRecord
       y = piece_params[:y_coord]
     end
   
-    #def color
-      #piece.color = ? "white" : "black"
-    #end
-  
     def white?
-      piece.color = "white"
+      piece.color == 'white'
     end
   
     def black?
-      piece.color != white?
+      !white?
     end
   
     def removed?
@@ -24,13 +20,21 @@ class Piece < ApplicationRecord
         piece.captured = true
       end
   end
-    def has_moved?
-      if piece.initial_postion?
-        false
-      end
-    end
 
-  def on_the_board?
+  def has_moved?
+    if piece.initial_postion? == true
+      return false
+    else
+      return true
+    end
+  end
+
+  def friendly_piece
+    return true if self.game.tile_taken?(x_path, y_path) && self.color == self.game.pieces.where(x_coord: x_path, y_coord: y_path).first.color
+    return false if self.type == "Knight"
+  end
+
+  def on_the_board?(x_path, y_path)
     if y_path < 0 || y_path > 7 
       return true
     elsif x_path < 0 || x_path > 7
@@ -39,22 +43,6 @@ class Piece < ApplicationRecord
       return false
     end
   end 
-
-  def valid_move?
-    if self.on_the_board? false
-      flash[:danger] = "Move cannot be completed."
-    end
-  end
-
-  def move_to!(x_path, y_path)
-    rival_piece = self.find_by(x_coord: x_path, y_coord: y_path)
-    if rival_piece.present? && rival_piece.color != color
-      rival_piece.removed?
-      update_attributes(x_coord: x_path, y_coord: y_path)
-    elsif rival_piece.present? == false
-      update_attributes(x_coord: x, y_coord: y)
-    end
-  end
 
   def is_obstructed?(x_path, y_path) 
     self.valid_move?
@@ -105,9 +93,33 @@ class Piece < ApplicationRecord
           (y_coord - 1).downto(y_path + 1) do |y|
             return true if self.game.tile_taken?(x, y) && (x - x_coord) == (y - y_coord)
           end 
-        end
-      end   
-    end 
-    false
+        else self.x_coord > x_path && self.y_coord > y_path 
+          (x_coord - 1).downto(x_path + 1) do |x|
+            (y_coord - 1).downto(y_path + 1) do |y|
+              return true if self.game.tile_taken?(x, y) && (x - x_coord) == (y - y_coord).abs
+            end 
+          end
+        end   
+      end 
+      return false
+    end
+  end
+
+  def valid_move?(x_path, y_path)
+    if on_the_board?(x_path, y_path) || (x_coord == x_path && y_coord == y_path)
+      return true if legal_move?(x_path, y_path) && ! is_obstructed?(x_path, y_path)
+    end
+    flash[:danger] = "Move cannot be completed."
+    return false
+  end
+
+  def move_to!(x_path, y_path)
+    rival_piece = self.find_by(x_coord: x_path, y_coord: y_path)
+    if rival_piece.present? && rival_piece.color != piece.color
+      rival_piece.removed?
+      update_attributes(x_coord: x_path, y_coord: y_path)
+    elsif rival_piece.present? == false
+      update_attributes(x_coord: x, y_coord: y)
+    end
   end
 end

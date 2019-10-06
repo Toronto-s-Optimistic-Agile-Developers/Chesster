@@ -1,7 +1,6 @@
 class PiecesController < ApplicationController
-
   before_action :find_piece
-
+  
   def new
     @piece = game.pieces.new
   end
@@ -15,15 +14,23 @@ class PiecesController < ApplicationController
     end
   end
 
+  def update
+    @piece = Piece.find_by(params[:id])
+    x_path = @piece.x_coord
+    y_path = @piece.y_coord
+    if @piece.valid_move? 
+      @piece.move_to!(x_path, y_path)  
+      @piece.initial_postion? = false
+      @piece.update_attributes(piece_params)
+    end
+  end  
+  
   def show
     @piece = Piece.find_by_id(params[:id])
     @game = @piece.game
     @pieces = @game.pieces  
   end
 
-  def update
-    
-  end
 
   private
 
@@ -32,8 +39,9 @@ class PiecesController < ApplicationController
     @color = @piece.color
     @game = @piece.game
   end
-
+  
   def piece_params
-    params.require(:piece).permit(:name, :color, :x_coord, :y_coord, :game_id, :player_id, :type)
+    params.require(:piece).permit(:name, :color, :x_coord, :y_coord, :game_id, :player_id, :type, :initial_postion?)
+
   end
 end

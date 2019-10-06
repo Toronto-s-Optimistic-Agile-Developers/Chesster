@@ -66,8 +66,21 @@
       </div>
     </div>
   </div>
-
-  <%= link_to 'Back', games_path %>
+  <div id="forfeit">
+    <% if @game.white_id != nil && @game.black_id != nil %> 
+      <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>
+        <% if current_user.id == @game.white_id %>
+          <%= f.input :winner, as: :hidden, :input_html => { :value => @game.black_id } %>
+          <%= f.input :loser, as: :hidden, :input_html => { :value => @game.white_id } %>
+        <% else %>
+          <%= f.input :winner, as: :hidden, :input_html => { :value => @game.white_id } %>
+          <%= f.input :loser, as: :hidden, :input_html => { :value => @game.black_id } %>
+        <% end %>
+        <%= f.submit "Forfeit", class: "forfeit" , data: { confirm: "Are you sure you want to forfeit the game?"} %>
+      <% end %>
+    <% end %>
+  </div>
+  <%= link_to 'Back', games_path, class: 'btn btn-default' %>
   <script>
     var rotation = 0;
 
@@ -90,5 +103,3 @@
     });
   </script>
 </body>
-<%= @piece.inspect %>
-
