@@ -24,6 +24,13 @@ class PiecesController < ApplicationController
       @piece.update_attributes(piece_params)
     end
   end  
+  
+  def show
+    @piece = Piece.find_by_id(params[:id])
+    @game = @piece.game
+    @pieces = @game.pieces  
+  end
+
 
   private
 
@@ -35,6 +42,6 @@ class PiecesController < ApplicationController
   
   def piece_params
     params.require(:piece).permit(:name, :color, :x_coord, :y_coord, :game_id, :player_id, :type, :initial_postion?)
+
   end
 end
-

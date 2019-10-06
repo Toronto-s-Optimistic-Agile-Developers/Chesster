@@ -13,12 +13,12 @@
   <table>
       <tr>
         <td class="left">
-          <p class="rotate-board" id="Flip_Board">Flip</p>
+          <p class="rotate-board" id="Flip_Board">Flip board</p>
         </td>
         <td>
         </td>
         <td class=right>
-          <p class="rotate-board" id="Rotate_Board">Rotate</p>
+          <p class="rotate-board" id="Rotate_Board">Rotate board</p>
         </td>
       </tr>
     </table>
@@ -32,7 +32,7 @@
               <td data-x-coord=<%=x_coord %> data-y-coord=<%= y_coord %> class=<%= "#{(y_coord.odd? == x_coord.odd? ? "white-tile" : "black-tile")}" %>>
                 <% if board_piece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
                   <span class="<%= board_piece.color %>" title="<%= board_piece.name %>">
-                    <%= board_piece.unicode_symbol.html_safe %>
+                    <%= link_to board_piece.unicode_symbol.html_safe, piece_path(board_piece) %>
                   </span>
                 <% end %>
               </td>
@@ -103,4 +103,3 @@
     });
   </script>
 </body>
-
