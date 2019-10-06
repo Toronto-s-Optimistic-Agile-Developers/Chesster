@@ -5,6 +5,15 @@ class Game < ApplicationRecord
   belongs_to :white_player, class_name: 'User', optional: true
   belongs_to :black_player, class_name: 'User', optional: true
 
+  has_many :pieces
+  has_many :users
+  
+  scope :available, -> { where(black_player: nil) }
+
+  def unmatched_games
+    Game.where(black_player: nil) && Game.where(white_player: !nil)
+  end
+  
   def in_play?
     @game.white_id != nil || @game.black_id != nil
   end
