@@ -35,9 +35,9 @@
               <td data-x-coord=<%=x_coord %> data-y-coord=<%= y_coord %> class='tile <%= "#{(y_coord.odd? == x_coord.odd? ? "white-tile droppable-tile" : "black-tile droppable-tile")}" %>
                 <%= "highlighted" if y_coord == @piece.y_coord && x_coord == @piece.x_coord %>'>                
                   <% if board_piece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
-                    <span class="<%= board_piece.color %>" title="<%= board_piece.name %>">
-                      <%= link_to board_piece.unicode_symbol.html_safe, piece_path(board_piece), class: "selectable-piece" %>
-                    </span>               
+                      <%= tag.span title: board_piece.name, id: board_piece.id.to_s, class: "#{board_piece.color} selectable-piece" do %>
+                      <%= board_piece.unicode_symbol.html_safe %>               
+                    <% end %>
                   <% end %>
                 </td>
               <% end %>
