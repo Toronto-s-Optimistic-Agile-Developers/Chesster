@@ -13,7 +13,7 @@ class Game < ApplicationRecord
   def unmatched_games
     Game.where(black_player: nil) && Game.where(white_player: !nil)
   end
-  
+
   def in_play?
     @game.white_id != nil || @game.black_id != nil
   end
@@ -70,4 +70,5 @@ class Game < ApplicationRecord
 
     Queen.create(game_id: id, color: "black", x_coord: 3, y_coord: 0, name: "Black_Queen")
   end
+
 end

@@ -15,14 +15,7 @@ class PiecesController < ApplicationController
   end
 
   def update
-    @piece = Piece.find_by(params[:id])
-    x_path = @piece.x_coord
-    y_path = @piece.y_coord
-    if @piece.valid_move? 
-      @piece.move_to!(x_path, y_path)  
-      @piece.initial_postion? == false
-      @piece.update_attributes(piece_params)
-    end
+
   end  
   
   def show
