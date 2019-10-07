@@ -44,6 +44,10 @@ class Piece < ApplicationRecord
     end
   end 
 
+   def diagonal_move?(x_dif, y_dif)
+    x_dif == y_dif
+  end
+
   def is_obstructed?(x_path, y_path) 
     self.valid_move?
     return true if self.game.tile_taken?(x_path, y_path) && self.color == self.game.pieces.where(x_coord: x_path, y_coord: y_path).first.color
