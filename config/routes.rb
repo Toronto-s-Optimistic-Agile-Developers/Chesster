@@ -7,8 +7,10 @@ Rails.application.routes.draw do
   get 'auth/failure', to: redirect('/')
   get 'home', to: 'static_pages#show'
   get 'dashboard', to: 'dashboard#show', as: 'dashboard'
+  get 'privacy', to: 'static_pages#privacy'
 
   root to: "static_pages#show"
+
 
 
   resources :moves
