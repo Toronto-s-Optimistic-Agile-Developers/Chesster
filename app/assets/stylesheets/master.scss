@@ -48,32 +48,38 @@
 .rotate td {
   width: 33.5%;
 }
+
 .left {
-  float:left;
-} 
+  float: left;
+}
+
 .right {
-  float:right;
-} 
+  float: right;
+}
+
 .roate {
   z-index: -1;
   padding: 0;
 }
+
 .rotate table {
- height: auto;
- width: 80%;
- border: none;
- text-align:none;
- padding: none;
- box-shadow: none;
- vertical-align: center;
- padding: none;
- margin-top: -70px;
- margin-left:auto;
- margin-right: auto;
+  height: auto;
+  width: 80%;
+  border: none;
+  text-align: none;
+  padding: none;
+  box-shadow: none;
+  vertical-align: center;
+  padding: none;
+  margin-top: -70px;
+  margin-left: auto;
+  margin-right: auto;
 }
+
 .rotate th {
   padding-bottom: 0px !important;
 }
+
 .rotate-board {
   cursor: pointer;
   color: rgb(247, 244, 244);
@@ -87,7 +93,8 @@
   text-align: center;
 }
 
-.rotate-board:hover, .rotate-board:focus {
+.rotate-board:hover,
+.rotate-board:focus {
   background-color: green;
 }
 
@@ -145,7 +152,7 @@ table ::selection {
   color: white;
   text-align: center;
   font-weight: bold;
-  text-shadow: 1px 4px 3px rgba(0,0,0,0.5), 0px -5px 35px rgba(7, 6, 6, 0.3) !important;
+  text-shadow: 1px 4px 3px rgba(0, 0, 0, 0.5), 0px -5px 35px rgba(7, 6, 6, 0.3) !important;
 }
 
 .forfeit {
@@ -162,10 +169,11 @@ table ::selection {
   -moz-box-shadow: 1px 1px 1px 1px rgb(160, 155, 155);
   -webkit-box-shadow: 1px 1px 1px 1px rgb(160, 155, 155);
   box-shadow: 1px 1px 1px 1px 1px 1px 1px 1px rgb(160, 155, 155);
-  border-radius: 2px; 
+  border-radius: 2px;
 }
 
-.forfeit:hover, .forfeit:focus {
+.forfeit:hover,
+.forfeit:focus {
   background-color: black;
   color: whitesmoke;
   border: 2px solid red;
@@ -193,6 +201,32 @@ table ::selection {
   vertical-align: middle;
 }
 
+.promote {
+  cursor: pointer;
+  background-color: rgb(6, 182, 73);
+  border: 1px solid silver;
+  color: rgb(216, 213, 213);
+  letter-spacing: 2px;
+  padding-right: 4px;
+  padding-left: 4px;
+  margin: auto;
+  border-radius: 2px;
+  text-align: center;
+  -moz-box-shadow: 1px 1px 1px 1px rgb(160, 155, 155);
+  -webkit-box-shadow: 1px 1px 1px 1px rgb(160, 155, 155);
+  box-shadow: 1px 1px 1px 1px 1px 1px 1px 1px rgb(160, 155, 155);
+  border-radius: 2px;
+}
+
+.promote:hover,
+.promote:focus {
+  background-color: green;
+}
+
+.promotion-disabled {
+  pointer-events: none;
+}
+
 @media (max-width: 768px) {
   table {
     height: 200px;
@@ -202,7 +236,7 @@ table ::selection {
     box-shadow: 1px 1px 1px 1px #707070;
     z-index: 2px;
   }
-  
+
   .set-board {
     position: relative;
     width: 200px;
@@ -210,35 +244,35 @@ table ::selection {
     margin-right: auto;
     margin-left: auto;
   }
-  
+
   .chess {
     position: fixed;
     width: 200px;
     margin-bottom: 50px;
     padding: 10px;
   }
-  
+
   .y_labels {
     margin-top: -200px;
     width: 10px;
     margin-left: -20px;
     background-color: rgb(193, 154, 107) !important;
   }
-  
+
   .x_labels {
     height: 10px;
     width: 252px;
     background-color: rgb(165, 136, 125) !important;
     margin-bottom: 10px;
   }
-  
+
   #labels {
     position: fixed;
     color: white;
     text-align: center;
     font-weight: bold;
   }
-  
+
   .white {
     color: rgb(129, 126, 124) !important;
     vertical-align: middle;
@@ -248,7 +282,7 @@ table ::selection {
     text-align: center;
     vertical-align: middle;
   }
-  
+
   .black {
     color: rgb(87, 72, 65) !important;
     vertical-align: middle;
