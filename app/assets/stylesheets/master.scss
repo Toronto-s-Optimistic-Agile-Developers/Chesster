@@ -104,12 +104,6 @@ table ::selection {
   color: none;
   background: none;
 }
-
-table ::selection {
-  color: none;
-  background: none;
-}
-
 .set-board {
   position: relative;
   cursor: pointer;
@@ -174,21 +168,23 @@ table ::selection {
   border-radius: 0;
 }
 
+
 .white {
   color: rgb(129, 126, 124) !important;
-  vertical-align: middle;
-  text-shadow: #636060 1px 1px 0;
-  font-size: 50px;
-  font-weight: 500;
-  text-align: center;
-  vertical-align: middle;
+  vertical-align: middle !important;
+  text-shadow: #636060 1px 1px 0 !important;
+  font-size: 50px !important;
+  font-weight: 500 !important;
+  text-align: center !important;
+  vertical-align: middle !important;
 }
+
 
 .black {
   color: rgb(87, 72, 65) !important;
   vertical-align: middle;
   text-shadow: #d6d4d4 1px 1px 0;
-  font-size: 50px;
+  font-size: 50px !important;
   font-weight: 500;
   text-align: center !important;
   vertical-align: middle;
@@ -259,4 +255,8 @@ table ::selection {
     text-align: center !important;
     vertical-align: middle;
   }
+}
+
+.highlighted a {
+  background-color: #0F0;
 }

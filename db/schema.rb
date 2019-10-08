@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2019_10_05_182441) do
+=======
+ActiveRecord::Schema.define(version: 2019_09_29_192421) do
+>>>>>>> efc572501d90d9b85733d72ce4521539ffdd73f3
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,7 +57,10 @@ ActiveRecord::Schema.define(version: 2019_10_05_182441) do
     t.string "color"
     t.string "name"
     t.boolean "captured", default: false
+<<<<<<< HEAD
     t.boolean "initial_postion?", default: true
+=======
+>>>>>>> efc572501d90d9b85733d72ce4521539ffdd73f3
   end
 
   create_table "users", force: :cascade do |t|

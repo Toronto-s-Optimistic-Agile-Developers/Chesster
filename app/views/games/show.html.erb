@@ -28,6 +28,7 @@
       <div class="board">
         <table>
           <% (0..7).each do |y_coord| %>
+<<<<<<< HEAD
             <% (0..7).each do |x_coord| %>
               <td data-x-coord=<%=x_coord %> data-y-coord=<%= y_coord %> class=<%= "#{(y_coord.odd? == x_coord.odd? ? "white-tile" : "black-tile")}" %>>
                 <% if board_piece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
@@ -37,6 +38,18 @@
                 <% end %>
               </td>
             <% end %>
+=======
+            <% (0..7).each do |x_coord| %>              
+              <td data-x-coord=<%=x_coord %> data-y-coord=<%= y_coord %> class='tile <%= "#{(y_coord.odd? == x_coord.odd? ? "white-tile droppable-tile" : "black-tile droppable-tile")}" %>
+                '>  
+                  <% if board_piece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
+                      <%= tag.span title: board_piece.name, id: board_piece.id.to_s, class: "#{board_piece.color} selectable-piece"  do %>
+                      <%= board_piece.unicode_symbol.html_safe %>
+                    <% end %>  
+                  <% end %>
+                </td>
+              <% end %>
+>>>>>>> efc572501d90d9b85733d72ce4521539ffdd73f3
             </tr>
           <% end %>
         </table>
@@ -66,6 +79,7 @@
       </div>
     </div>
   </div>
+<<<<<<< HEAD
   <div id="forfeit">
     <% if @game.white_id != nil && @game.black_id != nil %> 
       <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>
@@ -82,6 +96,11 @@
   </div>
   <%= link_to 'Back', games_path, class: 'btn btn-default' %>
   <script>
+=======
+
+  <%= link_to 'Back', games_path %>
+<script>
+>>>>>>> efc572501d90d9b85733d72ce4521539ffdd73f3
     var rotation = 0;
 
     jQuery.fn.rotate = function(degrees) {
@@ -101,6 +120,57 @@
         rotation -=180;
         $('.set-board, .chess td, #labels td').rotate(rotation);
     });
+<<<<<<< HEAD
   </script>
 </body>
+=======
+
+    $("tile").addClass("droppable-tile");
+    $( ".selectable-piece" ).draggable({
+      cancel: "a.ui-icon", 
+      revert: "invalid",
+      containment: "document",
+      snap: ".document td",
+      snapTolerance: 20,
+      helper: "clone",
+      cursor: "move"
+    });
+    $( ".droppable-tile").droppable({
+      accept: ".selectable-piece",
+      tolerance: "pointer",
+      classes: {
+        "ui-droppable-active": "ui-state-active",
+        "ui-droppable-hover": "ui-state-hover"
+      },
+      drop: function( event, ui ) {
+        const $newDroppableTile = $(this)
+          $.ajax({
+          beforeSend: function(xhr) {
+          xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+          },
+          type: "PATCH",
+          dataType: 'text',
+          url: "/pieces/" + ui.draggable.attr('id'),
+          data: {
+            piece: {
+              x_coord: $(this).data("x-coord"),
+              y_coord: $(this).data("y-coord")
+            },
+          },
+                    error:  function(xhr){
+            var errorMessage = $.parseJSON(xhr.responseText).message
+            var alertClass = $.parseJSON(xhr.responseText).class
+            $("#alert_msg").addClass(alertClass)
+            $("#alert_msg").html('<p>'+ errorMessage + '</p>')
+          },
+          success: function(){
+            $newDroppableTile.append($(ui.draggable));
+          }
+        });
+      }
+    });
+  </script>>
+</body>
+<%= @piece.inspect %>
+>>>>>>> efc572501d90d9b85733d72ce4521539ffdd73f3
 
