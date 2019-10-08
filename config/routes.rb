@@ -18,5 +18,7 @@ Rails.application.routes.draw do
       patch :forfeit
     end
   end
-    resources :pieces, only: %i[show edit update]
+    resources :pieces, only: %i[show edit update] do
+      patch :promote
+    end
 end

@@ -6,7 +6,7 @@ class Game < ApplicationRecord
   belongs_to :black_player, class_name: 'User', optional: true
 
   def in_play?
-    @game.white_id != nil || @game.black_id != nil
+    game.white_id != nil || game.black_id != nil
   end
 
   def tile_taken?(x_path, y_path)

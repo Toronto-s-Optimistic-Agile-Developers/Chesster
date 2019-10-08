@@ -11,10 +11,4 @@ class Pawn < Piece
 		else
 			(x_dif == 0 && y_dif == 1)
 		end
-
-		if self.white? && self.y_coord == 7
-			self.promote
-		elsif self.black? && self.y_coord == 0 
-			self.promote
-  end
 end

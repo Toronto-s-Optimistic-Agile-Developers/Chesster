@@ -14,13 +14,17 @@ class PiecesController < ApplicationController
     end
   end
 
+  def promote
+    @piece.update_attributes(params[:type])
+  end
+
   def update
     @piece = Piece.find_by(params[:id])
     x_path = @piece.x_coord
     y_path = @piece.y_coord
-    if @piece.valid_move? 
+    if @piece.valid_move?(x_path, y_path)
       @piece.move_to!(x_path, y_path)  
-      @piece.initial_postion? = false
+      @piece.update_attributes(params[:idinitial_postion? => false])
       @piece.update_attributes(piece_params)
     end
   end  

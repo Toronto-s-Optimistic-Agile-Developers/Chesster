@@ -66,6 +66,17 @@
       </div>
     </div>
   </div>
+
+  <div id="promote">
+    <% if Pawn.white? && Pawn.y_coord == 7 || Pawn.black? && Pawn.y_coord == 0 %> 
+      <%= simple_form_for @piece, url: piece_promote_path(@piece) do |f| %>
+          <% f.collection_select :type, Piece.order(:name) %>
+        <% end %>
+        <%= f.submit "Promote Pawn", class: "promote", data: { confirm: "Are you sure this is the promotion you want for your awesome pawn?"} %>
+      <% end %>
+    <% end %>
+  </div>
+  
   <div id="forfeit">
     <% if @game.white_id != nil && @game.black_id != nil %> 
       <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>
