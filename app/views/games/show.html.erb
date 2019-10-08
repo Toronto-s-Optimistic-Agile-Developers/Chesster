@@ -68,11 +68,11 @@
   </div>
 
   <div id="promote">
-    <% if Pawn.white? && Pawn.y_coord == 7 || Pawn.black? && Pawn.y_coord == 0 %> 
+    <% if Pawn.promote? %> 
       <%= simple_form_for @piece, url: piece_promote_path(@piece) do |f| %>
-          <% f.collection_select :type, Piece.order(:name) %>
-        <% end %>
-        <%= f.submit "Promote Pawn", class: "promote", data: { confirm: "Are you sure this is the promotion you want for your awesome pawn?"} %>
+        <%= f.collection_select :type, Piece.all, :name, text_method %>
+        <%= f.submit %>
+        <%= f.submit "Forfeit", class: "promote" , data: { confirm: "Are you sure that is the promotion that you  want for your awesome Pawn?"} %>
       <% end %>
     <% end %>
   </div>

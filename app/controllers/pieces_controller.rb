@@ -24,7 +24,7 @@ class PiecesController < ApplicationController
     y_path = @piece.y_coord
     if @piece.valid_move?(x_path, y_path)
       @piece.move_to!(x_path, y_path)  
-      @piece.update_attributes(params[:idinitial_postion? => false])
+      @piece.update_attributes(params[:initial_position? => false])
       @piece.update_attributes(piece_params)
     end
   end  

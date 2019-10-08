@@ -11,4 +11,11 @@ class Pawn < Piece
 		else
 			(x_dif == 0 && y_dif == 1)
 		end
+	end
+
+	def promote?
+		if Pawn.white? && Pawn.y_coord == 7 || Pawn.black? && y_coord == 0
+			return true
+		end
+	end
 end
