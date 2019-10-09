@@ -14,20 +14,22 @@ class PiecesController < ApplicationController
     end
   end
 
-  def promote
-    @piece.update_attributes(params[:type])
-  end
-
   def update
-    @piece = Piece.find_by(params[:id])
+    @piece = Piece.find(params[:id])
     x_path = @piece.x_coord
     y_path = @piece.y_coord
     if @piece.valid_move?(x_path, y_path)
       @piece.move_to!(x_path, y_path)  
-      @piece.update_attributes(params[:initial_position? => false])
       @piece.update_attributes(piece_params)
     end
   end  
+  
+  def show
+    @piece = Piece.find(params[:id])
+    @game = @piece.game
+    @pieces = @game.pieces  
+  end
+
 
   private
 
@@ -39,6 +41,6 @@ class PiecesController < ApplicationController
   
   def piece_params
     params.require(:piece).permit(:name, :color, :x_coord, :y_coord, :game_id, :player_id, :type, :initial_postion?)
+
   end
 end
-

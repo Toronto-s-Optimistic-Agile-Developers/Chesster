@@ -1,5 +1,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=3.0, minimum-scale=0.86">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body data-turbolinks="false">
   <p id="notice"><%= notice %></p>
@@ -31,9 +33,9 @@
             <% (0..7).each do |x_coord| %>
               <td data-x-coord=<%=x_coord %> data-y-coord=<%= y_coord %> class=<%= "#{(y_coord.odd? == x_coord.odd? ? "white-tile" : "black-tile")}" %>>
                 <% if board_piece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
-                  <span class="<%= board_piece.color %>" title="<%= board_piece.name %>">
-                    <%= board_piece.unicode_symbol.html_safe %>
-                  </span>
+                   <%= tag.span title: board_piece.name, id: board_piece.id.to_s, class: "#{board_piece.color} selectable-piece" do %>
+                      <%= board_piece.unicode_symbol.html_safe %>               
+                    <% end %>
                 <% end %>
               </td>
             <% end %>
@@ -76,7 +78,7 @@
       <% end %>
     <% end %>
   </div>
-  
+
   <div id="forfeit">
     <% if @game.white_id != nil && @game.black_id != nil %> 
       <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>
@@ -87,7 +89,7 @@
           <%= f.input :winner, as: :hidden, :input_html => { :value => @game.white_id } %>
           <%= f.input :loser, as: :hidden, :input_html => { :value => @game.black_id } %>
         <% end %>
-        <%= f.submit "Forfeit", class: "forfeit" , data: { confirm: "Are you sure you want to concede the game?"} %>
+        <%= f.submit "Forfeit", class: "forfeit" , data: { confirm: "Are you sure you want to forfeit the game?"} %>
       <% end %>
     <% end %>
   </div>
@@ -114,4 +116,3 @@
     });
   </script>
 </body>
-

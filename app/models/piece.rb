@@ -1,6 +1,7 @@
 class Piece < ApplicationRecord
   belongs_to :game
   belongs_to :user, required: false
+
   
     def location(x,y)
       x = piece_params[:x_coord]
@@ -22,7 +23,7 @@ class Piece < ApplicationRecord
   end
 
   def has_moved?
-    if piece.initial_postion? == true
+    if self.initial_postion? == true
       return false
     else
       return true
@@ -43,6 +44,10 @@ class Piece < ApplicationRecord
       return false
     end
   end 
+
+   def diagonal_move?(x_dif, y_dif)
+    x_dif == y_dif
+  end
 
   def is_obstructed?(x_path, y_path) 
     self.valid_move?
@@ -105,17 +110,24 @@ class Piece < ApplicationRecord
     end
   end
 
-  def valid_move?(x_path, y_path)
-    if on_the_board?(x_path, y_path) || (x_coord == x_path && y_coord == y_path)
-      return true if legal_move?(x_path, y_path) && ! is_obstructed?(x_path, y_path)
-    end
-    flash[:danger] = "Move cannot be completed."
-    return false
+  def valid_move?(x_dif, y_dif)
+   flash[:error] unless self.x_coord.present? && self.y_coord.present? && self.on_the_board? == false
+      x_dif = (x_path - x_coord)
+      y_dif = (y_path - y_coord)
+      if on_the_board?(x_dif, y_dif) || (x_coord == x_path) && (y_coord == y_path)
+      elsif legal_move?(x_dif, y_dif) && ! is_obstructed?(x_dif, y_dif)
+        self.update(initial_postion?: false)
+        return true 
+      end
+        # render 'Move cannot be completed.', class: 'danger'
+        return false
   end
 
   def move_to!(x_path, y_path)
-    rival_piece = self.find_by(x_coord: x_path, y_coord: y_path)
-    if rival_piece.present? && rival_piece.color != piece.color
+    rival_piece = piece.find_by(x_coord: x_path, y_coord: y_path)
+    if self.type == Pawn && rival_piece.color != self.color
+      (x_path == 1) && (y_path == 1)
+    elsif rival_piece.present? && rival_piece.color != self.color
       rival_piece.removed?
       update_attributes(x_coord: x_path, y_coord: y_path)
     elsif rival_piece.present? == false
