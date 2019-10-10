@@ -1,9 +1,9 @@
 class PiecesController < ApplicationController
-  before_action :find_piece
+ # before_action :find_piece
   
-  def new
-    @piece = game.pieces.new
-  end
+  #def new
+   # @piece = game.pieces.new
+  #end
 
   def create
     @piece = game.pieces.create(piece_params)
@@ -15,14 +15,13 @@ class PiecesController < ApplicationController
   end
 
   def update
-    @piece = Piece.find_by(params[:id])
-    x_path = @piece.x_coord
-    y_path = @piece.y_coord
-    if @piece.valid_move? 
-      @piece.move_to!(x_path, y_path)  
-      @piece.initial_postion? == false
-      @piece.update_attributes(piece_params)
+    @piece = Piece.find(params[:id])
+    @piece.update_attributes(piece_params)
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: @piece, status: :ok }
     end
+
   end  
   
   def show
@@ -41,7 +40,6 @@ class PiecesController < ApplicationController
   end
   
   def piece_params
-    params.require(:piece).permit(:name, :color, :x_coord, :y_coord, :game_id, :player_id, :type, :initial_postion?)
-
+    params.permit(:id, :name, :color, :x_coord, :y_coord, :game_id, :player_id, :type, :initial_postion?)
   end
 end
