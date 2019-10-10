@@ -1,6 +1,4 @@
 class GamesController < ApplicationController
-  has_many :pieces
-  belongs_to :user
   before_action :authenticate_user!
   
   def new
@@ -54,9 +52,6 @@ class GamesController < ApplicationController
     end
     redirect_to games_path
   end
-
-  def promote
-    @game.update_attributes(piece_params)
 
   private
 

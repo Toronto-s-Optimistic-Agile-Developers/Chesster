@@ -1,11 +1,9 @@
 class Piece < ApplicationRecord
   belongs_to :game
   belongs_to :user, required: false
-
-  
     def location(x,y)
-      x = piece_params[:x_coord]
-      y = piece_params[:y_coord]
+      x_coords = piece_params[:x_coord]
+      y_coords = piece_params[:y_coord]
     end
   
     def white?
@@ -45,8 +43,8 @@ class Piece < ApplicationRecord
     end
   end 
 
-   def diagonal_move?(x_dif, y_dif)
-    x_dif == y_dif
+   def diagonal_move?(x_path, y_path)
+    x_path == y_path
   end
 
   def is_obstructed?(x_path, y_path) 
@@ -110,12 +108,10 @@ class Piece < ApplicationRecord
     end
   end
 
-  def valid_move?(x_dif, y_dif)
+  def valid_move?(x_path, y_path)
    flash[:error] unless self.x_coord.present? && self.y_coord.present? && self.on_the_board? == false
-      x_dif = (x_path - x_coord)
-      y_dif = (y_path - y_coord)
-      if on_the_board?(x_dif, y_dif) || (x_coord == x_path) && (y_coord == y_path)
-      elsif legal_move?(x_dif, y_dif) && ! is_obstructed?(x_dif, y_dif)
+      if on_the_board?(x_path, y_path) || (x_coord == x_path) && (y_coord == y_path)
+      elsif legal_move?(x_path, y_path) && ! is_obstructed?(x_path, y_path)
         self.update(initial_postion?: false)
         return true 
       end
@@ -134,4 +130,10 @@ class Piece < ApplicationRecord
       update_attributes(x_coord: x, y_coord: y)
     end
   end
+
+  def promote?
+		if Pawn.white? && Pawn.y_coord == 7 || Pawn.black? && y_coord == 0
+			return true
+		end
+	end
 end

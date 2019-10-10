@@ -70,7 +70,7 @@
   </div>
 
   <div id="promote">
-    <% if Pawn.promote? %> 
+    <% if @pieces.promote? %> 
       <%= simple_form_for @piece, url: piece_promote_path(@piece) do |f| %>
         <%= f.collection_select :type, Piece.all, :name, text_method %>
         <%= f.submit %>
