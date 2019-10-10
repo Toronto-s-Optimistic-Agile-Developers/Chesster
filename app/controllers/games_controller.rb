@@ -39,9 +39,9 @@ class GamesController < ApplicationController
   end
 
   def update
-    @game = current_game
-    @game.update(game_params)
-    @game.reload
+    # @game = current_game
+    # @game.update(game_params)
+    # @game.reload
   end
 
   def forfeit

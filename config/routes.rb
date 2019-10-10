@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   root to: "static_pages#show"
 
 
-
+  resources :pieces
   resources :moves
   resources :games do
     member do
@@ -20,5 +20,5 @@ Rails.application.routes.draw do
       patch :forfeit
     end
   end
-    resources :pieces, only: %i[show edit update]
+    
 end
