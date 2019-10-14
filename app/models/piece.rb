@@ -1,9 +1,14 @@
 class Piece < ApplicationRecord
   belongs_to :game
   belongs_to :user, required: false
+
+  # def self.types
+  #   unscoped.select(:type).distinct.pluck(:type)
+  # end
+  # Piece.descendants.map {|klass| klass.name.demodulize }
     def location(x,y)
-      x_coords = piece_params[:x_coord]
-      y_coords = piece_params[:y_coord]
+      x_coord = piece_params[:x_coord].to_i
+      y_coord= piece_params[:y_coord].to_i
     end
   
     def white?
@@ -16,7 +21,7 @@ class Piece < ApplicationRecord
   
     def removed?
       if piece.params[x_coord: nil, y_coord: nil]
-        piece.captured = true
+        self.update(captured: true, x_coord: nil, y_coord: nil)
       end
   end
 
@@ -27,6 +32,8 @@ class Piece < ApplicationRecord
       return true
     end
   end
+
+  
 
   def friendly_piece
     return true if self.game.tile_taken?(x_path, y_path) && self.color == self.game.pieces.where(x_coord: x_path, y_coord: y_path).first.color
@@ -109,14 +116,14 @@ class Piece < ApplicationRecord
   end
 
   def valid_move?(x_path, y_path)
-   flash[:error] unless self.x_coord.present? && self.y_coord.present? && self.on_the_board? == false
-      if on_the_board?(x_path, y_path) || (x_coord == x_path) && (y_coord == y_path)
-      elsif legal_move?(x_path, y_path) && ! is_obstructed?(x_path, y_path)
+    if on_the_board?(x_path, y_path) || (x_coord == x_path) && (y_coord == y_path)
+      if legal_move?(x_path, y_path) && ! is_obstructed?(x_path, y_path)
         self.update(initial_postion?: false)
         return true 
-      end
-        # render 'Move cannot be completed.', class: 'danger'
+      else
         return false
+      end
+    end
   end
 
   def move_to!(x_path, y_path)
@@ -131,9 +138,20 @@ class Piece < ApplicationRecord
     end
   end
 
-  def promote?
-		if Pawn.white? && Pawn.y_coord == 7 || Pawn.black? && y_coord == 0
-			return true
+  def promote?(x_path, y_path)
+    if self.type == Pawn && (y_coord == 7 && !white?) || (y_coord == 0 && white?)
+      1.times do 
+        @piece.game.reload
+      end
+      return true
 		end
-	end
+  end
+  
+  RANK = {
+    'Knight': 'Knight',
+    'Bishop': 'Bishop',
+    'Rook': 'Rook',
+    'Queen': 'Queen'
+  }
+  
 end

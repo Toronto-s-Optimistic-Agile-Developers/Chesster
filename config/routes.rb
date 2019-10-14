@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {omniauth_callbacks: "users/omniauth_callbacks"}
-  
  
   get 'logout', to: 'sessions#destroy', as: 'logout'
   get 'auth/:provider/callback', to: 'sessions#create'
@@ -11,8 +10,6 @@ Rails.application.routes.draw do
 
   root to: "static_pages#show"
 
-
-
   resources :moves
   resources :games do
     member do
@@ -20,7 +17,8 @@ Rails.application.routes.draw do
       patch :forfeit
     end
   end
-    resources :pieces, only: %i[show edit update] do
-      patch :promote
-    end
+
+  resources :pieces, only: %i[show edit update destroy] do
+    patch :promote
+  end
 end

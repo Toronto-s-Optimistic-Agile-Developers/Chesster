@@ -1,6 +1,10 @@
 @import "bootstrap";
 @import "font-awesome";
 
+.piece-size {
+  font-size: 40px;
+}
+
 .booyah-box {
   -moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
   -webkit-box-shadow: 1px 1px 2px 0 #d0d0d0;
@@ -82,15 +86,53 @@
 
 .rotate-board {
   cursor: pointer;
+  margin-top: 2px;
+  font-size: 12px;
   color: rgb(247, 244, 244);
   background-color: #5553e9;
-  font-weight: bold;
-  padding: 5px;
-  border-radius: 7px;
-  border: 1px solid rgb(53, 51, 51);
-  font-family: 'Grenze', serif;
+  letter-spacing: 2px;
+  padding: 2px;
+  border-radius: 2px;
+  border-top: 1px solid rgb(82, 80, 80);
+  border-left: 1px solid rgb(82, 80, 80);
+  border-bottom: 1px solid rgb(17, 16, 16);
+  border-right: 1px solid rgb(17, 16, 16);
   width: 70px;
   text-align: center;
+}
+
+.alert {
+  text-align: center;
+  margin-top: 0;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  font-size: 10px;
+  margin-bottom: 1px;
+  font-weight: bold;
+  color: red;
+  z-index: -1;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  width: 98%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.notice {
+  text-align: center;
+  margin-top: 0;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  font-size: 10px;
+  margin-bottom: 1px;
+  font-weight: bold;
+  color: white;
+  z-index: -1;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  width: 98%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .rotate-board:hover,
@@ -148,6 +190,7 @@ table ::selection {
 }
 
 #labels {
+  cursor: default;
   position: fixed;
   color: white;
   text-align: center;
@@ -157,18 +200,20 @@ table ::selection {
 
 .forfeit {
   cursor: pointer;
+  font-size: 12px;
   background-color: rgb(104, 12, 12);
   border: 1px solid silver;
   color: rgb(216, 213, 213);
   letter-spacing: 2px;
   padding-right: 4px;
   padding-left: 4px;
+  padding: 2px;
   margin: auto;
   border-radius: 2px;
   text-align: center;
   -moz-box-shadow: 1px 1px 1px 1px rgb(160, 155, 155);
   -webkit-box-shadow: 1px 1px 1px 1px rgb(160, 155, 155);
-  box-shadow: 1px 1px 1px 1px 1px 1px 1px 1px rgb(160, 155, 155);
+  box-shadow: 1px 1px 1px 1px rgb(160, 155, 155);
   border-radius: 2px;
 }
 
@@ -179,9 +224,86 @@ table ::selection {
   border: 2px solid red;
   font-weight: 700;
   border-radius: 0;
+  box-shadow: none;
+}
+
+#promote {
+  .was-validated .form-control:valid,
+  .form-control.is-valid {
+    background-image: none !important;
+  }
+}
+
+.promote,
+.promote {
+  cursor: pointer;
+  font-size: 12px;
+  background-color: rgb(32, 126, 3);
+  border: 1px solid silver;
+  color: rgb(216, 213, 213) !important;
+  letter-spacing: 2px;
+  padding-right: 4px;
+  padding-left: 4px;
+  padding: 2px;
+  margin: auto;
+  border-radius: 2px;
+  text-align: center;
+  -moz-box-shadow: 1px 1px 1px 1px rgb(160, 155, 155);
+  -webkit-box-shadow: 1px 1px 1px 1px rgb(160, 155, 155);
+  box-shadow: 1px 1px 1px 1px rgb(160, 155, 155);
+  border-radius: 2px;
+}
+
+.promote:hover,
+.promote:focus {
+  background-color: rgb(2, 110, 2);
+  text-decoration: none;
+  color: white;
+  box-shadow: none;
+}
+
+.promotion-notice {
+  font-weight: 500;
+  color: whitesmoke;
+  text-align: center;
+  border: 1px solid #868585;
+  border-radius: 2px;
+  -moz-box-shadow: 1px 1px 1px 1px rgb(51, 50, 50);
+  -webkit-box-shadow: 1px 1px 1px 1px rgb(51, 50, 50);
+  box-shadow: 1px 1px 1px 1px rgb(51, 50, 50);
+  background-color: rgb(13, 129, 13);
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  padding: 10px;
+}
+
+.btn.btn-danger {
+  color: white;
+}
+
+.back {
+  color: white;
+  letter-spacing: 2px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  border-radius: 0;
+  font-size: 12px;
+  -moz-box-shadow: 1px 1px 1px 1px rgb(179, 174, 174);
+  -webkit-box-shadow: 1px 1px 1px 1px rgb(180, 175, 175);
+  box-shadow: 1px 1px 1px 1px rgb(156, 155, 155);
+  text-align: center;
+}
+
+.back:hover,
+.back:focus {
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 
 .white {
+  cursor: grab;
   color: rgb(129, 126, 124) !important;
   vertical-align: middle;
   text-shadow: #636060 1px 1px 0;
@@ -192,6 +314,7 @@ table ::selection {
 }
 
 .black {
+  cursor: grab;
   color: rgb(87, 72, 65) !important;
   vertical-align: middle;
   text-shadow: #d6d4d4 1px 1px 0;
@@ -199,32 +322,6 @@ table ::selection {
   font-weight: 500;
   text-align: center !important;
   vertical-align: middle;
-}
-
-.promote {
-  cursor: pointer;
-  background-color: rgb(6, 182, 73);
-  border: 1px solid silver;
-  color: rgb(216, 213, 213);
-  letter-spacing: 2px;
-  padding-right: 4px;
-  padding-left: 4px;
-  margin: auto;
-  border-radius: 2px;
-  text-align: center;
-  -moz-box-shadow: 1px 1px 1px 1px rgb(160, 155, 155);
-  -webkit-box-shadow: 1px 1px 1px 1px rgb(160, 155, 155);
-  box-shadow: 1px 1px 1px 1px 1px 1px 1px 1px rgb(160, 155, 155);
-  border-radius: 2px;
-}
-
-.promote:hover,
-.promote:focus {
-  background-color: green;
-}
-
-.promotion-disabled {
-  pointer-events: none;
 }
 
 @media (max-width: 768px) {
@@ -294,6 +391,6 @@ table ::selection {
   }
 }
 
-.highlighted a {
-  background-color: #0F0;
-}
+// .piece-size {
+//   font-size: 40px;
+// }

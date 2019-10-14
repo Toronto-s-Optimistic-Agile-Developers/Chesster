@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+  
   before_action :authenticate_user!
   
   def new
@@ -13,7 +14,7 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game = Game.find(params[:id])
+    @game = Game.find_by_id(params[:id])
     @pieces = @game.pieces
   end
 
@@ -38,19 +39,20 @@ class GamesController < ApplicationController
   end
 
   def update
-    @game = current_game
-    @game.update(game_params)
-    @game.reload
+    # @game = current_game
+    # @game.update(game_params)
+    # @game.reload
   end
 
-  def forfeit
+  def destroy
     @game = Game.find_by_id(params[:id])
-    if current_user == @game.white_id
-      @game.update_attributes(winner: @game.black_id, loser: @game.white_id)
+    if @game.in_play?
+      return render plain: "Not Allowed", status: :forbidden
     else
-      @game.update_attributes(winner: @game.white_id, loser: @game.black_id)
+      @game.pieces.destroy_all
+      @game.destroy
+      redirect_to games_path
     end
-    redirect_to games_path
   end
 
   private

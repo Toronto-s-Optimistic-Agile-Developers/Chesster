@@ -2,7 +2,6 @@
 
 class Game < ApplicationRecord
 
-  has_many :pieces
   belongs_to :white_player, class_name: 'User', optional: true
   belongs_to :black_player, class_name: 'User', optional: true
 
@@ -16,7 +15,7 @@ class Game < ApplicationRecord
   end
   
   def in_play?
-    game.white_id != nil || game.black_id != nil
+    self.white_id != nil && self.black_id != nil
   end
 
   def tile_taken?(x_path, y_path)

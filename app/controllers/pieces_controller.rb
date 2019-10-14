@@ -1,11 +1,7 @@
 class PiecesController < ApplicationController
-  before_action :find_piece
-  before_action :location
-  
-  def new
-    @piece = game.pieces.new
-  end
+  before_action :find_piece, :authenticate_move
 
+  
   def create
     @piece = game.pieces.create(piece_params)
     if @piece.valid?
@@ -15,27 +11,36 @@ class PiecesController < ApplicationController
     end
   end
 
-  def update
-    x_path = @piece.x_coord
-    y_path = @piece.y_coord
-    if @piece.valid_move?(x_path, y_path)
-      @piece.move_to!(x_path, y_path)  
-      @piece.update_attributes(piece_params)
-    end
-  end  
-  
-  def show
+  def edit
     @piece = Piece.find(params[:id])
+  end
+
+  def update
+    @piece = Piece.find(params[:id])
+    x_path = piece_params[:x_coord].to_i
+    y_path = piece_params[:y_coord].to_i
+    if authenticate_move 
+      respond_to do |format|
+        format.html { render :show }
+        format.json { render json: @piece, status: :ok }
+        @piece.update_attributes(piece_params)
+      end
+    else 
+      flash[:alert] = 'Your move cannot be completed!'
+      @pieces.game.reload
+    end
+  end
+
+  def show
+    @piece = Piece.find_by_id(params[:id])
     @game = @piece.game
     @pieces = @game.pieces  
   end
 
-
   private
 
-  def promote?
-    @pieces = Piece.find(params[:id])
-    @pieces.update_attributes(piece_params)
+  def authenticate_move
+    return if @piece.valid_move?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) || @piece.promote?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i)
   end
 
   def find_piece
@@ -45,11 +50,6 @@ class PiecesController < ApplicationController
   end
   
   def piece_params
-    params.require(:piece).permit(:name, :color, :x_coord, :y_coord, :game_id, :player_id, :type, :initial_postion?)
-  end
-
-  def location
-    x_path = @piece.x_coord
-    y_path = @piece.y_coord
+    params.permit(:id, :name, :color, :x_coord, :y_coord, :game_id, :player_id, :type, :captured, :initial_postion?)
   end
 end
