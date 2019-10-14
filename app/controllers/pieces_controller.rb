@@ -34,7 +34,7 @@ class PiecesController < ApplicationController
   end
 
   def show
-    @piece = Piece.find_by_id(params[:id])
+    @piece = Piece.find(params[:id])
     @game = @piece.game
     @pieces = @game.pieces  
   end
