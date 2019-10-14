@@ -18,7 +18,5 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :pieces, only: %i[show edit update destroy] do
-    patch :promote
-  end
+  resources :pieces
 end

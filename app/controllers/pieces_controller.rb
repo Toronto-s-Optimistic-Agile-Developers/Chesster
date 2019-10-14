@@ -17,18 +17,20 @@ class PiecesController < ApplicationController
 
   def update
     @piece = Piece.find(params[:id])
+    @game = @piece.game
     x_path = piece_params[:x_coord].to_i
     y_path = piece_params[:y_coord].to_i
-    if authenticate_move 
+    # if authenticate_move 
       respond_to do |format|
         format.html { render :show }
         format.json { render json: @piece, status: :ok }
         @piece.update_attributes(piece_params)
       end
-    else 
-      flash[:alert] = 'Your move cannot be completed!'
-      @pieces.game.reload
-    end
+      @game.reload
+    # else 
+    #   flash[:alert] = 'Your move cannot be completed!'
+    #   @game.reload
+    # end
   end
 
   def show
@@ -39,14 +41,14 @@ class PiecesController < ApplicationController
 
   private
 
-  def authenticate_move
-    return if @piece.valid_move?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) || @piece.promote?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i)
-  end
-
   def find_piece
     @piece = Piece.find(params[:id])
     @color = @piece.color
     @game = @piece.game
+  end
+
+  def authenticate_move
+    return if @piece.valid_move?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) && @piece.promote?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i)
   end
   
   def piece_params

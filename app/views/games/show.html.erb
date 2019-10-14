@@ -39,6 +39,12 @@
                         <%= x_coord %> data-y_coord=
                         <%= y_coord %>>
                             <%= board_piece.unicode_symbol.html_safe %>
+                            
+                            <div class="promote">
+                             <%= link_to "Promote", edit_piece_path %>
+                            </div>
+                              <% @game.reload %>
+                            
                       </div>
                     <% end %>
                 </td>
@@ -75,9 +81,6 @@
           <br />
       </div>
     </div>
-  </div>
-  <div id="promote-link">
-    <%= link_to "Promote", edit_piece_path(@piece), class: "promote" %>
   </div>
   <div id="forfeit">
     <% if @game.in_play? %>

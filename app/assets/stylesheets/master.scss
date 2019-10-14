@@ -234,8 +234,7 @@ table ::selection {
   }
 }
 
-.promote,
-.promote {
+.promote a {
   cursor: pointer;
   font-size: 12px;
   background-color: rgb(32, 126, 3);
@@ -245,18 +244,18 @@ table ::selection {
   padding-right: 4px;
   padding-left: 4px;
   padding: 2px;
+  padding-top: 0;
+  padding-bottom: 0;
   margin: auto;
   border-radius: 2px;
   text-align: center;
-  -moz-box-shadow: 1px 1px 1px 1px rgb(160, 155, 155);
-  -webkit-box-shadow: 1px 1px 1px 1px rgb(160, 155, 155);
-  box-shadow: 1px 1px 1px 1px rgb(160, 155, 155);
   border-radius: 2px;
+  z-index: 10;
 }
 
-.promote:hover,
-.promote:focus {
-  background-color: rgb(2, 110, 2);
+.promote a:hover,
+.promote a:focus {
+  background-color: rgb(3, 87, 3);
   text-decoration: none;
   color: white;
   box-shadow: none;

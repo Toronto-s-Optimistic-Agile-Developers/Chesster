@@ -139,7 +139,7 @@ class Piece < ApplicationRecord
   end
 
   def promote?(x_path, y_path)
-    if self.type == Pawn && (y_coord == 7 && !white?) || (y_coord == 0 && white?)
+    if self.type == Pawn && ((y_coord == 7 && !white?) || (y_coord == 0 && white?))
       1.times do 
         @piece.game.reload
       end
