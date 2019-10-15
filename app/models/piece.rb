@@ -1,15 +1,6 @@
 class Piece < ApplicationRecord
   belongs_to :game
   belongs_to :user, required: false
-
-  # def self.types
-  #   unscoped.select(:type).distinct.pluck(:type)
-  # end
-  # Piece.descendants.map {|klass| klass.name.demodulize }
-    def location(x,y)
-      x_coord = piece_params[:x_coord].to_i
-      y_coord= piece_params[:y_coord].to_i
-    end
   
     def white?
       piece.color == 'white'
@@ -20,13 +11,12 @@ class Piece < ApplicationRecord
     end
   
     def removed?
-      if piece.params[x_coord: nil, y_coord: nil]
-        self.update(captured: true, x_coord: nil, y_coord: nil)
-      end
+      self.update[x_coord: nil, y_coord: nil]
+      self.update(captured: true, x_coord: nil, y_coord: nil)
   end
 
   def has_moved?
-    if self.initial_postion? == true
+    if self.initial_position? == true
       return false
     else
       return true
@@ -61,7 +51,6 @@ class Piece < ApplicationRecord
   def is_obstructed?(x_path, y_path) 
     return true if self.game.tile_taken?(x_path, y_path) && self.color == self.game.pieces.where(x_coord: x_path, y_coord: y_path).first.color
     return false if self.type == "Knight"
-
     x_dir = x_path >= self.x_coord ? (x_path == self.x_coord ? 0 : 1) : -1
     y_dir = y_path >= self.y_coord ? (y_path == self.y_coord ? 0 : 1) : -1
     direction = [x_dir, y_dir]
@@ -75,21 +64,20 @@ class Piece < ApplicationRecord
 
   def move_to!(x_path, y_path)
     rival_piece = @piece.find_by(x_coord: x_path, y_coord: y_path)
-    if ! is_obstructed?
+    if ! is_obstructed?(x_path, y_path)
       if self.type == Pawn && rival_piece.color != self.color
         (x_path == 1) && (y_path == 1)
+        rival_piece.removed?
       elsif rival_piece.present? && rival_piece.color != self.color
         rival_piece.removed?
         update_attributes(x_coord: x_path, y_coord: y_path)
       elsif rival_piece.present? == false
-        update_attributes(x_coord: x, y_coord: y)
+        update(x_coord: x_path, y_coord: y_path)
       end
     end
   end
 
   def valid_move?(x_path, y_path)
-    #
-    #  byebug
     if on_the_board?(x_path, y_path) && ! ((x_coord == x_path) && (y_coord == y_path))
       if legal_move?(x_path, y_path) && ! is_obstructed?(x_path, y_path)
         return true 
@@ -97,15 +85,6 @@ class Piece < ApplicationRecord
         return false
       end
     end
-  end
-
-  def promote?(x_path, y_path)
-    if self.type == Pawn && ((y_coord == 7 && color == "black") || (y_coord == 0 && color == "white"))
-      1.times do 
-        @piece.game.reload
-      end
-      return true
-		end
   end
   
   RANK = {

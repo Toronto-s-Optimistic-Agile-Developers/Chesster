@@ -22,8 +22,8 @@ class PiecesController < ApplicationController
     x_path = piece_params[:x_coord].to_i
     y_path = piece_params[:y_coord].to_i
     if @piece.valid_move?(x_path, y_path)
-      @piece.move_to!(x_path, y_path)
-      @piece.update(initial_postion?: false)
+      @piece.update(initial_position?: false)
+      # @piece.move_to!(x_path, y_path)
       @piece.update_attributes(piece_params)
       respond_to do |format|
         format.html { render :show }

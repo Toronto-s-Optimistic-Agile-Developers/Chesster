@@ -39,12 +39,11 @@
                         <%= x_coord %> data-y_coord=
                         <%= y_coord %>>
                             <%= board_piece.unicode_symbol.html_safe %>
-                            <% if board_piece.promote?(x_coord, y_coord) == true %>
+                            <% if board_piece.promotion? %>
                             <span class="promote">
                              <%= link_to "Promote", edit_piece_path(board_piece.id.to_s) %>
                             </span>
                               <% @game.reload %>
-                            
                       </div>
                       <% end %>
                     <% end %>
