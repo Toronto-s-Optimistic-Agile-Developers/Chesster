@@ -1,6 +1,6 @@
 class Pawn < Piece
   def unicode_symbol	
-		return y_coord > 5 ? "&#9817;" : "&#9823;"
+		return "&#9823;"
 	end
 
 	def legal_move?(x_path, y_path)

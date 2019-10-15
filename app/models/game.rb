@@ -14,7 +14,9 @@ class Game < ApplicationRecord
     Game.where(black_player: nil) && Game.where(white_player: !nil)
   end
   
-
+  def in_play?
+    self.white_id != nil && self.black_id != nil
+  end
 
   def tile_taken?(x_path, y_path)
     pieces.where(x_coord: x_path, y_coord: y_path).first.present? 
