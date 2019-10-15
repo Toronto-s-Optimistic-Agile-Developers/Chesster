@@ -1,6 +1,10 @@
 @import "bootstrap";
 @import "font-awesome";
 
+.piece-size {
+  font-size: 40px;
+}
+
 .booyah-box {
   -moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
   -webkit-box-shadow: 1px 1px 2px 0 #d0d0d0;
@@ -25,6 +29,7 @@
   background-color: white;
   border: 1px solid rgb(44, 43, 43);
   background: image_url('whitetile.png') center fixed;
+  z-index: 1;
 }
 
 .black-tile {
@@ -33,6 +38,7 @@
   background-color: rgb(193, 154, 107);
   border: 1px solid rgb(44, 43, 43);
   background: image_url('blacktile.png') center fixed;
+  z-index: 1;
 }
 
 .black-tile:hover,
@@ -48,46 +54,91 @@
 .rotate td {
   width: 33.5%;
 }
+
 .left {
-  float:left;
-} 
+  float: left;
+}
+
 .right {
-  float:right;
-} 
+  float: right;
+}
+
 .roate {
   z-index: -1;
   padding: 0;
 }
+
 .rotate table {
- height: auto;
- width: 80%;
- border: none;
- text-align:none;
- padding: none;
- box-shadow: none;
- vertical-align: center;
- padding: none;
- margin-top: -70px;
- margin-left:auto;
- margin-right: auto;
+  height: auto;
+  width: 80%;
+  border: none;
+  text-align: none;
+  padding: none;
+  box-shadow: none;
+  vertical-align: center;
+  padding: none;
+  margin-top: -70px;
+  margin-left: auto;
+  margin-right: auto;
 }
+
 .rotate th {
   padding-bottom: 0px !important;
 }
+
 .rotate-board {
   cursor: pointer;
+  margin-top: 2px;
+  font-size: 12px;
   color: rgb(247, 244, 244);
   background-color: #5553e9;
-  font-weight: bold;
-  padding: 5px;
-  border-radius: 7px;
-  border: 1px solid rgb(53, 51, 51);
-  font-family: 'Grenze', serif;
+  letter-spacing: 2px;
+  padding: 2px;
+  border-radius: 2px;
+  border-top: 1px solid rgb(82, 80, 80);
+  border-left: 1px solid rgb(82, 80, 80);
+  border-bottom: 1px solid rgb(17, 16, 16);
+  border-right: 1px solid rgb(17, 16, 16);
   width: 70px;
   text-align: center;
 }
 
-.rotate-board:hover, .rotate-board:focus {
+.alert {
+  text-align: center;
+  margin-top: 0;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  font-size: 10px;
+  margin-bottom: 1px;
+  font-weight: bold;
+  color: red;
+  z-index: -1;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  width: 98%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.notice {
+  text-align: center;
+  margin-top: 0;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  font-size: 10px;
+  margin-bottom: 1px;
+  font-weight: bold;
+  color: white;
+  z-index: -1;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  width: 98%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.rotate-board:hover,
+.rotate-board:focus {
   background-color: green;
 }
 
@@ -136,51 +187,132 @@ table ::selection {
 }
 
 #labels {
+  cursor: default;
   position: fixed;
   color: white;
   text-align: center;
   font-weight: bold;
-  text-shadow: 1px 4px 3px rgba(0,0,0,0.5), 0px -5px 35px rgba(7, 6, 6, 0.3) !important;
+  text-shadow: 1px 4px 3px rgba(0, 0, 0, 0.5), 0px -5px 35px rgba(7, 6, 6, 0.3) !important;
 }
 
 .forfeit {
   cursor: pointer;
+  font-size: 12px;
   background-color: rgb(104, 12, 12);
   border: 1px solid silver;
   color: rgb(216, 213, 213);
   letter-spacing: 2px;
   padding-right: 4px;
   padding-left: 4px;
+  padding: 2px;
   margin: auto;
   border-radius: 2px;
   text-align: center;
   -moz-box-shadow: 1px 1px 1px 1px rgb(160, 155, 155);
   -webkit-box-shadow: 1px 1px 1px 1px rgb(160, 155, 155);
-  box-shadow: 1px 1px 1px 1px 1px 1px 1px 1px rgb(160, 155, 155);
-  border-radius: 2px; 
+  box-shadow: 1px 1px 1px 1px rgb(160, 155, 155);
+  border-radius: 2px;
 }
 
-.forfeit:hover, .forfeit:focus {
+.forfeit:hover,
+.forfeit:focus {
   background-color: black;
   color: whitesmoke;
   border: 2px solid red;
   font-weight: 700;
   border-radius: 0;
+  box-shadow: none;
+}
+
+#promote {
+  .was-validated .form-control:valid,
+  .form-control.is-valid {
+    background-image: none !important;
+  }
+}
+
+.promote a {
+  cursor: pointer;
+  font-size: 12px;
+  background-color: rgb(32, 126, 3);
+  border: 1px solid silver;
+  color: rgb(216, 213, 213) !important;
+  letter-spacing: 2px;
+  padding-right: 4px;
+  padding-left: 4px;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin: auto;
+  border-radius: 2px;
+  text-align: center;
+  border-radius: 2px;
+  z-index: 10;
+}
+
+.promote a:hover,
+.promote a:focus {
+  background-color: rgb(3, 87, 3);
+  text-decoration: none;
+  color: white;
+  box-shadow: none;
+}
+
+.promotion-notice {
+  font-weight: 500;
+  color: whitesmoke;
+  text-align: center;
+  border: 1px solid #868585;
+  border-radius: 2px;
+  -moz-box-shadow: 1px 1px 1px 1px rgb(51, 50, 50);
+  -webkit-box-shadow: 1px 1px 1px 1px rgb(51, 50, 50);
+  box-shadow: 1px 1px 1px 1px rgb(51, 50, 50);
+  background-color: rgb(13, 129, 13);
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  padding: 10px;
+}
+
+.btn.btn-danger {
+  color: white;
+}
+
+.back {
+  color: white;
+  letter-spacing: 2px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  border-radius: 0;
+  font-size: 12px;
+  -moz-box-shadow: 1px 1px 1px 1px rgb(179, 174, 174);
+  -webkit-box-shadow: 1px 1px 1px 1px rgb(180, 175, 175);
+  box-shadow: 1px 1px 1px 1px rgb(156, 155, 155);
+  text-align: center;
+}
+
+.back:hover,
+.back:focus {
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 
 
 .white {
+  cursor: grab;
   color: rgb(129, 126, 124) !important;
-  vertical-align: middle !important;
-  text-shadow: #636060 1px 1px 0 !important;
-  font-size: 50px !important;
-  font-weight: 500 !important;
-  text-align: center !important;
-  vertical-align: middle !important;
+  vertical-align: middle;
+  text-shadow: #636060 1px 1px 0;
+  font-size: 50px;
+  font-weight: 500;
+  text-align: center;
+  vertical-align: middle;
+  z-index: 10;
 }
 
 
 .black {
+  cursor: grab;
   color: rgb(87, 72, 65) !important;
   vertical-align: middle;
   text-shadow: #d6d4d4 1px 1px 0;
@@ -188,6 +320,7 @@ table ::selection {
   font-weight: 500;
   text-align: center !important;
   vertical-align: middle;
+  z-index: 10;
 }
 
 @media (max-width: 768px) {
@@ -199,7 +332,7 @@ table ::selection {
     box-shadow: 1px 1px 1px 1px #707070;
     z-index: 2px;
   }
-  
+
   .set-board {
     position: relative;
     width: 200px;
@@ -207,35 +340,35 @@ table ::selection {
     margin-right: auto;
     margin-left: auto;
   }
-  
+
   .chess {
     position: fixed;
     width: 200px;
     margin-bottom: 50px;
     padding: 10px;
   }
-  
+
   .y_labels {
     margin-top: -200px;
     width: 10px;
     margin-left: -20px;
     background-color: rgb(193, 154, 107) !important;
   }
-  
+
   .x_labels {
     height: 10px;
     width: 252px;
     background-color: rgb(165, 136, 125) !important;
     margin-bottom: 10px;
   }
-  
+
   #labels {
     position: fixed;
     color: white;
     text-align: center;
     font-weight: bold;
   }
-  
+
   .white {
     color: rgb(129, 126, 124) !important;
     vertical-align: middle;
@@ -245,7 +378,7 @@ table ::selection {
     text-align: center;
     vertical-align: middle;
   }
-  
+
   .black {
     color: rgb(87, 72, 65) !important;
     vertical-align: middle;
@@ -257,6 +390,6 @@ table ::selection {
   }
 }
 
-.highlighted a {
-  background-color: #0F0;
-}
+// .piece-size {
+//   font-size: 40px;
+// }

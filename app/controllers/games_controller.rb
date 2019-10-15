@@ -39,7 +39,20 @@ class GamesController < ApplicationController
   end
 
   def update
-  
+    # @game = current_game
+    # @game.update(game_params)
+    # @game.reload
+  end
+
+  def destroy
+    @game = Game.find_by_id(params[:id])
+    if @game.in_play?
+      return render plain: "Not Allowed", status: :forbidden
+    else
+      @game.pieces.destroy_all
+      @game.destroy
+      redirect_to games_path
+    end
   end
 
   private

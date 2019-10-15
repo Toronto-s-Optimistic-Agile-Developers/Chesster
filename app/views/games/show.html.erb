@@ -1,30 +1,32 @@
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=3.0, minimum-scale=0.86">
+    <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=3.0, minimum-scale=0.86">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
+
 <body data-turbolinks="false">
-  <p id="notice"><%= notice %></p>
-  <h1 class="text-center">
-    <%= @game.name %>
-    <%= @game.white_id %>
-    <%= @game.black_id %>
-  </h1>
-  <br />
-  <div class="rotate">
-  <table>
-      <tr>
-        <td class="left">
-          <p class="rotate-board" id="Flip_Board">Flip</p>
-        </td>
-        <td>
-        </td>
-        <td class=right>
-          <p class="rotate-board" id="Rotate_Board">Rotate</p>
-        </td>
-      </tr>
-    </table>
+  <div class="game" data-game-id=<%=@game.id%>>
+    <h1 class="text-center">
+        <%= @game.name %>
+    </h1>
+    <br />
+    <div class="rotate">
+      <table>
+          <tr>
+              <td class="left">
+              
+              </td>
+              <td>
+              </td>
+              <td class=right>
+                <p class="rotate-board" id="Flip_Board">Flip</p>
+              </td>
+          </tr>
+      </table>
   </div>
   <div class="set-board">
     <div class="chess" align="center">
+<<<<<<< HEAD
       <div class="board">
         <table>
           <% (0..7).each do |y_coord| %>
@@ -52,36 +54,68 @@
 >>>>>>> efc572501d90d9b85733d72ce4521539ffdd73f3
             </tr>
           <% end %>
+=======
+        <div class="board">
+          <table>
+            <% (0..7).each do |y_coord| %>
+              <% (0..7).each do |x_coord| %>
+                <td data-x-coord=<%=x_coord %> data-y-coord=
+                    <%= y_coord %> class='tile
+                    <%= "#{(y_coord.odd? == x_coord.odd? ? "white-tile droppable-tile" : "black-tile droppable-tile")}" %>'>
+                    <% if board_piece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
+                      <div class="piece <%=board_piece.color %>" data-piece-id=
+                        <%= board_piece.id %> data-x_coord=
+                        <%= x_coord %> data-y_coord=
+                        <%= y_coord %>>
+                            <%= board_piece.unicode_symbol.html_safe %>
+                            <% if board_piece.promote?(x_coord, y_coord) == true %>
+                            <span class="promote">
+                             <%= link_to "Promote", edit_piece_path(board_piece.id.to_s) %>
+                            </span>
+                              <% @game.reload %>
+                            
+                      </div>
+                      <% end %>
+                    <% end %>
+                </td>
+              <% end %>
+              </tr>
+            <% end %>
+>>>>>>> fa6115391a5386ee053ff29292fc489f54e43df4
         </table>
       </div>
       <div id="labels">
         <table class="y_labels">
-          <% for i in 8.downto(1) %>
-            <td>
-              <div class="label_square"><%= i %></div>
+            <% for i in 8.downto(1) %>
+              <td>
+                <div class="label_square">
+                    <%= i %>
+                </div>
             </td>
             </tr>
           <% end %>
         </table>
       </div>
       <div id="labels">
-        <table class="x_labels">
-          <tr>
-            <% x_labels = { 0 => 'A', 1 => 'B', 2 => 'C', 3 => 'D', 4 => 'E', 5 => 'F', 6 => 'G', 7 => 'H' } %>
-            <% for i in 0..7 %>
-              <td>
-                <div class="letters"><%= x_labels[i] %></div>
-              </td>
-            <% end %>
-          </tr>
-        </table>
-        <br />
+          <table class="x_labels">
+              <tr>
+                <% x_labels = { 0 => 'A', 1 => 'B', 2 => 'C', 3 => 'D', 4 => 'E', 5 => 'F', 6 => 'G', 7 => 'H' } %>
+                <% for i in 0..7 %>
+                  <td>
+                    <div class="letters">
+                        <%= x_labels[i] %>
+                    </div>
+                  </td>
+                <% end %>
+              </tr>
+          </table>
+          <br />
       </div>
     </div>
   </div>
 <<<<<<< HEAD
   <div id="forfeit">
-    <% if @game.white_id != nil && @game.black_id != nil %> 
+    <% if @game.in_play? %>
       <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>
         <% if current_user.id == @game.white_id %>
           <%= f.input :winner, as: :hidden, :input_html => { :value => @game.black_id } %>
@@ -90,11 +124,13 @@
           <%= f.input :winner, as: :hidden, :input_html => { :value => @game.white_id } %>
           <%= f.input :loser, as: :hidden, :input_html => { :value => @game.black_id } %>
         <% end %>
-        <%= f.submit "Forfeit", class: "forfeit" , data: { confirm: "Are you sure you want to forfeit the game?"} %>
+        <%= f.submit "Forfeit", class: "forfeit", data: { confirm: "Are you sure you want to concede the game?"} %>
       <% end %>
+    <% else %>
+      <%= link_to 'Back', game_path(@game), method: :delete, class: 'btn btn-danger back', data: { confirm: "If you do this, the game will end before it begins. Are you sure?" } %>
     <% end %>
   </div>
-  <%= link_to 'Back', games_path, class: 'btn btn-default' %>
+  
   <script>
 =======
 
@@ -103,26 +139,68 @@
 >>>>>>> efc572501d90d9b85733d72ce4521539ffdd73f3
     var rotation = 0;
 
-    jQuery.fn.rotate = function(degrees) {
-        $(this).css({'-webkit-transform' : 'rotate('+ degrees +'deg)',
-                    '-moz-transform' : 'rotate('+ degrees +'deg)',
-                    '-ms-transform' : 'rotate('+ degrees +'deg)',
-                    'transform' : 'rotate('+ degrees +'deg)'});
+    jQuery.fn.rotate = function (degrees) {
+      $(this).css({
+        '-webkit-transform': 'rotate(' + degrees + 'deg)',
+        '-moz-transform': 'rotate(' + degrees + 'deg)',
+        '-ms-transform': 'rotate(' + degrees + 'deg)',
+        'transform': 'rotate(' + degrees + 'deg)'
+      });
     };
 
-    $('#Rotate_Board').click(function() {
-        rotation += 90;
-        $('.set-board, .chess td, #labels td').rotate(rotation);
+    $('#Rotate_Board').click(function () {
+      rotation += 90;
+      $('.set-board, .chess td, #labels td').rotate(rotation);
     });
 
+    $('#Flip_Board').click(function () {
+      rotation -= 180;
+      $('.set-board, .chess td, #labels td').rotate(rotation);
+    });
 
-    $('#Flip_Board').click(function() {
-        rotation -=180;
-        $('.set-board, .chess td, #labels td').rotate(rotation);
+    $(document).ready(function () {
+      $('.piece').draggable({
+        snap: '.droppable-tile',
+        revert: 'invalid'
+      });
+
+      $('.droppable-tile').droppable({
+        drop: function (event, ui) {
+          var piece = ui.draggable
+          var destination_square = $(this);
+          console.log($(this))
+          c = $(this)
+          var update_piece = {
+            id: piece.data('piece-id'),
+            x_coord: destination_square.data('x-coord'),
+            y_coord: destination_square.data('y-coord'),
+          }
+
+          $.ajax({
+            type: 'PATCH',
+            url: '/pieces/' + update_piece.id,
+            beforeSend: function (xhr) {
+              xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+            },
+            dataType: 'json',
+            data: {
+              id: update_piece.id,
+              x_coord: update_piece.x_coord,
+              y_coord: update_piece.y_coord
+            },
+            success: function (data) {
+              destination_square.empty();
+              location.reload(true);
+            }
+
+          });
+        }
+      });
     });
 <<<<<<< HEAD
   </script>
 </body>
+<<<<<<< HEAD
 =======
 
     $("tile").addClass("droppable-tile");
@@ -174,3 +252,5 @@
 <%= @piece.inspect %>
 >>>>>>> efc572501d90d9b85733d72ce4521539ffdd73f3
 
+=======
+>>>>>>> fa6115391a5386ee053ff29292fc489f54e43df4

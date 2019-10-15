@@ -1,5 +1,13 @@
 class Queen < Piece
   def unicode_symbol	
-		return y_coord > 5 ? "&#9813;" : "&#9819;"
+		return "&#9819;"
+	end
+	def legal_move?(x_path, y_path)
+		x_dif = (x_path - x_coord).abs
+		y_dif = (y_path - y_coord).abs
+		return false if is_obstructed?(x_path, y_path)
+		((x_dif >= 1 && y_dif == 0) || (y_dif >= 1 && x_dif == 0)) ||
+		((x_dif >= 1 && y_dif == 0) || (x_dif == 0 && y_dif >= 1))
+
 	end
 end

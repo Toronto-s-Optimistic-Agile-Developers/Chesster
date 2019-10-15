@@ -1,11 +1,11 @@
 class PiecesController < ApplicationController
+<<<<<<< HEAD
 
+=======
+>>>>>>> fa6115391a5386ee053ff29292fc489f54e43df4
   before_action :find_piece
 
-  def new
-    @piece = game.pieces.new
-  end
-
+  
   def create
     @piece = game.pieces.create(piece_params)
     if @piece.valid?
@@ -15,14 +15,35 @@ class PiecesController < ApplicationController
     end
   end
 
-  def show
-    @piece = Piece.find_by_id(params[:id])
-    @game = @piece.game
-    @pieces = @game.pieces  
+  def edit
+    @piece = Piece.find(params[:id])
   end
 
   def update
-   
+    @piece = Piece.find(params[:id])
+    @pieces = @game.pieces
+    @game = @piece.game
+    x_path = piece_params[:x_coord].to_i
+    y_path = piece_params[:y_coord].to_i
+    if @piece.valid_move?(x_path, y_path)
+      @piece.move_to!(x_path, y_path)
+      @piece.update(initial_postion?: false)
+      @piece.update_attributes(piece_params)
+      respond_to do |format|
+        format.html { render :show }
+        format.json { render json: @piece, status: :ok }
+      end
+      @game.reload
+    else 
+      flash[:alert] = 'Your move cannot be completed!'
+      @game.reload
+    end
+  end
+
+  def show
+    @piece = Piece.find(params[:id])
+    @game = @piece.game
+    @pieces = @game.pieces  
   end
 
   private
@@ -32,8 +53,8 @@ class PiecesController < ApplicationController
     @color = @piece.color
     @game = @piece.game
   end
+  
   def piece_params
-    params.require(:piece).permit(:name, :color, :x_coord, :y_coord, :game_id, :player_id, :type, :initial_postion?)
+    params.permit(:id, :name, :color, :x_coord, :y_coord, :game_id, :player_id, :type, :captured, :initial_postion?)
   end
 end
-
