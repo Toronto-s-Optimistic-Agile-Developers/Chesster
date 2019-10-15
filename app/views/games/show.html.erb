@@ -40,9 +40,9 @@
                         <%= y_coord %>>
                             <%= board_piece.unicode_symbol.html_safe %>
                             
-                            <div class="promote">
-                             <%= link_to "Promote", edit_piece_path %>
-                            </div>
+                            <span class="promote">
+                             <%= link_to "Promote", edit_piece_path(board_piece.id.to_s) %>
+                            </span>
                               <% @game.reload %>
                             
                       </div>

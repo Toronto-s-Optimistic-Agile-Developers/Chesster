@@ -6,10 +6,10 @@
   <br />
   <%= simple_form_for @piece, url: piece_path(@piece) do |f| %>
     <%= f.input :type, as: :select, collection: Piece::RANK %>
+    <%= f.input :name, as: :hidden, :input_html => { :value => 'Promoted #{@piece.name}' } %>
     <br />
     <%= f.submit 'Promote', class: 'btn btn-success', data: { confirm: "Are you sure you want to give your piece this promotion?"} %>
   <% end %>
 </div>
   <br />
-
 

@@ -1,5 +1,5 @@
 class PiecesController < ApplicationController
-  before_action :find_piece, :authenticate_move
+  before_action :find_piece
 
   
   def create
@@ -17,20 +17,22 @@ class PiecesController < ApplicationController
 
   def update
     @piece = Piece.find(params[:id])
+    @pieces = @game.pieces
     @game = @piece.game
     x_path = piece_params[:x_coord].to_i
     y_path = piece_params[:y_coord].to_i
-    # if authenticate_move 
+    if @piece.valid_move?(x_path, y_path) 
+      @piece.update(initial_postion?: false)
+      @piece.update_attributes(piece_params)
       respond_to do |format|
         format.html { render :show }
         format.json { render json: @piece, status: :ok }
-        @piece.update_attributes(piece_params)
       end
       @game.reload
-    # else 
-    #   flash[:alert] = 'Your move cannot be completed!'
-    #   @game.reload
-    # end
+    else 
+      flash[:alert] = 'Your move cannot be completed!'
+      @game.reload
+    end
   end
 
   def show
@@ -45,10 +47,6 @@ class PiecesController < ApplicationController
     @piece = Piece.find(params[:id])
     @color = @piece.color
     @game = @piece.game
-  end
-
-  def authenticate_move
-    return if @piece.valid_move?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) && @piece.promote?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i)
   end
   
   def piece_params
