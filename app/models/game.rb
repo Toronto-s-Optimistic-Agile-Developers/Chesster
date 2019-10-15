@@ -15,7 +15,7 @@ class Game < ApplicationRecord
   end
   
   def in_play?
-    @game.white_id != nil || @game.black_id != nil
+    self.white_id != nil && self.black_id != nil
   end
 
   def tile_taken?(x_path, y_path)

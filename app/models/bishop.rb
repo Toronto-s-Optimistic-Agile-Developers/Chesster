@@ -1,6 +1,6 @@
 class Bishop < Piece
   def unicode_symbol  
-    return y_coord > 5 ? "&#9815;" : "&#9821;"
+    return "&#9821;"
   end
 
   def legal_move?(x_path, y_path)
