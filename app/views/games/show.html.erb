@@ -14,12 +14,12 @@
       <table>
           <tr>
               <td class="left">
-                  <p class="rotate-board" id="Flip_Board">Flip</p>
+              
               </td>
               <td>
               </td>
               <td class=right>
-                  <p class="rotate-board" id="Rotate_Board">Rotate</p>
+                <p class="rotate-board" id="Flip_Board">Flip</p>
               </td>
           </tr>
       </table>
@@ -39,13 +39,14 @@
                         <%= x_coord %> data-y_coord=
                         <%= y_coord %>>
                             <%= board_piece.unicode_symbol.html_safe %>
-                            
+                            <% if board_piece.promote?(x_coord, y_coord) == true %>
                             <span class="promote">
                              <%= link_to "Promote", edit_piece_path(board_piece.id.to_s) %>
                             </span>
                               <% @game.reload %>
                             
                       </div>
+                      <% end %>
                     <% end %>
                 </td>
               <% end %>

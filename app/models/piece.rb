@@ -59,7 +59,6 @@ class Piece < ApplicationRecord
   end
 
   def is_obstructed?(x_path, y_path) 
-    self.valid_move?(x_path, y_path)
     return true if self.game.tile_taken?(x_path, y_path) && self.color == self.game.pieces.where(x_coord: x_path, y_coord: y_path).first.color
     return false if self.type == "Knight"
 
@@ -74,8 +73,23 @@ class Piece < ApplicationRecord
     false
   end
 
+  def move_to!(x_path, y_path)
+    rival_piece = @piece.find_by(x_coord: x_path, y_coord: y_path)
+    if ! is_obstructed?
+      if self.type == Pawn && rival_piece.color != self.color
+        (x_path == 1) && (y_path == 1)
+      elsif rival_piece.present? && rival_piece.color != self.color
+        rival_piece.removed?
+        update_attributes(x_coord: x_path, y_coord: y_path)
+      elsif rival_piece.present? == false
+        update_attributes(x_coord: x, y_coord: y)
+      end
+    end
+  end
+
   def valid_move?(x_path, y_path)
-    byebug
+    #
+    #  byebug
     if on_the_board?(x_path, y_path) && ! ((x_coord == x_path) && (y_coord == y_path))
       if legal_move?(x_path, y_path) && ! is_obstructed?(x_path, y_path)
         return true 
@@ -85,20 +99,8 @@ class Piece < ApplicationRecord
     end
   end
 
-  def move_to!(x_path, y_path)
-    rival_piece = piece.find_by(x_coord: x_path, y_coord: y_path)
-    if self.type == Pawn && rival_piece.color != self.color
-      (x_path == 1) && (y_path == 1)
-    elsif rival_piece.present? && rival_piece.color != self.color
-      rival_piece.removed?
-      update_attributes(x_coord: x_path, y_coord: y_path)
-    elsif rival_piece.present? == false
-      update_attributes(x_coord: x, y_coord: y)
-    end
-  end
-
   def promote?(x_path, y_path)
-    if self.type == Pawn && ((y_coord == 7 && !white?) || (y_coord == 0 && white?))
+    if self.type == Pawn && ((y_coord == 7 && color == "black") || (y_coord == 0 && color == "white"))
       1.times do 
         @piece.game.reload
       end

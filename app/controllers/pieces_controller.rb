@@ -21,7 +21,8 @@ class PiecesController < ApplicationController
     @game = @piece.game
     x_path = piece_params[:x_coord].to_i
     y_path = piece_params[:y_coord].to_i
-    if @piece.valid_move?(x_path, y_path) 
+    if @piece.valid_move?(x_path, y_path)
+      @piece.move_to!(x_path, y_path)
       @piece.update(initial_postion?: false)
       @piece.update_attributes(piece_params)
       respond_to do |format|
