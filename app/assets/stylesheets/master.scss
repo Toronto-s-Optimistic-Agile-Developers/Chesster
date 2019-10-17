@@ -278,6 +278,53 @@ table ::selection {
   padding: 10px;
 }
 
+
+.captured_pieces {
+  cursor: default;
+  margin-top: -25px;
+  background-color: red;
+  width: 200px;
+  text-align: center;
+  padding: 2px;
+  border-radius: 2px;
+  border: 1px solid rgb(139, 138, 138);
+  -moz-box-shadow: 1px 1px 1px 1px rgb(216, 211, 211);
+  -webkit-box-shadow: 1px 1px 1px 1px rgb(216, 211, 211);
+  box-shadow: 1px 1px 1px 1px rgb(216, 211, 211);
+  font-size: 15px;
+  overflow: auto;
+}
+.captured_pieces p {
+  color: rgb(49, 48, 48);
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-decoration-style: double;
+}
+
+pre::-webkit-scrollbar {
+  width: 0 !important
+}
+
+pre {
+  -ms-overflow-style: none;
+}
+
+pre {
+  overflow: -moz-scrollbars-none;
+}   
+
+.white_taken {
+  font-size: 20px;
+  color: white;
+  text-shadow: 1px 1px 0 grey, 1px -1px 0 grey, -1px 1px 0 grey, -1px -1px 0 grey, 1px 0px 0 grey, 0px 1px 0 grey, -1px 0px 0 grey, 0px -1px 0 grey;
+}
+
+.black_taken {
+  font-size: 20px;
+  color: black;
+  text-shadow: 1px 1px 0 #FFFFFF, 1px -1px 0 #FFFFFF, -1px 1px 0 #FFFFFF, -1px -1px 0 #FFFFFF, 1px 0px 0 #FFFFFF, 0px 1px 0 #FFFFFF, -1px 0px 0 #FFFFFF, 0px -1px 0 #FFFFFF;
+}
+
 .btn.btn-danger {
   color: white;
 }

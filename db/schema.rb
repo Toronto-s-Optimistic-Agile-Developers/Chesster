@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 2019_10_15_222933) do
     t.boolean "captured", default: false
     t.boolean "promotion?", default: false
     t.boolean "initial_position?", default: true
+    t.boolean "initial_postion?", default: true
   end
 
   create_table "users", force: :cascade do |t|

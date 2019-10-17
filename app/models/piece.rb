@@ -11,7 +11,7 @@ class Piece < ApplicationRecord
     end
   
     def removed?
-      self.update[x_coord: nil, y_coord: nil]
+      # self.update[x_coord: nil, y_coord: nil]
       self.update(captured: true, x_coord: nil, y_coord: nil)
   end
 
@@ -63,17 +63,18 @@ class Piece < ApplicationRecord
   end
 
   def move_to!(x_path, y_path)
-    rival_piece = @piece.find_by(x_coord: x_path, y_coord: y_path)
-    if ! is_obstructed?(x_path, y_path)
-      if self.type == Pawn && rival_piece.color != self.color
-        (x_path == 1) && (y_path == 1)
-        rival_piece.removed?
-      elsif rival_piece.present? && rival_piece.color != self.color
-        rival_piece.removed?
-        update_attributes(x_coord: x_path, y_coord: y_path)
-      elsif rival_piece.present? == false
-        update(x_coord: x_path, y_coord: y_path)
-      end
+    rival_piece = Piece.find_by(x_coord: x_path, y_coord: y_path)
+    if self.type == Pawn && rival_piece.color != self.color
+      ((x_path == 1) && (y_path == 1))
+      rival_piece.removed?
+    elsif self.type == Queen && rival_piece.color != self.color
+      rival_piece.removed?
+    elsif rival_piece.present? && rival_piece.color != self.color
+      ((x_path == 1) && (y_path == 1))
+      rival_piece.removed?
+      update_attributes(x_coord: x_path, y_coord: y_path)
+    elsif rival_piece.present? == false
+      update(x_coord: x_path, y_coord: y_path)
     end
   end
 

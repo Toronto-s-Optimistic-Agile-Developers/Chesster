@@ -23,16 +23,16 @@ class PiecesController < ApplicationController
     y_path = piece_params[:y_coord].to_i
     if @piece.valid_move?(x_path, y_path)
       @piece.update(initial_position?: false)
-      # @piece.move_to!(x_path, y_path)
+      @piece.move_to!(x_path, y_path)
       @piece.update_attributes(piece_params)
       respond_to do |format|
         format.html { render :show }
         format.json { render json: @piece, status: :ok }
       end
-      @game.reload
+      # @game.reload
     else 
       flash[:alert] = 'Your move cannot be completed!'
-      @game.reload
+      # @game.reload
     end
   end
 
@@ -51,6 +51,6 @@ class PiecesController < ApplicationController
   end
   
   def piece_params
-    params.permit(:id, :name, :color, :x_coord, :y_coord, :game_id, :player_id, :type, :captured, :initial_postion?)
+    params.permit(:id, :name, :color, :x_coord, :y_coord, :game_id, :player_id, :type, :captured, :initial_postion?, :promotion?)
   end
 end
