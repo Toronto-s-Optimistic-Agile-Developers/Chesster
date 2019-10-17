@@ -18,5 +18,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :pieces
+  resources :pieces do
+    get :left_white_castle, on: :member
+  end
 end

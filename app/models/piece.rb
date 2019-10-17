@@ -87,8 +87,8 @@ class Piece < ApplicationRecord
         return false
       end
     end
-  end
-  
+  end 
+
   RANK = {
     'Knight': 'Knight',
     'Bishop': 'Bishop',
