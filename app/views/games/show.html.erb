@@ -39,12 +39,11 @@
                         <%= x_coord %> data-y_coord=
                         <%= y_coord %>>
                             <%= board_piece.unicode_symbol.html_safe %>
-                            <% if board_piece.promote?(x_coord, y_coord) == true %>
+                            <% if board_piece.promotion? %>
                             <span class="promote">
                              <%= link_to "Promote", edit_piece_path(board_piece.id.to_s) %>
                             </span>
                               <% @game.reload %>
-                            
                       </div>
                       <% end %>
                     <% end %>
@@ -83,6 +82,17 @@
       </div>
     </div>
   </div>
+   <div class="captured_pieces">
+   <p>Captured Pieces</p>
+    <% @game.pieces.where(captured: true, color: "white").each do |piece| %>
+      <span class="captured_piece white_taken"><%= piece.unicode_symbol.html_safe %></span>
+    <% end %>
+    <br />
+     <% @game.pieces.where(captured: true, color: 'black').each do |piece| %>
+      <span class="captured_piece black_taken"><%= piece.unicode_symbol.html_safe %></span>
+    <% end %>
+  </div>
+  <br />
   <div id="forfeit">
     <% if @game.in_play? %>
       <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>
@@ -99,7 +109,7 @@
       <%= link_to 'Back', game_path(@game), method: :delete, class: 'btn btn-danger back', data: { confirm: "If you do this, the game will end before it begins. Are you sure?" } %>
     <% end %>
   </div>
-  
+  <br />
   <script>
     var rotation = 0;
 
@@ -111,11 +121,6 @@
         'transform': 'rotate(' + degrees + 'deg)'
       });
     };
-
-    $('#Rotate_Board').click(function () {
-      rotation += 90;
-      $('.set-board, .chess td, #labels td').rotate(rotation);
-    });
 
     $('#Flip_Board').click(function () {
       rotation -= 180;
