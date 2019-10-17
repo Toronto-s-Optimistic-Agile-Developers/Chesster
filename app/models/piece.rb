@@ -2,6 +2,10 @@ class Piece < ApplicationRecord
   belongs_to :game
   belongs_to :user, required: false
   
+   def as_json(options={})
+    super(options.merge({:methods => :type}))
+  end
+
     def white?
       piece.color == 'white'
     end
@@ -51,6 +55,9 @@ class Piece < ApplicationRecord
   def is_obstructed?(x_path, y_path) 
     return true if self.game.tile_taken?(x_path, y_path) && self.color == self.game.pieces.where(x_coord: x_path, y_coord: y_path).first.color
     return false if self.type == "Knight"
+    if self.type == 'Pawn' && self.promote?(y_path) == true
+      self.update(promotion?: true)
+    end
     x_dir = x_path >= self.x_coord ? (x_path == self.x_coord ? 0 : 1) : -1
     y_dir = y_path >= self.y_coord ? (y_path == self.y_coord ? 0 : 1) : -1
     direction = [x_dir, y_dir]

@@ -29,7 +29,7 @@ class PiecesController < ApplicationController
         format.html { render :show }
         format.json { render json: @piece, status: :ok }
       end
-      # @game.reload
+      @game.reload
     else 
       flash[:alert] = 'Your move cannot be completed!'
       # @game.reload

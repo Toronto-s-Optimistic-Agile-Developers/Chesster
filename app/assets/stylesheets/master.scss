@@ -1,10 +1,6 @@
 @import "bootstrap";
 @import "font-awesome";
 
-.piece-size {
-  font-size: 40px;
-}
-
 .booyah-box {
   -moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
   -webkit-box-shadow: 1px 1px 2px 0 #d0d0d0;
@@ -55,8 +51,9 @@
   width: 33.5%;
 }
 
-.left {
-  float: left;
+.rotate h1 {
+  font-size: 2em;
+  font-weight: bold;
 }
 
 .right {
@@ -69,17 +66,18 @@
 }
 
 .rotate table {
+  margin-top: -20px;
   height: auto;
-  width: 80%;
+  width: 100%;
   border: none;
   text-align: none;
   padding: none;
   box-shadow: none;
   vertical-align: center;
   padding: none;
-  margin-top: -70px;
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
 }
 
 .rotate th {
@@ -88,7 +86,6 @@
 
 .rotate-board {
   cursor: pointer;
-  margin-top: 2px;
   font-size: 12px;
   color: rgb(247, 244, 244);
   background-color: #5553e9;
@@ -156,7 +153,7 @@ table ::selection {
   background: none;
 }
 
-table ::selection {
+.captured_pieces ::selection {
   color: none;
   background: none;
 }
@@ -210,9 +207,9 @@ table ::selection {
   padding-right: 4px;
   padding-left: 4px;
   padding: 2px;
-  margin: auto;
+  margin-top: -20% !important;
   border-radius: 2px;
-  text-align: center;
+  text-align: middle;
   -moz-box-shadow: 1px 1px 1px 1px rgb(160, 155, 155);
   -webkit-box-shadow: 1px 1px 1px 1px rgb(160, 155, 155);
   box-shadow: 1px 1px 1px 1px rgb(160, 155, 155);
@@ -278,12 +275,12 @@ table ::selection {
   padding: 10px;
 }
 
-
 .captured_pieces {
   cursor: default;
-  margin-top: -25px;
   background-color: red;
-  width: 200px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
   text-align: center;
   padding: 2px;
   border-radius: 2px;
@@ -292,7 +289,6 @@ table ::selection {
   -webkit-box-shadow: 1px 1px 1px 1px rgb(216, 211, 211);
   box-shadow: 1px 1px 1px 1px rgb(216, 211, 211);
   font-size: 15px;
-  overflow: auto;
 }
 .captured_pieces p {
   color: rgb(49, 48, 48);
@@ -317,12 +313,14 @@ pre {
   font-size: 20px;
   color: white;
   text-shadow: 1px 1px 0 grey, 1px -1px 0 grey, -1px 1px 0 grey, -1px -1px 0 grey, 1px 0px 0 grey, 0px 1px 0 grey, -1px 0px 0 grey, 0px -1px 0 grey;
+  padding: 1px;
 }
 
 .black_taken {
   font-size: 20px;
   color: black;
   text-shadow: 1px 1px 0 #FFFFFF, 1px -1px 0 #FFFFFF, -1px 1px 0 #FFFFFF, -1px -1px 0 #FFFFFF, 1px 0px 0 #FFFFFF, 0px 1px 0 #FFFFFF, -1px 0px 0 #FFFFFF, 0px -1px 0 #FFFFFF;
+  padding: 1px;
 }
 
 .btn.btn-danger {
@@ -331,6 +329,7 @@ pre {
 
 .back {
   color: white;
+  margin-top: -10px;
   letter-spacing: 2px;
   padding-top: 1px;
   padding-bottom: 1px;
@@ -419,6 +418,16 @@ pre {
     font-weight: bold;
   }
 
+  .black-tile {
+    min-width: 30px;
+    min-height: 30px;
+  }
+
+  .white-tile {
+    min-width: 30px;
+    min-height: 30px;
+  }
+
   .white {
     color: rgb(129, 126, 124) !important;
     vertical-align: middle;
@@ -439,7 +448,3 @@ pre {
     vertical-align: middle;
   }
 }
-
-// .piece-size {
-//   font-size: 40px;
-// }
