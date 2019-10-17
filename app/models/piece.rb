@@ -11,8 +11,8 @@ class Piece < ApplicationRecord
     end
   
     def removed?
-      # self.update[x_coord: nil, y_coord: nil]
-      self.update(captured: true, x_coord: nil, y_coord: nil)
+      self.update(x_coord: nil, y_coord: nil)
+      self.update(captured: true)
   end
 
   def has_moved?
