@@ -15,10 +15,9 @@ Rails.application.routes.draw do
     member do
       patch :join
       patch :forfeit
+      patch :left_white_castle
     end
   end
 
-  resources :pieces do
-    get :left_white_castle, on: :member
-  end
+  resources :pieces 
 end

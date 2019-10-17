@@ -38,10 +38,15 @@ class GamesController < ApplicationController
     redirect_to games_path
   end
 
-  def update
-    # @game = current_game
-    # @game.update(game_params)
-    # @game.reload
+  def left_white_castle
+    king_white = @game.pieces.find_by(x_coord: 4, y_coord: 0)
+    left_rook = @game.pieces.find_by(x_coord: 0, y_coord: 0)
+    if (king_white.has_moved? == false && left_rook.has_moved? == false)
+      white_king.update(x_coord: 0, initial_position?: false)
+      left_rook.update(x_coord: 4, initial_position?: false)
+    elsif
+      flash[:alert] = 'You cannot castle this way!'
+    end
   end
 
   def destroy

@@ -50,17 +50,6 @@ class PiecesController < ApplicationController
     @game = @piece.game
   end
 
-  def left_white_castle
-    king_white = @piece.find_by(x_coord: 4, y_coord: 0)
-    left_rook = @piece.find_by(x_coord: 0, y_coord: 0)
-    if (king_white.has_moved? == false && left_rook.has_moved? == false)
-      white_king.update(x_coord: 0, initial_position?: false)
-      left_rook.update(x_coord: 4, initial_position?: false)
-    elsif
-      flash[:alert] = 'You cannot castle this way'
-    end
-  end
-  
   def piece_params
     params.permit(:id, :name, :color, :x_coord, :y_coord, :game_id, :player_id, :type, :captured, :initial_position?, :promotion?)
   end
