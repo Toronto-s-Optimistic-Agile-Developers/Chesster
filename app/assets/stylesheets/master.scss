@@ -56,10 +56,6 @@
   font-weight: bold;
 }
 
-.right {
-  float: right;
-}
-
 .roate {
   z-index: -1;
   padding: 0;
@@ -227,6 +223,7 @@ table ::selection {
 }
 
 #promote {
+
   .was-validated .form-control:valid,
   .form-control.is-valid {
     background-image: none !important;
@@ -290,6 +287,7 @@ table ::selection {
   box-shadow: 1px 1px 1px 1px rgb(216, 211, 211);
   font-size: 15px;
 }
+
 .captured_pieces p {
   color: rgb(49, 48, 48);
   text-transform: uppercase;
@@ -307,7 +305,7 @@ pre {
 
 pre {
   overflow: -moz-scrollbars-none;
-}   
+}
 
 .white_taken {
   font-size: 20px;

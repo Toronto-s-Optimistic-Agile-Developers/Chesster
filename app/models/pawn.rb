@@ -4,16 +4,14 @@ class Pawn < Piece
 	end
 
 	def promote?(y_path)
-		if self.where(:type => "Pawn") && (self.y_coord == 7 && self.color == "white") || (self.y_coord == 0 && cself.olor == "black")
+		if self.type == "Pawn" && (self.y_coord == 7 && self.color == "white") || (self.y_coord == 0 && cself.olor == "black")
 			self.update(promotion?: true)
 			return true
-		else
-			return false
 		end
   end
 
 	def legal_move?(x_path, y_path)
-	  y_dif = (y_path - y_coord)
+		y_dif = (y_path - y_coord)
 		x_dif = (x_path - x_coord)
 		up = self.color == "white" ? -1 : 1
 		if ! self.has_moved?

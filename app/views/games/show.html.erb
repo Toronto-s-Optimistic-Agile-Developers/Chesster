@@ -50,7 +50,8 @@
                         <%= x_coord %> data-y_coord=
                         <%= y_coord %>>
                           <%= board_piece.unicode_symbol.html_safe %>
-                          <% if board_piece.promotion? %>
+                          <% if (board_piece.where(type: "Pawn", y_coord: 7, color: "white")) || (board_piece.where(type: "Pawn", y_coord: 0, color: "black")) %>
+			                      <% self.update(promotion?: true) %>
                             <span class="promote">
                               <%= link_to "Promote", edit_piece_path(board_piece.id.to_s) %>
                             </span>

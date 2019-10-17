@@ -15,7 +15,6 @@ class Piece < ApplicationRecord
     end
   
     def removed?
-      # self.update[x_coord: nil, y_coord: nil]
       self.update(captured: true, x_coord: nil, y_coord: nil)
   end
 
@@ -26,8 +25,6 @@ class Piece < ApplicationRecord
       return true
     end
   end
-
-  
 
   def friendly_piece
     return true if self.game.tile_taken?(x_path, y_path) && self.color == self.game.pieces.where(x_coord: x_path, y_coord: y_path).first.color
@@ -55,9 +52,6 @@ class Piece < ApplicationRecord
   def is_obstructed?(x_path, y_path) 
     return true if self.game.tile_taken?(x_path, y_path) && self.color == self.game.pieces.where(x_coord: x_path, y_coord: y_path).first.color
     return false if self.type == "Knight"
-    if self.type == 'Pawn' && self.promote?(y_path) == true
-      self.update(promotion?: true)
-    end
     x_dir = x_path >= self.x_coord ? (x_path == self.x_coord ? 0 : 1) : -1
     y_dir = y_path >= self.y_coord ? (y_path == self.y_coord ? 0 : 1) : -1
     direction = [x_dir, y_dir]
