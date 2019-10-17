@@ -42,8 +42,41 @@ class GamesController < ApplicationController
     king_white = @game.pieces.find_by(x_coord: 4, y_coord: 0)
     left_rook = @game.pieces.find_by(x_coord: 0, y_coord: 0)
     if (king_white.initial_position? == true && left_rook.initial_position? == true)
-      white_king.update(x_coord: 0, initial_position?: false)
+      king_white.update(x_coord: 0, initial_position?: false)
       left_rook.update(x_coord: 4, initial_position?: false)
+    elsif
+      flash[:alert] = 'You cannot castle this way!'
+    end
+  end
+
+  def right_white_castle
+    king_white = @game.pieces.find_by(x_coord: 4, y_coord: 0)
+    right_rook = Piece.find_by(x_coord: 7, y_coord: 0)
+    if (king_white.initial_position? == true && left_rook.initial_position? == true)
+      king_white.update(x_coord: 0, initial_position?: false)
+      right_rook.update(x_coord: 4, initial_position?: false)
+    elsif
+      flash[:alert] = 'You cannot castle this way!'
+    end
+  end
+
+  def left_black_castle
+    king_black = @game.pieces.find_by(x_coord: 4, y_coord: 7)
+    left_rook = @game.pieces.find_by(x_coord: 0, y_coord: 7)
+    if (king_white.initial_position? == true && left_rook.initial_position? == true)
+      king_black.update(x_coord: 0, initial_position?: false)
+      left_rook.update(x_coord: 4, initial_position?: false)
+    elsif
+      flash[:alert] = 'You cannot castle this way!'
+    end
+  end
+
+  def right_black_castle
+    king_black = @game.pieces.find_by(x_coord: 4, y_coord: 7)
+    right_rook = Piece.find_by(x_coord: 7, y_coord: 7)
+    if (king_black.initial_position? == true && left_rook.initial_position? == true)
+      king_black.update(x_coord: 0, initial_position?: false)
+      right_rook.update(x_coord: 4, initial_position?: false)
     elsif
       flash[:alert] = 'You cannot castle this way!'
     end
