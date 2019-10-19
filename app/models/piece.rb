@@ -65,8 +65,8 @@ class Piece < ApplicationRecord
 
   def move_to!(x_path, y_path)
     rival_piece = Piece.find_by(x_coord: x_path, y_coord: y_path)
-    if self.type == Pawn && rival_piece.color != self.color
-      ((x_path == 1) && (y_path == 1))
+    if (self.name == "White_Pawn" || self.name == "Black_Pawn") && rival_piece.color != self.color
+      ((x_path == x_path + 1) && (y_path == y_path + 1))
       rival_piece.removed?
     elsif self.type == Queen && rival_piece.color != self.color
       rival_piece.removed?
@@ -90,7 +90,7 @@ class Piece < ApplicationRecord
   end
 
   def pawn_promote
-    pawn = self.find_by(x_coord, y_coord, promotion_type)
+    pawn = Piece.find_by(x_coord, y_coord)
     "#{pawn.promotion_type}".create(x_coord: pawn.x_coord, y_coord: pawn.y_coord, name: "Promoted #{pawn.promotion_type}")
     pawn.destroy
   end

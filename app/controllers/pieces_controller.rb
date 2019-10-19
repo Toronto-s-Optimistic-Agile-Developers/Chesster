@@ -19,7 +19,7 @@ class PiecesController < ApplicationController
     y_path = piece_params[:y_coord].to_i
     if @piece.promotion? == true
       @piece.update(piece_params)
-      @piece.update_pawn
+      @piece.pawn_promote
       redirect_to @game
     elsif @piece.valid_move?(x_path, y_path)
       @piece.update(initial_position?: false)
