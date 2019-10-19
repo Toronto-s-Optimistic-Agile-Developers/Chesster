@@ -71,7 +71,7 @@ class Piece < ApplicationRecord
       rival_piece.removed?
       update_attributes(x_coord: x_path, y_coord: y_path)
     elsif rival_piece.present? == false
-      update_attributes(x_coord: x, y_coord: y)
+      update_attributes(x_coord: x_path, y_coord: y_path)
     end
   end
 
@@ -84,8 +84,9 @@ class Piece < ApplicationRecord
       end
     end
   end
-  def pawn_promote(type)
-    case type.downcase
+  def pawn_promote(new_rank)
+    new_rank = self.promotion_type
+    case new_rank.downcase
     when 'rook'
       Rook.create(x_coord: self.x_coord, x_coord: self.y_coord, color: self.color)
     when 'queen'

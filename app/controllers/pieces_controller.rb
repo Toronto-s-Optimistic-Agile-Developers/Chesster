@@ -18,9 +18,10 @@ class PiecesController < ApplicationController
   def update
     x_path = piece_params[:x_coord].to_i
     y_path = piece_params[:y_coord].to_i
-    unless @piece.promotion? == true
+    new_rank =  piece_params[:promotion_type]
+    if @piece.promotion? == true
       @piece.update_attributes(piece_params)
-      @piece.pawn_promote(type)
+      @piece.pawn_promote(new_rank)
       redirect_to @game
       @game.reload
     end
@@ -55,6 +56,6 @@ class PiecesController < ApplicationController
   end
 
   def piece_params
-    params.permit(:id, :name, :color, :x_coord, :y_coord, :game_id, :player_id, :type, :captured, :initial_position?, :promotion?, :promotion_type)
+    params.permit(:name, :color, :x_coord, :y_coord, :game_id, :player_id, :captured, :initial_position?, :promotion?, :promotion_type)
   end
 end
