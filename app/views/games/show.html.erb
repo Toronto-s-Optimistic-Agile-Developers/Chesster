@@ -50,6 +50,9 @@
                         <%= x_coord %> data-y_coord=
                         <%= y_coord %>>
                           <%= board_piece.unicode_symbol.html_safe %>
+                          <% if board_piece.name == "White_King" && board_piece.initial_position? == true %>
+                            <p class="castle"><span>Left</span></p>                      
+                          <% end %>
                       </div>
                     <% end %>
                 </td>
@@ -103,10 +106,10 @@
       <%= link_to 'Back', game_path(@game), method: :delete, class: 'btn btn-danger back', data: { confirm: "If you do this, the game will end before it begins. Are you sure?" } %>
     <% end %>
   </div>
-  <p class="castle">Castle Left</p>
   <script>
-     $('.castle').click(function () {
-      $.ajax("/games/left_white_castle");
+     $('p.castle').click(function () {
+        var SelectedPiece = "/games/" + <%= @game.id %> + "/pieces/" + pieceId + "/left_white_castle";
+      $.ajax('SelectedPiece);
     });
 
     var rotation = 0;
