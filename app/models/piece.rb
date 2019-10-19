@@ -91,7 +91,7 @@ class Piece < ApplicationRecord
 
   def pawn_promote
     pawn = Piece.find_by(x_coord, y_coord)
-    "#{pawn.promotion_type}".create(x_coord: pawn.x_coord, y_coord: pawn.y_coord, name: "Promoted #{pawn.promotion_type}")
+    "#{pawn.promotion_type}".create(x_coord: pawn.x_coord, y_coord: pawn.y_coord, color: pawn.color, name: "Promoted #{pawn.promotion_type}")
     pawn.destroy
   end
 end
