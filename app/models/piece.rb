@@ -88,12 +88,10 @@ class Piece < ApplicationRecord
       end
     end
   end
-  
-  RANK = {
-    'Knight': 'Knight',
-    'Bishop': 'Bishop',
-    'Rook': 'Rook',
-    'Queen': 'Queen'
-  }
-  
+
+  def pawn_promote
+    pawn = self.find_by(x_coord, y_coord, promotion_type)
+    "#{pawn.promotion_type}".create(x_coord: pawn.x_coord, y_coord: pawn.y_coord, name: "Promoted #{pawn.promotion_type}")
+    pawn.destroy
+  end
 end

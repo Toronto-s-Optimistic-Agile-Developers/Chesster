@@ -3,13 +3,6 @@ class Pawn < Piece
 		return "&#9823;"
 	end
 
-	def promote?(y_path)
-		if self.type == "Pawn" && (self.y_coord == 7 && self.color == "white") || (self.y_coord == 0 && cself.olor == "black")
-			self.update(promotion?: true)
-			return true
-		end
-  end
-
 	def legal_move?(x_path, y_path)
 		y_dif = (y_path - y_coord)
 		x_dif = (x_path - x_coord)

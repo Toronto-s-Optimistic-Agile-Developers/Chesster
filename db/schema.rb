@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_17_212905) do
+ActiveRecord::Schema.define(version: 2019_10_19_163631) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 2019_10_17_212905) do
     t.boolean "captured", default: false
     t.boolean "promotion?", default: false
     t.boolean "initial_position?", default: true
+    t.string "promotion_type"
   end
 
   create_table "users", force: :cascade do |t|

@@ -223,20 +223,19 @@ table ::selection {
 }
 
 #promote {
-
   .was-validated .form-control:valid,
   .form-control.is-valid {
     background-image: none !important;
   }
+  text-align: center;
 }
 
 .promote a {
   cursor: pointer;
-  font-size: 12px;
+  font-size: 10px;
   background-color: rgb(32, 126, 3);
   border: 1px solid silver;
   color: rgb(216, 213, 213) !important;
-  letter-spacing: 2px;
   padding-right: 4px;
   padding-left: 4px;
   padding-top: 0;

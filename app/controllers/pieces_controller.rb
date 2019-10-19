@@ -12,16 +12,16 @@ class PiecesController < ApplicationController
   end
 
   def edit
-    @piece = Piece.find(params[:id])
   end
 
   def update
-    @piece = Piece.find(params[:id])
-    @pieces = @game.pieces
-    @game = @piece.game
     x_path = piece_params[:x_coord].to_i
     y_path = piece_params[:y_coord].to_i
-    if @piece.valid_move?(x_path, y_path)
+    if @piece.promotion? == true
+      @piece.update(piece_params)
+      @piece.update_pawn
+      redirect_to @game
+    elsif @piece.valid_move?(x_path, y_path)
       @piece.update(initial_position?: false)
       @piece.move_to!(x_path, y_path)
       @piece.update_attributes(piece_params)
@@ -42,7 +42,12 @@ class PiecesController < ApplicationController
     @pieces = @game.pieces  
   end
 
+  def update_pawn  
+    
+  end
+
   private
+
 
   def find_piece
     @piece = Piece.find(params[:id])
@@ -51,6 +56,6 @@ class PiecesController < ApplicationController
   end
   
   def piece_params
-    params.permit(:id, :name, :color, :x_coord, :y_coord, :game_id, :player_id, :type, :captured, :initial_postion?, :promotion?)
+    params.permit(:id, :name, :color, :x_coord, :y_coord, :game_id, :player_id, :type, :captured, :initial_postion?, :promotion?, :promotion_type)
   end
 end
