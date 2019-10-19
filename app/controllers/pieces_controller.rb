@@ -18,7 +18,6 @@ class PiecesController < ApplicationController
   def update
     x_path = piece_params[:x_coord].to_i
     y_path = piece_params[:y_coord].to_i
-    type = piece_params[:promotion_type].to_s
     unless @piece.promotion? == true
       @piece.update_attributes(piece_params)
       @piece.pawn_promote(type)
