@@ -65,17 +65,13 @@ class Piece < ApplicationRecord
 
   def move_to!(x_path, y_path)
     rival_piece = Piece.find_by(x_coord: x_path, y_coord: y_path)
-    if (self.name == "White_Pawn" || self.name == "Black_Pawn") && rival_piece.color != self.color
-      ((x_path == x_path + 1) && (y_path == y_path + 1))
-      rival_piece.removed?
-    elsif self.type == Queen && rival_piece.color != self.color
-      rival_piece.removed?
+    if self.type == Pawn && rival_piece.color != self.color
+      (x_path == 1) && (y_path == 1)
     elsif rival_piece.present? && rival_piece.color != self.color
-      ((x_path == 1) && (y_path == 1))
       rival_piece.removed?
       update_attributes(x_coord: x_path, y_coord: y_path)
     elsif rival_piece.present? == false
-      update(x_coord: x_path, y_coord: y_path)
+      update_attributes(x_coord: x, y_coord: y)
     end
   end
 
@@ -88,10 +84,22 @@ class Piece < ApplicationRecord
       end
     end
   end
-
-  def pawn_promote
-    pawn = Piece.find_by(x_coord, y_coord)
-    "#{pawn.promotion_type}".create(x_coord: pawn.x_coord, y_coord: pawn.y_coord, color: pawn.color, name: "Promoted #{pawn.promotion_type}")
-    pawn.destroy
+  def pawn_promote(type)
+    case type.downcase
+    when 'rook'
+      Rook.create(x_coord: self.x_coord, x_coord: self.y_coord, color: self.color)
+    when 'queen'
+      Queen.create(x_coord: self.x_coord, x_coord: self.y_coord, color: self.color)
+    when 'bishop'
+      Bishop.create(x_coord: self.x_coord, x_coord: self.y_coord, color: self.color)
+    when 'knight'
+      Knight.create(x_coord: self.x_coord, x_coord: self.y_coord, color: self.color)
+    end
   end
+
+  # def pawn_promote
+  #   pawn = Piece.find_by(x_coord, y_coord)
+  #   "#{pawn.promotion_type}".create(x_coord: pawn.x_coord, y_coord: pawn.y_coord, color: pawn.color, name: "Promoted #{pawn.promotion_type}")
+  #   pawn.destroy
+  # end
 end
