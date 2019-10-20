@@ -44,13 +44,13 @@
                 <td data-x-coord=<%=x_coord %> data-y-coord=
                     <%= y_coord %> class='tile
                     <%= "#{(y_coord.odd? == x_coord.odd? ? "white-tile droppable-tile" : "black-tile droppable-tile")}" %>'>
-                    <% if board_piece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
-                      <div class="piece <%=board_piece.color %>" data-piece-id=
+                    <% if board_piece = @pieces.select{|p| p.x_coord == x_coord && p.y_coord == y_coord}.first %>
+                      <div title="<%= board_piece.name %>" class="piece <%=board_piece.color %>" data-piece-id=
                         <%= board_piece.id %> data-x_coord=
                         <%= x_coord %> data-y_coord=
                         <%= y_coord %>>
                           <%= board_piece.unicode_symbol.html_safe %>
-                          <% if (board_piece.name == "White_Pawn" && board_piece.y_coord == 0) || (board_piece.name == "Black_Pawn" && board_piece.y_coord == 7) %>
+                          <% if (board_piece.name == "White Pawn" && board_piece.y_coord == 0) || (board_piece.name == "Black Pawn" && board_piece.y_coord == 7) %>
                           <% board_piece.update(promotion?: true) %>
                             <span class="promote">
                               <%= link_to "Promote", edit_piece_path(board_piece.id.to_s) %>
@@ -153,9 +153,11 @@
             },
             dataType: 'json',
             data: {
-              id: update_piece.id,
-              x_coord: update_piece.x_coord,
-              y_coord: update_piece.y_coord
+              piece: {
+                id: update_piece.id,
+                x_coord: update_piece.x_coord,
+                y_coord: update_piece.y_coord
+              }
             },
             success: function (data) {
               destination_square.empty();

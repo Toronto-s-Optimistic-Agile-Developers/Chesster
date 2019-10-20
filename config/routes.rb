@@ -18,9 +18,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :pieces do
-    member do
-      patch :update_pawn
-    end
-  end
+  resources :pieces
+
 end

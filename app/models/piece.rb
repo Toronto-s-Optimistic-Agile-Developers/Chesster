@@ -2,20 +2,17 @@ class Piece < ApplicationRecord
   belongs_to :game
   belongs_to :user, required: false
   
-   def as_json(options={})
-    super(options.merge({:methods => :type}))
+  def white?
+    piece.color == 'white'
   end
 
-    def white?
-      piece.color == 'white'
-    end
-  
-    def black?
-      !white?
-    end
-  
-    def removed?
-      self.update(captured: true, x_coord: nil, y_coord: nil)
+  def black?
+    !white?
+  end
+
+  def removed?
+    self.update(captured: true)
+    self.update(x_coord: nil, y_coord: nil)
   end
 
   def has_moved?
@@ -63,44 +60,55 @@ class Piece < ApplicationRecord
     false
   end
 
+  def pawn_capture(x_path, y_path)
+    self.game.tile_taken?(x_path, y_path) == false
+		capture_y = (y_path - y_coord)
+		capture_x = (x_path - x_coord)
+    advance = self.color == "white" ? -1 : 1
+    update_attributes(x_coord: x_path, y_coord: y_path)
+    return ((capture_x == advance) && (capture_y == advance))
+  end
+
   def move_to!(x_path, y_path)
     rival_piece = Piece.find_by(x_coord: x_path, y_coord: y_path)
-    if self.type == Pawn && rival_piece.color != self.color
-      (x_path == 1) && (y_path == 1)
-    elsif rival_piece.present? && rival_piece.color != self.color
-      rival_piece.removed?
-      update_attributes(x_coord: x_path, y_coord: y_path)
-    elsif rival_piece.present? == false
-      update_attributes(x_coord: x_path, y_coord: y_path)
+    if ! is_obstructed?(x_path, y_path)
+      if rival_piece.present? && rival_piece.color != self.color
+        rival_piece.removed?
+        update_attributes(x_coord: x_path, y_coord: y_path)
+      elsif rival_piece.present? == false
+        update_attributes(x_coord: x, y_coord: y)
+      end
     end
   end
 
   def valid_move?(x_path, y_path)
     if on_the_board?(x_path, y_path) && ! ((x_coord == x_path) && (y_coord == y_path))
-      if legal_move?(x_path, y_path) && ! is_obstructed?(x_path, y_path)
+      if (legal_move?(x_path, y_path) && ! is_obstructed?(x_path, y_path)) || (! is_obstructed?(x_path, y_path) && self.pawn_capture(x_path, y_path)) 
         return true 
       else
         return false
       end
     end
   end
+
   def pawn_promote(new_rank)
-    new_rank = self.promotion_type
     case new_rank.downcase
     when 'rook'
-      Rook.create(x_coord: self.x_coord, x_coord: self.y_coord, color: self.color)
+      Rook.create(x_coord: self.x_coord, y_coord: self.y_coord, initial_position?: false, color: self.color, game_id: self.game_id, name: "Pormoted Rook (#{self.color})")
     when 'queen'
-      Queen.create(x_coord: self.x_coord, x_coord: self.y_coord, color: self.color)
+      Queen.create(x_coord: self.x_coord, y_coord: self.y_coord, initial_position?: false, color: self.color, game_id: self.game_id, name: "Pormoted Queen (#{self.color})")
     when 'bishop'
-      Bishop.create(x_coord: self.x_coord, x_coord: self.y_coord, color: self.color)
+      Bishop.create(x_coord: self.x_coord, y_coord: self.y_coord, initial_position?: false, color: self.color, game_id: self.game_id, name: "Pormoted Bishop (#{self.color})")
     when 'knight'
-      Knight.create(x_coord: self.x_coord, x_coord: self.y_coord, color: self.color)
+      Knight.create(x_coord: self.x_coord, y_coord: self.y_coord, initial_position?: false, color: self.color, game_id: self.game_id, name: "Pormoted Knight (#{self.color})")
     end
+    self.destroy
   end
 
-  # def pawn_promote
-  #   pawn = Piece.find_by(x_coord, y_coord)
-  #   "#{pawn.promotion_type}".create(x_coord: pawn.x_coord, y_coord: pawn.y_coord, color: pawn.color, name: "Promoted #{pawn.promotion_type}")
-  #   pawn.destroy
-  # end
+  RANK = {
+    'Knight': 'Knight',
+    'Bishop': 'Bishop',
+    'Rook': 'Rook',
+    'Queen': 'Queen'
+  }
 end
