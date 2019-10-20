@@ -26,11 +26,11 @@ class Game < ApplicationRecord
   def set_up_board!
   # Pawns
     (0..7).each do |x_coord|
-      Pawn.create(game_id: id, color: "white", x_coord: x_coord, y_coord: 6, name: "White_Pawn")
+      Pawn.create(game_id: id, color: "white", x_coord: x_coord, y_coord: 6, name: "White_Pawn", promotion_type: nil)
     end
 
     (0..7).each do |x_coord|
-      Pawn.create(game_id: id, color: "black", x_coord: x_coord, y_coord: 1, name: "Black_Pawn")
+      Pawn.create(game_id: id, color: "black", x_coord: x_coord, y_coord: 1, name: "Black_Pawn", promotion_type: nil)
     end
 
     # Rooks

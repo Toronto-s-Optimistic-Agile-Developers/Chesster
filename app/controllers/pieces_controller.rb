@@ -1,8 +1,4 @@
 class PiecesController < ApplicationController
-<<<<<<< HEAD
-
-=======
->>>>>>> fa6115391a5386ee053ff29292fc489f54e43df4
   before_action :find_piece
 
   
@@ -20,14 +16,19 @@ class PiecesController < ApplicationController
   end
 
   def update
-    @piece = Piece.find(params[:id])
-    @pieces = @game.pieces
-    @game = @piece.game
     x_path = piece_params[:x_coord].to_i
     y_path = piece_params[:y_coord].to_i
-    if @piece.valid_move?(x_path, y_path)
+    new_rank =  piece_params[:promotion_type]
+    if @piece.promotion? == true
+      @piece.update_attributes(piece_params)
+      @piece.pawn_promote(new_rank)
+      redirect_to @game
+      @game.reload
+    end
+    if @piece.promotion? == false
+      @piece.valid_move?(x_path, y_path)
+      @piece.update(initial_position?: false)
       @piece.move_to!(x_path, y_path)
-      @piece.update(initial_postion?: false)
       @piece.update_attributes(piece_params)
       respond_to do |format|
         format.html { render :show }
@@ -36,7 +37,7 @@ class PiecesController < ApplicationController
       @game.reload
     else 
       flash[:alert] = 'Your move cannot be completed!'
-      @game.reload
+      # @game.reload
     end
   end
 
@@ -53,8 +54,8 @@ class PiecesController < ApplicationController
     @color = @piece.color
     @game = @piece.game
   end
-  
+
   def piece_params
-    params.permit(:id, :name, :color, :x_coord, :y_coord, :game_id, :player_id, :type, :captured, :initial_postion?)
+    params.permit(:name, :color, :x_coord, :y_coord, :game_id, :player_id, :captured, :initial_position?, :promotion?, :promotion_type)
   end
 end
