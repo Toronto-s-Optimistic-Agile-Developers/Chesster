@@ -61,7 +61,7 @@ class Piece < ApplicationRecord
   end
 
   def pawn_capture(x_path, y_path)
-    self.game.tile_taken?(x_path, y_path) == false
+    # self.game.tile_taken?(x_path, y_path) == false
 		capture_y = (y_path - y_coord)
 		capture_x = (x_path - x_coord)
     advance = self.color == "white" ? -1 : 1
@@ -69,10 +69,53 @@ class Piece < ApplicationRecord
     return ((capture_x == advance) && (capture_y == advance))
   end
 
+  def castle(x_path, y_path)
+    king_black = Piece.find_by(x_coord: 4, y_coord: 7)
+    king_white = Piece.find_by(x_coord: 4, y_coord: 0)
+    left_rook_white = Piece.find_by(x_coord: 0, y_coord: 0)
+    right_rook_white = Piece.find_by(x_coord: 7, y_coord: 0)
+    left_rook_black = Piece.find_by(x_coord: 0, y_coord: 7)
+    right_rook_black = Piece.find_by(x_coord: 7, y_coord: 7)
+    if (king_black.has_moved? == false && left_rook_black.has_moved? == false)
+      if (left_rook_black.x_coord == (self.x_coord == 4)) || (king_black.x_coord == (self.x_coord == 0))
+        King.create(game_id: left_rook_black.game_id, color: left_rook_black.color, x_coord: left_rook_black.x_coord, y_coord: left_rook_black.y_coord, initial_position?: false)
+        Rook.create(game_id: king_black.game_id, color: king_black.color, x_coord: king_black.x_coord, y_coord: king_black.y_coord, initial_position?: false)
+        king_black.destroy
+        left_rook_black.destroy
+        return true
+      end
+    elsif (king_black.has_moved? == false && right_rook_black.has_moved? == false)
+        if (right_rook_black.x_path == (x_coord.x_coord == 4)) || (king_black.x_coord == (self.x_coord == 7))
+          King.create(game_id: right_rook_black.game_id, color: right_rook_black.color, x_coord: right_rook_black.x_coord, y_coord: right_rook_black.y_coord, initial_position?: false)
+          Rook.create(game_id: king_black.game_id, color: king_black.color, x_coord: king_black.x_coord, y_coord: king_black.y_coord, initial_position?: false)
+          king_black.destroy
+          right_rook_black.destroy
+          return true
+        end
+    elsif (king_white.has_moved? == false && left_rook_white.has_moved? == false)
+        if (left_rook_white.x_coord == (self.x_coord == 4)) || (king_white.x_coord == (self.x_coord == 0))
+          King.create(game_id: left_rook_white.game_id, color: left_rook_white.color, x_coord: left_rook_white.x_coord, y_coord: left_rook_white.y_coord, initial_position?: false)
+          Rook.create(game_id: king_white.game_id, color: king_white.color, x_coord: king_white.x_coord, y_coord: king_white.y_coord, initial_position?: false)
+          king_white.destroy
+          left_rook_white.destroy
+          return true
+        end
+      elsif (king_white.has_moved? == false && right_rook_white.has_moved? == false)
+        if (right_rook_white.x_coord == (self.x_coord == 4)) || (king_white.x_coord == (self.x_coord == 7))
+          King.create(game_id: right_rook_white.game_id, color: right_rook_white.color, x_coord: right_rook_white.x_coord, y_coord: right_rook_white.y_coord, initial_position?: false)
+          Rook.create(game_id: king_white.game_id, color: king_white.color, x_coord: king_white.x_coord, y_coord:  king_white.y_coord, initial_position?: false)
+          king_white.destroy
+          right_rook_white.destroy
+          return true
+        end
+      end
+      return false
+    end
+
   def move_to!(x_path, y_path)
     rival_piece = Piece.find_by(x_coord: x_path, y_coord: y_path)
     if self.type == Pawn && rival_piece.color != self.color
-      ((x_path == 1) && (y_path == 1))
+      self.pawn_capture(x_path, y_path)
       rival_piece.removed?
     elsif self.type == Queen && rival_piece.color != self.color
       rival_piece.removed?
@@ -87,7 +130,7 @@ class Piece < ApplicationRecord
 
   def valid_move?(x_path, y_path)
     if on_the_board?(x_path, y_path) && ! ((x_coord == x_path) && (y_coord == y_path))
-      if (legal_move?(x_path, y_path) && ! is_obstructed?(x_path, y_path)) || (! is_obstructed?(x_path, y_path) && self.pawn_capture(x_path, y_path)) 
+      if (legal_move?(x_path, y_path) && ! is_obstructed?(x_path, y_path)) || (! is_obstructed?(x_path, y_path) && self.pawn_capture(x_path, y_path))
         return true 
       else
         return false
@@ -108,8 +151,6 @@ class Piece < ApplicationRecord
     end
     self.destroy
   end
-
-  
 
   RANK = {
     'Knight': 'Knight',

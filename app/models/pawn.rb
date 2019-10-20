@@ -7,11 +7,12 @@ class Pawn < Piece
 		y_dif = (y_path - y_coord)
 		x_dif = (x_path - x_coord)
 		up = self.color == "white" ? -1 : 1
-		if ! self.game.tile_taken?(x_path, y_path) || pawn_capture(x_path, y_path)
+		return false if is_obstructed?(x_path, y_path)
+		if ! self.game.tile_taken?(x_path, y_path)
 			if ! self.has_moved?
 				return (x_dif == 0 && y_dif == up) || (x_dif == 0 && y_dif == 2*up)
 			else
-				return (x_dif == 0 && y_dif == up) 
+				return (x_dif == 0 && y_dif == up) unless self.pawn_capture(x_path, y_path)
 			end
 		end
 	end

@@ -19,7 +19,9 @@ class PiecesController < ApplicationController
     x_path = piece_params[:x_coord].to_i
     y_path = piece_params[:y_coord].to_i
     new_rank =  piece_params[:promotion_type].to_s
-    if @piece.promotion? == true
+    if @piece.castle(x_path, y_path) == true
+      @piece.update(piece_params)
+    elsif @piece.promotion? == true
       @piece.update(piece_params)
       @piece.pawn_promote(new_rank)
       redirect_to @game
