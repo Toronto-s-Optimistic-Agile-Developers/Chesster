@@ -1,0 +1,21 @@
+ <br />
+ <h1 class="text-center">Promote Your Pawn</h1>
+ <br />
+ <div id="promote">
+   <p class="promotion-notice">Select the type of piece that you want to promote your pawn to.</p>
+   <br />
+   <%= simple_form_for(@piece, as: :piece, remote: true, url: {controller: :pieces, action: :update}) do |f| %>
+   <%= f.error_notification %>
+   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+   <div class="form-inputs">
+     <%= f.input :promotion_type, as: :select, collection: Piece::RANK, label: 'Piece Options:' %>
+   </div>
+   <br />
+   <br />
+   <div class="form-actions">
+     <%= f.button :submit, 'Strengthen your ranks!', class: 'btn btn-success' %>
+   </div>
+ <% end %>
+ </div>
+   <br />

@@ -1,6 +1,7 @@
+
 class King < Piece
   def unicode_symbol
-		return y_coord > 5 ? "&#x2654;"	: "&#9818;"
+		return "&#9818;"
 	end
 
   def legal_move?(x_path, y_path)
@@ -14,4 +15,3 @@ class King < Piece
       return true
     end
   end
-end
