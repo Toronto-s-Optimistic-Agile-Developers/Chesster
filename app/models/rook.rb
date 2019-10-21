@@ -1,6 +1,6 @@
 class Rook < Piece
   def unicode_symbol	
-		return y_coord > 5 ? "&#9814;" : "&#9820;"
+		return "&#9820;"
 	end
 
    def legal_move?(x_path, y_path)
