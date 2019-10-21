@@ -1,5 +1,5 @@
-
 class King < Piece
+  
   def unicode_symbol
 		return "&#9818;"
 	end
@@ -15,3 +15,4 @@ class King < Piece
       return true
     end
   end
+end

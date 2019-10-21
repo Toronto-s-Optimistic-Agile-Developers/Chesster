@@ -25,6 +25,7 @@ class Game < ApplicationRecord
   def pass_turn!(color)
     player_turn = color == 'white' ? 'black' : 'white'
     update(user_turn: player_turn)
+  end
 
   def tile_taken?(x_path, y_path)
     pieces.where(x_coord: x_path, y_coord: y_path).first.present? 
@@ -83,6 +84,7 @@ class Game < ApplicationRecord
     #Kings
     King.create(game_id: id, color: "white", x_coord: 4, y_coord: 7, name: "White_King")
 
+
     King.create(game_id: id, color: "black", x_coord: 4, y_coord: 0, name: "Black_King")
 
     #Queens
@@ -97,6 +99,7 @@ class Game < ApplicationRecord
       'black'
     end
     pieces.where(color: rival_color).to_a
+  end
 
   def my_pieces(color)
     friendly_pieces = if color == 'black'
@@ -105,6 +108,7 @@ class Game < ApplicationRecord
       'white'
     end
     pieces.where(color: friendly_pieces).to_a
-  
+  end
+
   end
 end
