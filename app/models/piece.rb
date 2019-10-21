@@ -150,4 +150,5 @@ class Piece < ApplicationRecord
     'Rook': 'Rook',
     'Queen': 'Queen'
   }
+
 end
