@@ -38,12 +38,6 @@ class GamesController < ApplicationController
     redirect_to games_path
   end
 
-  def update
-    # @game = current_game
-    # @game.update(game_params)
-    # @game.reload
-  end
-
   def destroy
     @game = Game.find_by_id(params[:id])
     if @game.in_play?
