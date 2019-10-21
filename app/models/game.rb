@@ -105,6 +105,6 @@ class Game < ApplicationRecord
       'white'
     end
     pieces.where(color: friendly_pieces).to_a
-
+  
   end
 end
