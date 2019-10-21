@@ -1,3 +1,24 @@
-<h1> Welcome! </h1>
-<%= link_to 'New Game', new_game_path, class:"btn btn-danger" %>
+<html>
+
+<head>
+</head>
+
+<body>
+  <div class="hero">
+    <br />
+    <div class="frosty col-10 offset-1 text-center">
+      <br />
+      <h1> Toronto's-Optimistic-Agile-Developers! </h1>
+      <br />
+      <h2> Chesster by TOAD! </h2>
+      <br />
+      <%= link_to 'Play Chess', new_game_path, class:"btn btn-success" %>
+      <br /><br />
+    </div>
+  </div>
+
 <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
+
+</body>
+
+</html>
