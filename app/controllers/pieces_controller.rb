@@ -19,26 +19,22 @@ class PiecesController < ApplicationController
     x_path = piece_params[:x_coord].to_i
     y_path = piece_params[:y_coord].to_i
     new_rank =  piece_params[:promotion_type].to_s
-    if @piece.castle(x_path, y_path) == true
-      @piece.update(piece_params)
-    elsif @piece.promotion? == true
+    if @piece.promotion? == true
       @piece.update(piece_params)
       @piece.pawn_promote(new_rank)
       redirect_to @game
       flash[:notice] = 'You have successfully promoted your pawn! Please refresh the page.'
       @game.reload
     elsif @piece.valid_move?(x_path, y_path)
-      @piece.update(initial_position?: false)
       @piece.move_to!(x_path, y_path)
+      @piece.update(initial_position?: false)
       @piece.update_attributes(piece_params)
       respond_to do |format|
         format.html { render :show }
         format.json { render json: @piece, status: :ok }
+      end
         @game.reload
-        flash[:notice] = 'You move was successfully completed!'
-      end   
-    else
-      flash[:alert] = 'Your move cannot be completed! Please try again.'
+        flash[:notice] = 'You move was successfully completed!'  
     end
     @game.reload
   end

@@ -1,4 +1,5 @@
 class Piece < ApplicationRecord
+  attr_accessor :rival_piece
   belongs_to :game
   belongs_to :user, required: false
   
@@ -11,8 +12,7 @@ class Piece < ApplicationRecord
   end
 
   def removed?
-    self.update(captured: true)
-    self.update(x_coord: nil, y_coord: nil)
+    update(captured: true, x_coord: nil, y_coord: nil)
   end
 
   def has_moved?
@@ -23,7 +23,7 @@ class Piece < ApplicationRecord
     end
   end
 
-  def friendly_piece
+  def friendly_piece(x_path, y_path)
     return true if self.game.tile_taken?(x_path, y_path) && self.color == self.game.pieces.where(x_coord: x_path, y_coord: y_path).first.color
     return false if self.type == "Knight"
   end
@@ -48,7 +48,7 @@ class Piece < ApplicationRecord
 
   def is_obstructed?(x_path, y_path) 
     return true if self.game.tile_taken?(x_path, y_path) && self.color == self.game.pieces.where(x_coord: x_path, y_coord: y_path).first.color
-    return false if self.type == "Knight"
+    return false if (self.type == "Knight") || self.castle(x_path, y_path)
     x_dir = x_path >= self.x_coord ? (x_path == self.x_coord ? 0 : 1) : -1
     y_dir = y_path >= self.y_coord ? (y_path == self.y_coord ? 0 : 1) : -1
     direction = [x_dir, y_dir]
@@ -60,22 +60,13 @@ class Piece < ApplicationRecord
     false
   end
 
-  def pawn_capture(x_path, y_path)
-    # self.game.tile_taken?(x_path, y_path) == false
-		capture_y = (y_path - y_coord)
-		capture_x = (x_path - x_coord)
-    advance = self.color == "white" ? -1 : 1
-    update_attributes(x_coord: x_path, y_coord: y_path)
-    return ((capture_x == advance) && (capture_y == advance))
-  end
-
   def castle(x_path, y_path)
-    king_black = Piece.find_by(x_coord: 4, y_coord: 7)
-    king_white = Piece.find_by(x_coord: 4, y_coord: 0)
-    left_rook_white = Piece.find_by(x_coord: 0, y_coord: 0)
-    right_rook_white = Piece.find_by(x_coord: 7, y_coord: 0)
-    left_rook_black = Piece.find_by(x_coord: 0, y_coord: 7)
-    right_rook_black = Piece.find_by(x_coord: 7, y_coord: 7)
+    king_black = Piece.find_by(x_coord: 4, y_coord: 0)
+    king_white = Piece.find_by(x_coord: 4, y_coord: 7)
+    left_rook_white = Piece.find_by(x_coord: 0, y_coord: 7)
+    right_rook_white = Piece.find_by(x_coord: 7, y_coord: 7)
+    left_rook_black = Piece.find_by(x_coord: 0, y_coord: 0)
+    right_rook_black = Piece.find_by(x_coord: 7, y_coord: 0)
     if (king_black.has_moved? == false && left_rook_black.has_moved? == false)
       if (left_rook_black.x_coord == (self.x_coord == 4)) || (king_black.x_coord == (self.x_coord == 0))
         King.create(game_id: left_rook_black.game_id, color: left_rook_black.color, x_coord: left_rook_black.x_coord, y_coord: left_rook_black.y_coord, initial_position?: false)
@@ -114,23 +105,23 @@ class Piece < ApplicationRecord
 
   def move_to!(x_path, y_path)
     rival_piece = Piece.find_by(x_coord: x_path, y_coord: y_path)
-    if self.type == Pawn && rival_piece.color != self.color
-      self.pawn_capture(x_path, y_path)
-      rival_piece.removed?
-    elsif self.type == Queen && rival_piece.color != self.color
-      rival_piece.removed?
-    elsif rival_piece.present? && rival_piece.color != self.color
-      ((x_path == 1) && (y_path == 1))
-      rival_piece.removed?
-      update_attributes(x_coord: x_path, y_coord: y_path)
-    elsif rival_piece.present? == false
-      update(x_coord: x_path, y_coord: y_path)
+    if ! is_obstructed?(x_path, y_path)
+      if self.type == Pawn && rival_piece.color != self.color
+        (x_path == @up) && (y_path == @up)
+        rival_piece.removed?
+        update_attributes(x_coord: x_path, y_coord: y_path)
+      elsif rival_piece.present? && rival_piece.color != self.color
+        rival_piece.removed?
+        update_attributes(x_coord: x_path, y_coord: y_path)
+      elsif rival_piece.present? == false
+        update_attributes(x_coord: x_path, y_coord: y_path)
+      end
     end
   end
 
   def valid_move?(x_path, y_path)
-    if on_the_board?(x_path, y_path) && ! ((x_coord == x_path) && (y_coord == y_path))
-      if (legal_move?(x_path, y_path) && ! is_obstructed?(x_path, y_path)) || (! is_obstructed?(x_path, y_path) && self.pawn_capture(x_path, y_path))
+    if on_the_board?(x_path, y_path) && ! ((x_coord == x_path) && (y_coord == y_path) && ! friendly_piece(x_path, y_path))
+      if legal_move?(x_path, y_path) && ! is_obstructed?(x_path, y_path)
         return true 
       else
         return false
