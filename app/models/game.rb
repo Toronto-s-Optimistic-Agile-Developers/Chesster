@@ -18,6 +18,14 @@ class Game < ApplicationRecord
     self.white_id != nil && self.black_id != nil
   end
 
+  def first_turn!
+    update(user_turn: 'white')
+  end
+
+  def pass_turn!(color)
+    player_turn = color == 'white' ? 'black' : 'white'
+    update(user_turn: player_turn)
+
   def tile_taken?(x_path, y_path)
     pieces.where(x_coord: x_path, y_coord: y_path).first.present? 
   end 
@@ -38,50 +46,50 @@ class Game < ApplicationRecord
   def set_up_board!
   # Pawns
     (0..7).each do |x_coord|
-      Pawn.create(game_id: id, color: "white", x_coord: x_coord, y_coord: 6, name: "White Pawn", promotion_type: nil)
+      Pawn.create(game_id: id, color: "white", x_coord: x_coord, y_coord: 6, name: "White_Pawn")
     end
 
     (0..7).each do |x_coord|
-      Pawn.create(game_id: id, color: "black", x_coord: x_coord, y_coord: 1, name: "Black Pawn", promotion_type: nil)
+      Pawn.create(game_id: id, color: "black", x_coord: x_coord, y_coord: 1, name: "Black_Pawn")
     end
 
     # Rooks
     [0, 7].each do |x_coord|
-      Rook.create(game_id: id, color: "white", x_coord: x_coord, y_coord: 7,  name: "White Rook")
+      Rook.create(game_id: id, color: "white", x_coord: x_coord, y_coord: 7,  name: "White_Rook")
     end
 
     [0, 7].each do |x_coord|
-      Rook.create(game_id: id, color: "black", x_coord: x_coord, y_coord: 0, name: "Black Rook")
+      Rook.create(game_id: id, color: "black", x_coord: x_coord, y_coord: 0, name: "Black_Rook")
     end
 
     # Knights
     [1, 6].each do |x_coord|
-      Knight.create(game_id: id, color: "white", x_coord: x_coord, y_coord: 7, name: "White Knight")
+      Knight.create(game_id: id, color: "white", x_coord: x_coord, y_coord: 7, name: "White_Knight")
     end
 
     [1, 6].each do |x_coord|
-      Knight.create(game_id: id, color: "black", x_coord: x_coord, y_coord: 0, name: "Black Knight")
+      Knight.create(game_id: id, color: "black", x_coord: x_coord, y_coord: 0, name: "Black_Knight")
     end
 
     #Bishops
     [2, 5].each do |x_coord|
-      Bishop.create(game_id: id, color: "white", x_coord: x_coord, y_coord: 7, name: "White Bishop")
+      Bishop.create(game_id: id, color: "white", x_coord: x_coord, y_coord: 7, name: "White_Bishop")
     end
 
     [2, 5].each do |x_coord|
-      Bishop.create(game_id: id, color: "black", x_coord: x_coord, y_coord: 0, name: "Black Bishop")
+      Bishop.create(game_id: id, color: "black", x_coord: x_coord, y_coord: 0, name: "Black_Bishop")
     end
 
     #Kings
-    King.create(game_id: id, color: "white", x_coord: 4, y_coord: 7, name: "White King")
+    King.create(game_id: id, color: "white", x_coord: 4, y_coord: 7, name: "White_King")
 
-    King.create(game_id: id, color: "black", x_coord: 4, y_coord: 0, name: "Black King")
+    King.create(game_id: id, color: "black", x_coord: 4, y_coord: 0, name: "Black_King")
 
     #Queens
-    Queen.create(game_id: id, color: "white", x_coord: 3, y_coord: 7, name: "White Queen")
+    Queen.create(game_id: id, color: "white", x_coord: 3, y_coord: 7, name: "White_Queen")
 
     Queen.create(game_id: id, color: "black", x_coord: 3, y_coord: 0, name: "Black_Queen")
-
+  
   def opponent_pieces(color)
     rival_color = if color == 'black'
       'white'
