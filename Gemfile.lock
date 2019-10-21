@@ -155,7 +155,7 @@ GEM
     omniauth (1.9.0)
       hashie (>= 3.4.6, < 3.7.0)
       rack (>= 1.6.2, < 3)
-    omniauth-facebook (4.0.0)
+    omniauth-facebook (5.0.0)
       omniauth-oauth2 (~> 1.2)
     omniauth-google-oauth2 (0.8.0)
       jwt (>= 2.0)
@@ -319,7 +319,7 @@ DEPENDENCIES
   jquery-ui-rails
   listen (>= 3.0.5, < 3.2)
   omniauth
-  omniauth-facebook (~> 4.0.0)
+  omniauth-facebook
   omniauth-google-oauth2
   pg (>= 0.18, < 2.0)
   popper_js (~> 1.14.5)
