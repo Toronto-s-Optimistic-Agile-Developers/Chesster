@@ -18,19 +18,40 @@ class Game < ApplicationRecord
     self.white_id != nil && self.black_id != nil
   end
 
+  def first_turn!
+    update(user_turn: 'white')
+  end
+
+  def pass_turn!(color)
+    player_turn = color == 'white' ? 'black' : 'white'
+    update(user_turn: player_turn)
+  end
+
   def tile_taken?(x_path, y_path)
     pieces.where(x_coord: x_path, y_coord: y_path).first.present? 
   end 
   
+  def in_check?(color)
+    @rival_causing_check = []
+    king = find_king(color)
+    if king
+      opponents = opponent_pieces(color)
+      opponents.each do |piece|
+        @rival_causing_check << piece if piece.valid_move?(king.x_coord, king.y_coord) == true
+      end
+    end
+    return true if @rival_causing_check.any?
+  end
+
   #validates :name, presence: true
   def set_up_board!
   # Pawns
     (0..7).each do |x_coord|
-      Pawn.create(game_id: id, color: "white", x_coord: x_coord, y_coord: 6, name: "White_Pawn", promotion_type: nil)
+      Pawn.create(game_id: id, color: "white", x_coord: x_coord, y_coord: 6, name: "White_Pawn")
     end
 
     (0..7).each do |x_coord|
-      Pawn.create(game_id: id, color: "black", x_coord: x_coord, y_coord: 1, name: "Black_Pawn", promotion_type: nil)
+      Pawn.create(game_id: id, color: "black", x_coord: x_coord, y_coord: 1, name: "Black_Pawn")
     end
 
     # Rooks
@@ -63,11 +84,31 @@ class Game < ApplicationRecord
     #Kings
     King.create(game_id: id, color: "white", x_coord: 4, y_coord: 7, name: "White_King")
 
+
     King.create(game_id: id, color: "black", x_coord: 4, y_coord: 0, name: "Black_King")
 
     #Queens
     Queen.create(game_id: id, color: "white", x_coord: 3, y_coord: 7, name: "White_Queen")
 
     Queen.create(game_id: id, color: "black", x_coord: 3, y_coord: 0, name: "Black_Queen")
+  
+  def opponent_pieces(color)
+    rival_color = if color == 'black'
+      'white'
+    else
+      'black'
+    end
+    pieces.where(color: rival_color).to_a
+  end
+
+  def my_pieces(color)
+    friendly_pieces = if color == 'black'
+      'black'
+    else
+      'white'
+    end
+    pieces.where(color: friendly_pieces).to_a
+  end
+
   end
 end

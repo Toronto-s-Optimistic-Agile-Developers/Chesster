@@ -4,7 +4,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 
-<body data-turbolinks="false">
+<body style="background: image_url('table-top.jpg') center center fixed;" data-turbolinks="false">
   <div class="game" data-game-id=<%= @game.id %>>
     <h1 class="text-center">
         
@@ -37,35 +37,6 @@
   </div>
   <div class="set-board">
     <div class="chess" align="center">
-<<<<<<< HEAD
-      <div class="board">
-        <table>
-          <% (0..7).each do |y_coord| %>
-<<<<<<< HEAD
-            <% (0..7).each do |x_coord| %>
-              <td data-x-coord=<%=x_coord %> data-y-coord=<%= y_coord %> class=<%= "#{(y_coord.odd? == x_coord.odd? ? "white-tile" : "black-tile")}" %>>
-                <% if board_piece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
-                  <span class="<%= board_piece.color %>" title="<%= board_piece.name %>">
-                    <%= board_piece.unicode_symbol.html_safe %>
-                  </span>
-                <% end %>
-              </td>
-            <% end %>
-=======
-            <% (0..7).each do |x_coord| %>              
-              <td data-x-coord=<%=x_coord %> data-y-coord=<%= y_coord %> class='tile <%= "#{(y_coord.odd? == x_coord.odd? ? "white-tile droppable-tile" : "black-tile droppable-tile")}" %>
-                '>  
-                  <% if board_piece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
-                      <%= tag.span title: board_piece.name, id: board_piece.id.to_s, class: "#{board_piece.color} selectable-piece"  do %>
-                      <%= board_piece.unicode_symbol.html_safe %>
-                    <% end %>  
-                  <% end %>
-                </td>
-              <% end %>
->>>>>>> efc572501d90d9b85733d72ce4521539ffdd73f3
-            </tr>
-          <% end %>
-=======
         <div class="board">
           <table>
             <% (0..7).each do |y_coord| %>
@@ -73,13 +44,13 @@
                 <td data-x-coord=<%=x_coord %> data-y-coord=
                     <%= y_coord %> class='tile
                     <%= "#{(y_coord.odd? == x_coord.odd? ? "white-tile droppable-tile" : "black-tile droppable-tile")}" %>'>
-                    <% if board_piece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
-                      <div class="piece <%=board_piece.color %>" data-piece-id=
+                    <% if board_piece = @pieces.select{|p| p.x_coord == x_coord && p.y_coord == y_coord}.first %>
+                      <div title="<%= board_piece.name %>" class="piece <%=board_piece.color %>" data-piece-id=
                         <%= board_piece.id %> data-x_coord=
                         <%= x_coord %> data-y_coord=
                         <%= y_coord %>>
                           <%= board_piece.unicode_symbol.html_safe %>
-                          <% if (board_piece.name == "White_Pawn" && board_piece.y_coord == 0) || (board_piece.name == "Black_Pawn" && board_piece.y_coord == 7) %>
+                          <% if (board_piece.name == "White Pawn" && board_piece.y_coord == 0) || (board_piece.name == "Black Pawn" && board_piece.y_coord == 7) %>
                           <% board_piece.update(promotion?: true) %>
                             <span class="promote">
                               <%= link_to "Promote", edit_piece_path(board_piece.id.to_s) %>
@@ -92,7 +63,6 @@
               <% end %>
               </tr>
             <% end %>
->>>>>>> fa6115391a5386ee053ff29292fc489f54e43df4
         </table>
       </div>
       <div id="labels">
@@ -124,7 +94,6 @@
       </div>
     </div>
   </div>
-<<<<<<< HEAD
   <div id="forfeit">
     <% if @game.in_play? %>
       <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>
@@ -142,13 +111,7 @@
     <% end %>
   </div>
   <script>
-=======
-
-  <%= link_to 'Back', games_path %>
-<script>
->>>>>>> efc572501d90d9b85733d72ce4521539ffdd73f3
     var rotation = 0;
-
     jQuery.fn.rotate = function (degrees) {
       $(this).css({
         '-webkit-transform': 'rotate(' + degrees + 'deg)',
@@ -157,18 +120,15 @@
         'transform': 'rotate(' + degrees + 'deg)'
       });
     };
-
     $('#Flip_Board').click(function () {
       rotation -= 180;
       $('.set-board, .chess td, #labels td').rotate(rotation);
     });
-
     $(document).ready(function () {
       $('.piece').draggable({
         snap: '.droppable-tile',
         revert: 'invalid'
       });
-
       $('.droppable-tile').droppable({
         drop: function (event, ui) {
           var piece = ui.draggable
@@ -180,7 +140,6 @@
             x_coord: destination_square.data('x-coord'),
             y_coord: destination_square.data('y-coord'),
           }
-
           $.ajax({
             type: 'PATCH',
             url: '/pieces/' + update_piece.id,
@@ -189,70 +148,19 @@
             },
             dataType: 'json',
             data: {
-              id: update_piece.id,
-              x_coord: update_piece.x_coord,
-              y_coord: update_piece.y_coord
+              piece: {
+                id: update_piece.id,
+                x_coord: update_piece.x_coord,
+                y_coord: update_piece.y_coord
+              }
             },
             success: function (data) {
               destination_square.empty();
               location.reload(true);
             }
-
           });
         }
       });
     });
-<<<<<<< HEAD
   </script>
 </body>
-<<<<<<< HEAD
-=======
-
-    $("tile").addClass("droppable-tile");
-    $( ".selectable-piece" ).draggable({
-      cancel: "a.ui-icon", 
-      revert: "invalid",
-      containment: "document",
-      snap: ".document td",
-      snapTolerance: 20,
-      helper: "clone",
-      cursor: "move"
-    });
-    $( ".droppable-tile").droppable({
-      accept: ".selectable-piece",
-      tolerance: "pointer",
-      classes: {
-        "ui-droppable-active": "ui-state-active",
-        "ui-droppable-hover": "ui-state-hover"
-      },
-      drop: function( event, ui ) {
-        const $newDroppableTile = $(this)
-          $.ajax({
-          beforeSend: function(xhr) {
-          xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-          },
-          type: "PATCH",
-          dataType: 'text',
-          url: "/pieces/" + ui.draggable.attr('id'),
-          data: {
-            piece: {
-              x_coord: $(this).data("x-coord"),
-              y_coord: $(this).data("y-coord")
-            },
-          },
-                    error:  function(xhr){
-            var errorMessage = $.parseJSON(xhr.responseText).message
-            var alertClass = $.parseJSON(xhr.responseText).class
-            $("#alert_msg").addClass(alertClass)
-            $("#alert_msg").html('<p>'+ errorMessage + '</p>')
-          },
-          success: function(){
-            $newDroppableTile.append($(ui.draggable));
-          }
-        });
-      }
-    });
-  </script>>
-</body>
-<%= @piece.inspect %>
-

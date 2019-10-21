@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2019_10_15_222933) do
-=======
-ActiveRecord::Schema.define(version: 2019_10_19_163631) do
->>>>>>> 0b573edf667dcf08e5c0d1662a072490f93dcdb0
+ActiveRecord::Schema.define(version: 2019_10_20_173833) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +37,7 @@ ActiveRecord::Schema.define(version: 2019_10_19_163631) do
     t.integer "user_id"
     t.integer "winner"
     t.integer "loser"
+    t.string "user_turn"
     t.index ["id"], name: "index_games_on_id"
     t.index ["player_id"], name: "index_games_on_player_id"
     t.index ["user_id"], name: "index_games_on_user_id"
@@ -59,11 +56,10 @@ ActiveRecord::Schema.define(version: 2019_10_19_163631) do
     t.boolean "captured", default: false
     t.boolean "promotion?", default: false
     t.boolean "initial_position?", default: true
-<<<<<<< HEAD
-    t.boolean "initial_postion?", default: true
-=======
     t.string "promotion_type"
->>>>>>> 0b573edf667dcf08e5c0d1662a072490f93dcdb0
+    t.index ["game_id"], name: "index_pieces_on_game_id"
+    t.index ["x_coord"], name: "index_pieces_on_x_coord"
+    t.index ["y_coord"], name: "index_pieces_on_y_coord"
   end
 
   create_table "users", force: :cascade do |t|
