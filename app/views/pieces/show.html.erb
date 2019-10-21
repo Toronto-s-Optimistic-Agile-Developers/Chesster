@@ -5,39 +5,35 @@
 </head>
 <body data-turbolinks="false">
   <p id="notice"><%= notice %></p>
-  <h1 class="text-center">
-    <%= @game.name %>
-    <%= @game.white_id %>
-    <%= @game.black_id %>
-  </h1>
+  
   <br />
   <div class="rotate">
   <table>
       <tr>
         <td class="left">
-          <p class="rotate-board" id="Flip_Board">Flip board</p>
+          
         </td>
         <td>
         </td>
         <td class=right>
-          <p class="rotate-board" id="Rotate_Board">Rotate board</p>
+         <p class="rotate-board" id="Flip_Board">Flip</p>
         </td>
       </tr>
     </table>
   </div>
+
   <div class="set-board">
     <div class="chess" align="center">
       <div class="board">
-
         <table>          
           <% (0..7).each do |y_coord| %>
             <% (0..7).each do |x_coord| %>              
               <td data-x-coord=<%=x_coord %> data-y-coord=<%= y_coord %> class='tile <%= "#{(y_coord.odd? == x_coord.odd? ? "white-tile droppable-tile" : "black-tile droppable-tile")}" %>
-                <%= "highlighted" if y_coord == @piece.y_coord && x_coord == @piece.x_coord %>'>                
+                <%= "highlighted" if y_coord == @piece.y_coord && x_coord == @piece.x_coord %>'>  
                   <% if board_piece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
-                      <%= tag.span title: board_piece.name, id: board_piece.id.to_s, class: "#{board_piece.color} selectable-piece" do %>
-                      <%= board_piece.unicode_symbol.html_safe %>               
-                    <% end %>
+                      <%= tag.span title: board_piece.name, id: board_piece.id.to_s, class: "#{board_piece.color} selectable-piece"  do %>
+                      <%= board_piece.unicode_symbol.html_safe %>
+                    <% end %>  
                   <% end %>
                 </td>
               <% end %>
@@ -110,7 +106,6 @@
         "ui-droppable-active": "ui-state-active",
         "ui-droppable-hover": "ui-state-hover"
       },
-
       drop: function( event, ui ) {
         const $newDroppableTile = $(this)
           $.ajax({
@@ -140,5 +135,4 @@
     });
   </script>
 </body>
-<%= @piece.inspect %>
 

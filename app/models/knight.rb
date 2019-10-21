@@ -1,6 +1,6 @@
 class Knight < Piece
   def unicode_symbol
-		return y_coord > 5 ? "&#9816;" : "&#9822;"	
+		return "&#9822;"	
 	end
 
   def legal_move?(x_path, y_path)
