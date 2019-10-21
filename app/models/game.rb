@@ -18,6 +18,14 @@ class Game < ApplicationRecord
     self.white_id != nil && self.black_id != nil
   end
 
+  def first_turn!
+    update(user_turn: 'white')
+  end
+
+  def pass_turn!(color)
+    player_turn = color == 'white' ? 'black' : 'white'
+    update(user_turn: player_turn)
+
   def tile_taken?(x_path, y_path)
     pieces.where(x_coord: x_path, y_coord: y_path).first.present? 
   end 
