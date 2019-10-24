@@ -18,4 +18,5 @@
 //= require popper
 //= require tether
 //= require bootstrap-sprockets
+//= require cable
 //= require_tree .
