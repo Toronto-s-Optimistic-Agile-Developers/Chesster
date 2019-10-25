@@ -21,6 +21,8 @@ class PiecesController < ApplicationController
     new_rank =  piece_params[:promotion_type].to_s
     if @piece.game.in_play? == false
       flash[:alert] = 'There must be two players before you can begin.'
+    elsif @piece.game.turn_user_validation == false
+      flash[:alert] = 'You cannot move a piece that does not belong to you.'
     elsif @piece.name == "Black_King"  && ((@piece.x_coord == 0) || (@piece.x_coord == 7)) && (@piece.y_coord == 0)
       @piece.castle(x_path, y_path)
     elsif @piece.name == "White_King" && ((@piece.x_coord == 0) || (@piece.x_coord == 7)) && (@piece.y_coord == 7)

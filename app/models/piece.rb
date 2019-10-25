@@ -134,7 +134,7 @@ class Piece < ApplicationRecord
   end
 
   def valid_move?(x_path, y_path)
-    if (self.color == self.game.user_turn!) && self.game.in_play?
+    if (self.color == self.game.user_turn) && self.game.in_play?
       if on_the_board?(x_path, y_path) && ! ((x_coord == x_path) && (y_coord == y_path) && ! friendly_piece(x_path, y_path))
         if legal_move?(x_path, y_path) && ! is_obstructed?(x_path, y_path)
           self.game.pass_turn!
