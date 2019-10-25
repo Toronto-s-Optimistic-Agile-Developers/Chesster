@@ -4,7 +4,8 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 
-<body style="background: image_url('table-top.jpg') center center fixed;" data-turbolinks="false">
+<body>
+<section>
   <div class="game" data-game-id=<%= @game.id %>>
     <h1 class="text-center">
         
@@ -50,7 +51,7 @@
                         <%= x_coord %> data-y_coord=
                         <%= y_coord %>>
                           <%= board_piece.unicode_symbol.html_safe %>
-                          <% if (board_piece.name == "White Pawn" && board_piece.y_coord == 0) || (board_piece.name == "Black Pawn" && board_piece.y_coord == 7) %>
+                          <% if (board_piece.name == "White_Pawn" && board_piece.y_coord == 0) || (board_piece.name == "Black_Pawn" && board_piece.y_coord == 7) %>
                           <% board_piece.update(promotion?: true) %>
                             <span class="promote">
                               <%= link_to "Promote", edit_piece_path(board_piece.id.to_s) %>
@@ -93,7 +94,7 @@
           <br />
       </div>
     </div>
-
+</section>
   <% if current_user == @game.black_id %>
     <% (0..7).reverse_each do |y_coord| %>
               <% (0..7).reverse_each do |x_coord| %>
@@ -153,6 +154,14 @@
   <% end %>
 
   </div>
+  <div class="float-left" style="float-left">
+  <% if @game.user_turn == 'black'%>
+    <p class="black_turn"><%= @game.user_turn %></p>
+  <% else %>
+    <p class="white_turn"><%= @game.user_turn %></p>
+  <% end %>
+  </div>
+  <br /><br />
   <div id="forfeit">
     <% if @game.in_play? %>
       <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>

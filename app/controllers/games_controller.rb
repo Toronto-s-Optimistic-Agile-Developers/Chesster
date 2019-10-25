@@ -7,9 +7,10 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = current_user.games.create(white_id: current_user.id, name: game_params["name"])
+    @game = current_user.games.create(user_turn: 'white', white_id: current_user.id, name: game_params["name"])
     @game.save
     @game.set_up_board!
+    @game.first_turn!
     redirect_to game_path(@game)
   end
 
@@ -52,6 +53,6 @@ class GamesController < ApplicationController
   private
 
   def game_params
-    params.require(:game).permit(:name, :white_id, :black_id, :winner, :loser)
+    params.require(:game).permit(:name, :white_id, :black_id, :winner, :loser, :user_turn)
   end
 end

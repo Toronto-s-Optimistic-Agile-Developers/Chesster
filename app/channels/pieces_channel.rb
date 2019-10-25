@@ -1,6 +1,6 @@
 class PiecesChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "games"
+    stream_from "pieces"
   end
 
   def unsubscribed
@@ -8,6 +8,7 @@ class PiecesChannel < ApplicationCable::Channel
   end
 
   def pieces(data)
-    piece = piece.find_by(x_coord: data[x_coord], x_coord: data[:y_coord])
+    piece = @piece.where(x_coord: x_path, y_coord: y_path).first
+    @perform
   end
 end
