@@ -23,11 +23,11 @@ class Game < ApplicationRecord
   end
 
   def turn_user_validation
-    if (user_turn == 'white') && (current_user == self.player_id)
-      return true
+    if (user_turn == 'white') && (self.white_id == self.player_id) && (self.pieces.where(color: 'white'))
+      return 'white'
     elsif
-      (user_turn == 'black') && (user == self.second_player_id)
-      return true
+      (user_turn == 'black') && (self.black_id == self.second_player_id) && (self.pieces.where(color: 'black'))
+      return 'black'
     else
       return false
     end

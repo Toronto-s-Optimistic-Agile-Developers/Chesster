@@ -21,8 +21,9 @@ class PiecesController < ApplicationController
     new_rank =  piece_params[:promotion_type].to_s
     if @piece.game.in_play? == false
       flash[:alert] = 'There must be two players before you can begin.'
-    elsif @piece.game.turn_user_validation == false
-      flash[:alert] = 'You cannot move a piece that does not belong to you.'
+      @game.reload
+    elsif ((@piece.game.turn_user_validation == @piece.color) && (@piece.game.user_turn != @piece.color)) || ((@piece.game.user_turn == @piece.color) && (@piece.game.turn_user_validation != @piece.color))
+      @game.reload
     elsif @piece.name == "Black_King"  && ((@piece.x_coord == 0) || (@piece.x_coord == 7)) && (@piece.y_coord == 0)
       @piece.castle(x_path, y_path)
     elsif @piece.name == "White_King" && ((@piece.x_coord == 0) || (@piece.x_coord == 7)) && (@piece.y_coord == 7)
@@ -33,7 +34,8 @@ class PiecesController < ApplicationController
       redirect_to @game
       flash[:notice] = 'You have successfully promoted your pawn! Please refresh the page.'
       @game.reload
-    elsif @piece.valid_move?(x_path, y_path)
+    elsif (user_colors == @piece.color && @piece.game.turn_user_validation == @piece.color) 
+      @piece.valid_move?(x_path, y_path)
       @piece.move_to!(x_path, y_path)
       @piece.update(initial_position?: false)
       @piece.update_attributes(piece_params)
@@ -59,6 +61,16 @@ class PiecesController < ApplicationController
   end
 
   private
+
+  def user_colors 
+    @gameplayer = @piece.game.player_id.to_i
+    @gameplayer2 = @piece.game.second_player_id.to_i
+    if (current_user.id == @gameplayer) 
+      return 'white'
+    else
+      return 'black'
+    end
+  end
 
   def find_piece
     @piece = Piece.find(params[:id])
