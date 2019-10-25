@@ -104,13 +104,9 @@ class Piece < ApplicationRecord
     end
 
   def move_to!(x_path, y_path)
-    rival_piece = Piece.find_by(x_coord: x_path, y_coord: y_path)
+    rival_piece = Piece.find_by(x_coord: x_path, y_coord: y_path, game_id: self.game_id)
     if ! is_obstructed?(x_path, y_path)
-      if self.type == Pawn && rival_piece.color != self.color
-        ((x_path == @up) && (y_path == @up))
-        rival_piece.removed?
-        update_attributes(x_coord: x_path, y_coord: y_path)
-      elsif rival_piece.present? && rival_piece.color != self.color
+      if rival_piece.present? && rival_piece.color != self.color
         ((x_path == 1) && (y_path == 1))
         rival_piece.removed?
         update_attributes(x_coord: x_path, y_coord: y_path)

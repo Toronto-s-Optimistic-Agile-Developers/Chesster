@@ -19,11 +19,11 @@ class Game < ApplicationRecord
   end
 
   def first_turn!
-    update(user_turn: 'white')
+    update(user_turn: 'white_id')
   end
 
   def pass_turn!(color)
-    player_turn = color == 'white' ? 'black' : 'white'
+    player_turn = color == 'white_id' ? 'black_id' : 'white_id'
     update(user_turn: player_turn)
   end
 
