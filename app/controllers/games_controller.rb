@@ -7,7 +7,7 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = current_user.games.create(white_id: current_user.id, name: game_params["name"])
+    @game = current_user.games.create(player_id: current_user.id, white_id: current_user.id, name: game_params["name"])
     @game.save
     @game.set_up_board!
     @game.first_turn!
@@ -17,7 +17,7 @@ class GamesController < ApplicationController
   def show
     @game = Game.find_by_id(params[:id])
     @pieces = @game.pieces
-    @user = User.find_by_id(@game.users)
+    @user = @game.users
   end
 
   def index
@@ -54,6 +54,6 @@ class GamesController < ApplicationController
   private
 
   def game_params
-    params.require(:game).permit(:name, :white_id, :black_id, :winner, :loser, :user_turn)
+    params.require(:game).permit(:player_id, :user_id, :name, :white_id, :black_id, :winner, :loser, :user_turn)
   end
 end

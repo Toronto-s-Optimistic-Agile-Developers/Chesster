@@ -23,7 +23,7 @@ class Game < ApplicationRecord
   end
 
   def turn_user_validation
-    if user_turn == 'white' && self.user_id  == self.white_id
+    if user_turn == 'white' && self.player_id == self.white_id
       return true
     elsif
       user_turn == 'black' && self.user_id  == self.black_id
@@ -34,9 +34,9 @@ class Game < ApplicationRecord
   end
 
   def pass_turn!
-    if (self.user_turn == 'white') && (self.user_id == self.white_id)
+    if (self.user_turn == 'white') && (player_id == self.white_id)
       update(user_turn: 'black')
-    else
+    elsif (self.user_turn == 'black') && (user_id == self.white_id)
       update(user_turn: 'white')
     end
   end
