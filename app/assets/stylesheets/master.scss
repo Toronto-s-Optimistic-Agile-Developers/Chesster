@@ -234,20 +234,19 @@ table ::selection {
 }
 
 #promote {
-
   .was-validated .form-control:valid,
   .form-control.is-valid {
     background-image: none !important;
   }
+  text-align: center;
 }
 
 .promote a {
   cursor: pointer;
-  font-size: 12px;
+  font-size: 10px;
   background-color: rgb(32, 126, 3);
   border: 1px solid silver;
   color: rgb(216, 213, 213) !important;
-  letter-spacing: 2px;
   padding-right: 4px;
   padding-left: 4px;
   padding-top: 0;
@@ -297,6 +296,8 @@ table ::selection {
   -webkit-box-shadow: 1px 1px 1px 1px rgb(216, 211, 211);
   box-shadow: 1px 1px 1px 1px rgb(216, 211, 211);
   font-size: 15px;
+  overflow-y: scroll;
+  height: 70px;
 }
 
 .captured_pieces p {
@@ -304,17 +305,20 @@ table ::selection {
   text-transform: uppercase;
   text-decoration: underline;
   text-decoration-style: double;
+  margin-bottom: 2px;
+  font-size: 10px;
+  font-weight: 700;
 }
 
-pre::-webkit-scrollbar {
+.captured_pieces::-webkit-scrollbar {
   width: 0 !important
 }
 
-pre {
+.captured_pieces {
   -ms-overflow-style: none;
 }
 
-pre {
+.captured_pieces {
   overflow: -moz-scrollbars-none;
 }
 
@@ -458,4 +462,35 @@ pre {
     text-align: center !important;
     vertical-align: middle;
   }
+}
+
+.hero {
+  background: image_url('chess.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 370px;
+  box-shadow: 0px 3px 8px #2a2a2a;
+}
+
+.frosty {
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+.frosty h1 {
+  font-family: "Helvetica Neue", Helvetica;
+  font-weight: 100;
+  text-shadow: rgba(0, 0, 0, 0.95) 1px 1px;
+}
+
+.frosty h2 {
+  font-family: "Helvetica Neue", Helvetica;
+  font-weight: 200;
+  text-shadow: rgba(0, 0, 0, 0.95) 1px 1px;
+}
+
+.btn {
+  border-radius: 0;
 }
