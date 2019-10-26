@@ -21,6 +21,10 @@ class PiecesController < ApplicationController
     @game = @piece.game
     x_path = piece_params[:x_coord].to_i
     y_path = piece_params[:y_coord].to_i
+    if @piece.name == "Black_King"  && ((@piece.x_coord == 0) || (@piece.x_coord == 7)) && (@piece.y_coord == 0)
+      castle(x_path, y_path)
+    elsif @piece.name == "White_King" && ((@piece.x_coord == 0) || (@piece.x_coord == 7)) && (@piece.y_coord == 7)
+      castle(x_path, y_path)
     if @piece.valid_move?(x_path, y_path)
       @piece.update(initial_position?: false)
       @piece.move_to!(x_path, y_path)
