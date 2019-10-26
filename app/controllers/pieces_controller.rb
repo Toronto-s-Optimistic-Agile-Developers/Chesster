@@ -38,13 +38,12 @@ class PiecesController < ApplicationController
       @piece.valid_move?(x_path, y_path)
       @piece.move_to!(x_path, y_path)
       @piece.update(initial_position?: false)
-      @piece.update_attributes(piece_params)
-      # if @piece.update
-      #   ActionCable.server.broadcast 'pieces',
-      #     x_coord: @piece.x_coord,
-      #     y_coord: @piece.y_coord
-      #   head :ok
-      # end
+      @piece.update_attributes(piece_params)te
+        ActionCable.server.broadcast 'pieces',
+          x_coord: @piece.x_coord,
+          game_id: @piece.game_id,
+          y_coord: @piece.y_coord
+        head :ok
       respond_to do |format|
         format.html { render :show }
         format.json { render json: @piece, status: :ok }

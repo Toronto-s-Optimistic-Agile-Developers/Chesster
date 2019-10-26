@@ -9,6 +9,6 @@ class PiecesChannel < ApplicationCable::Channel
 
   def pieces(data)
     piece = @piece.where(x_coord: x_path, y_coord: y_path).first
-    @perform
+    @perform 
   end
 end
