@@ -38,7 +38,7 @@ class PiecesController < ApplicationController
       @piece.valid_move?(x_path, y_path)
       @piece.move_to!(x_path, y_path)
       @piece.update(initial_position?: false)
-      @piece.update_attributes(piece_params)te
+      @piece.update_attributes(piece_params)
         ActionCable.server.broadcast 'pieces',
           x_coord: @piece.x_coord,
           game_id: @piece.game_id,

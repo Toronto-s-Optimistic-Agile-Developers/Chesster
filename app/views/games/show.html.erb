@@ -154,11 +154,11 @@
   <% end %>
 
   </div>
-  <div class="float-left" style="float-left">
+  <div class="float-left user_turn">
   <% if @game.user_turn == 'black'%>
-    <p class="black_turn"><%= @game.user_turn %></p>
+    <center><span class="black_turn"><%= "It is #{@game.user_turn}'s turn." %></span></center>
   <% else %>
-    <p class="white_turn"><%= @game.user_turn %></p>
+    <center><span class="white_turn"><%= "It is #{@game.user_turn}'s turn." %></span></center>
   <% end %>
   </div>
   <br /><br />

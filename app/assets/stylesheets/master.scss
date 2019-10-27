@@ -7,12 +7,12 @@ body {
 
 .black_turn {
   color: black;
-  font-weight: bold;
+  width: 140px;
 }
 
 .white_turn {
   color: white;
-  font-weight: bold;
+  width: 140px;
 }
 
 .board {
@@ -498,4 +498,14 @@ pre {
   border-radius: 0;
   color: whitesmoke;
   border: 1px dotted white;
+}
+
+.user_turn {
+  background-color: rgb(182, 177, 177);
+  border: 1px dotted grey;
+  border-radius: 25px;
+  padding: 2px;
+  margin: 2px;
+  width: 160px;
+  font-weight: bold;
 }
