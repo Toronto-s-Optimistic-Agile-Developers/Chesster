@@ -48,7 +48,7 @@ class Piece < ApplicationRecord
 
   def is_obstructed?(x_path, y_path) 
     return true if self.game.tile_taken?(x_path, y_path) && self.color == self.game.pieces.where(x_coord: x_path, y_coord: y_path).first.color
-    return false if (self.type == "Knight") || self.castle(x_path, y_path)
+    return false if (self.type == "Knight")
     x_dir = x_path >= self.x_coord ? (x_path == self.x_coord ? 0 : 1) : -1
     y_dir = y_path >= self.y_coord ? (y_path == self.y_coord ? 0 : 1) : -1
     direction = [x_dir, y_dir]
@@ -59,42 +59,69 @@ class Piece < ApplicationRecord
     end
     false
   end
+  
+  def check_black_nil_spaces_for_castling
+    Piece.find_by(game_id: self.game_id, x_coord: 1, y_coord: 0) == nil && 
+    Piece.find_by(game_id: self.game_id, x_coord: 2, y_coord: 0) == nil && Piece.find_by(game_id: self.game_id, x_coord: 3, y_coord: 0) == nil && 
+    Piece.find_by(game_id: self.game_id, x_coord: 5, y_coord: 0) == nil && Piece.find_by(game_id: self.game_id, x_coord: 6, y_coord: 0) == nil
+  end
+ 
+  def check_white_nil_spaces_for_castling
+    Piece.find_by(game_id: self.game_id, x_coord: 1, y_coord: 7) == nil && 
+    Piece.find_by(game_id: self.game_id, x_coord: 2, y_coord: 7) == nil && Piece.find_by(game_id: self.game_id, x_coord: 3, y_coord: 7) == nil && 
+    Piece.find_by(game_id: self.game_id, x_coord: 5, y_coord: 7) == nil && Piece.find_by(game_id: self.game_id, x_coord: 6, y_coord: 7) == nil
+  end
 
-  def castle(x_path, y_path)
-    king_black = Piece.find_by(x_coord: 4, y_coord: 0)
-    king_white = Piece.find_by(x_coord: 4, y_coord: 7)
-    left_rook_white = Piece.find_by(x_coord: 0, y_coord: 7)
-    right_rook_white = Piece.find_by(x_coord: 7, y_coord: 7)
-    left_rook_black = Piece.find_by(x_coord: 0, y_coord: 0)
-    right_rook_black = Piece.find_by(x_coord: 7, y_coord: 0)
-    if (king_black.has_moved? == false && left_rook_black.has_moved? == false)
-      if (left_rook_black.x_coord == (self.x_coord == 4)) || (king_black.x_coord == (self.x_coord == 0))
-        King.create(game_id: left_rook_black.game_id, color: left_rook_black.color, x_coord: left_rook_black.x_coord, y_coord: left_rook_black.y_coord, initial_position?: false)
-        Rook.create(game_id: king_black.game_id, color: king_black.color, x_coord: king_black.x_coord, y_coord: king_black.y_coord, initial_position?: false)
+  def black_left_castle(x_path, y_path)
+    king_black = Piece.find_by(game_id: self.game_id, x_coord: 4, y_coord: 0)
+    left_rook_black = Piece.find_by(game_id: self.game_id, x_coord: 0, y_coord: 0)
+    if (king_black.initial_position? == true && left_rook_black.initial_position? == true)
+      if ((left_rook_black.x_coord == 0) && (king_black.x_coord == 4 )) && self.check_black_nil_spaces_for_castling 
+        King.create(game_id: self.game_id, color: left_rook_black.color, x_coord: 2, y_coord: 0, initial_position?: false, name: "Castled_King", title: "King")
+        Rook.create(game_id: self.game_id, color: king_black.color, x_coord: 3, y_coord: 0, initial_position?: false, name: "Castled_Rook", title: "Rook")
         king_black.destroy
         left_rook_black.destroy
         return true
       end
-    elsif (king_black.has_moved? == false && right_rook_black.has_moved? == false)
-        if (right_rook_black.x_path == (x_coord.x_coord == 4)) || (king_black.x_coord == (self.x_coord == 7))
-          King.create(game_id: right_rook_black.game_id, color: right_rook_black.color, x_coord: right_rook_black.x_coord, y_coord: right_rook_black.y_coord, initial_position?: false)
-          Rook.create(game_id: king_black.game_id, color: king_black.color, x_coord: king_black.x_coord, y_coord: king_black.y_coord, initial_position?: false)
+    end
+    return false
+  end
+
+    def black_right_castle(x_path, y_path)
+      king_black = Piece.find_by(game_id: self.game_id, x_coord: 4, y_coord: 0)
+      right_rook_black = Piece.find_by(game_id: self.game_id, x_coord: 7, y_coord: 0)
+      if (king_black.initial_position? == true && right_rook_black.initial_position? == true)
+        if (right_rook_black.x_coord == 7) || (king_black.x_coord == 4) && self.check_black_nil_spaces_for_castling 
+          King.create(game_id: self.game_id, color: right_rook_black.color, x_coord: 6, y_coord: 0, initial_position?: false, name: "Castled_King", title: "King")
+          Rook.create(game_id: self.game_id, color: king_black.color, x_coord: 5, y_coord: 0, initial_position?: false, name: "Castled_Rook", title: "Rook")
           king_black.destroy
           right_rook_black.destroy
           return true
         end
-    elsif (king_white.has_moved? == false && left_rook_white.has_moved? == false)
-        if (left_rook_white.x_coord == (self.x_coord == 4)) || (king_white.x_coord == (self.x_coord == 0))
-          King.create(game_id: left_rook_white.game_id, color: left_rook_white.color, x_coord: left_rook_white.x_coord, y_coord: left_rook_white.y_coord, initial_position?: false)
-          Rook.create(game_id: king_white.game_id, color: king_white.color, x_coord: king_white.x_coord, y_coord: king_white.y_coord, initial_position?: false)
+      end
+      return false
+    end
+    def white_left_castle(x_path, y_path)
+      king_white = Piece.find_by(game_id: self.game_id, x_coord: 4, y_coord: 7)
+      left_rook_white = Piece.find_by(game_id: self.game_id, x_coord: 0, y_coord: 7)
+      if (king_white.initial_position? == true && left_rook_white.initial_position? == true)
+        if (left_rook_white.x_coord == 0) || (king_white.x_coord == 4) && self.check_white_nil_spaces_for_castling  
+          King.create(game_id: left_rook_white.game_id, color: left_rook_white.color, x_coord: 2, y_coord: 7, initial_position?: false, name: "Castled_King", title: "King")
+          Rook.create(game_id: king_white.game_id, color: king_white.color, x_coord: 3, y_coord: 7, initial_position?: false, name: "Castled_Rook", title: "Rook")
           king_white.destroy
           left_rook_white.destroy
           return true
         end
-      elsif (king_white.has_moved? == false && right_rook_white.has_moved? == false)
-        if (right_rook_white.x_coord == (self.x_coord == 4)) || (king_white.x_coord == (self.x_coord == 7))
-          King.create(game_id: right_rook_white.game_id, color: right_rook_white.color, x_coord: right_rook_white.x_coord, y_coord: right_rook_white.y_coord, initial_position?: false)
-          Rook.create(game_id: king_white.game_id, color: king_white.color, x_coord: king_white.x_coord, y_coord:  king_white.y_coord, initial_position?: false)
+      end
+      return false
+    end
+    def white_right_castle(x_path, y_path)
+      king_white = Piece.find_by(game_id: self.game_id, x_coord: 4, y_coord: 7)
+      right_rook_white = Piece.find_by(game_id: self.game_id, x_coord: 7, y_coord: 7)
+      if (king_white.initial_position? == true && right_rook_white.initial_position? == true)
+        if (right_rook_white.x_coord == 7) || (king_white.x_coord == 4) && self.check_white_nil_spaces_for_castling 
+          King.create(game_id: right_rook_white.game_id, color: right_rook_white.color, x_coord: 6, y_coord: 7, initial_position?: false, name: "Castled_King", title: "King")
+          Rook.create(game_id: king_white.game_id, color: king_white.color, x_coord: 5, y_coord:  7, initial_position?: false, name: "Castled_Rook", title: "Rook")
           king_white.destroy
           right_rook_white.destroy
           return true
@@ -130,13 +157,13 @@ class Piece < ApplicationRecord
   def pawn_promote(new_rank)
     case new_rank.downcase
     when 'rook'
-      Rook.create(x_coord: self.x_coord, y_coord: self.y_coord, initial_position?: false, color: self.color, game_id: self.game_id, name: "Pormoted Rook (#{self.color})")
+      Rook.create(x_coord: self.x_coord, y_coord: self.y_coord, initial_position?: false, color: self.color, game_id: self.game_id, name: "Former_Pawn", title: "Pormoted Rook")
     when 'queen'
-      Queen.create(x_coord: self.x_coord, y_coord: self.y_coord, initial_position?: false, color: self.color, game_id: self.game_id, name: "Pormoted Queen (#{self.color})")
+      Queen.create(x_coord: self.x_coord, y_coord: self.y_coord, initial_position?: false, color: self.color, game_id: self.game_id, name: "Former_Pawn", title: "Pormoted Queen")
     when 'bishop'
-      Bishop.create(x_coord: self.x_coord, y_coord: self.y_coord, initial_position?: false, color: self.color, game_id: self.game_id, name: "Pormoted Bishop (#{self.color})")
+      Bishop.create(x_coord: self.x_coord, y_coord: self.y_coord, initial_position?: false, color: self.color, game_id: self.game_id, name: "Former_Pawn", title: "Pormoted Bishop")
     when 'knight'
-      Knight.create(x_coord: self.x_coord, y_coord: self.y_coord, initial_position?: false, color: self.color, game_id: self.game_id, name: "Pormoted Knight (#{self.color})")
+      Knight.create(x_coord: self.x_coord, y_coord: self.y_coord, initial_position?: false, color: self.color, game_id: self.game_id, name: "Former_Pawn", title: "Pormoted Knight")
     end
     self.destroy
   end

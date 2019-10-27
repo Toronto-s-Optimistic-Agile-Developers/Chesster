@@ -135,6 +135,17 @@
   background-color: green;
 }
 
+.castle {
+  background: black;
+  color: white;
+  font-size: 5px;
+  border: none;
+  padding: none !important;
+  margin-bottom: 0;
+  cursor: pointer;
+  margin-bottom: -25px;
+}
+
 table {
   height: 500px;
   width: 500px;
@@ -285,6 +296,8 @@ table ::selection {
   -webkit-box-shadow: 1px 1px 1px 1px rgb(216, 211, 211);
   box-shadow: 1px 1px 1px 1px rgb(216, 211, 211);
   font-size: 15px;
+  overflow-y: scroll;
+  height: 70px;
 }
 
 .captured_pieces p {
@@ -292,17 +305,20 @@ table ::selection {
   text-transform: uppercase;
   text-decoration: underline;
   text-decoration-style: double;
+  margin-bottom: 2px;
+  font-size: 10px;
+  font-weight: 700;
 }
 
-pre::-webkit-scrollbar {
+.captured_pieces::-webkit-scrollbar {
   width: 0 !important
 }
 
-pre {
+.captured_pieces {
   -ms-overflow-style: none;
 }
 
-pre {
+.captured_pieces {
   overflow: -moz-scrollbars-none;
 }
 
@@ -336,6 +352,7 @@ pre {
   -webkit-box-shadow: 1px 1px 1px 1px rgb(180, 175, 175);
   box-shadow: 1px 1px 1px 1px rgb(156, 155, 155);
   text-align: center;
+  margin-bottom: 1px;
 }
 
 .back:hover,
@@ -355,6 +372,7 @@ pre {
   text-align: center;
   vertical-align: middle;
   z-index: 10;
+  margin-bottom: 1px;
 }
 
 .black {

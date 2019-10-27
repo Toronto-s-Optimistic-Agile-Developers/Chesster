@@ -1,5 +1,5 @@
 class PiecesController < ApplicationController
-  before_action :find_piece, only: [:update, :show]
+  before_action :find_piece, only: [:update]
 
   
   def create
@@ -12,7 +12,6 @@ class PiecesController < ApplicationController
   end
 
   def edit
-    @piece = Piece.find(params[:id])
   end
 
   def update
@@ -25,6 +24,26 @@ class PiecesController < ApplicationController
       redirect_to @game
       flash[:notice] = 'You have successfully promoted your pawn! Please refresh the page.'
       @game.reload
+    elsif piece = @piece.name == "Black_King"
+      if @piece.black_right_castle(x_path, y_path) == true 
+        @piece.black_right_castle(x_path, y_path)
+        flash[:notice] = 'You have successfully completed Castling.'
+        @game.reload
+      else
+        @piece.white_left_castle(x_path, y_path)
+        flash[:notice] = 'You have successfully completed Castling.'
+        @game.reload
+      end
+    elsif @piece.name == "White_King"
+      if @piece.white_right_castle(x_path, y_path) == true 
+        @piece.white_right_castle(x_path, y_path)
+        flash[:notice] = 'You have successfully completed Castling.'
+        @game.reload
+      else @piece.white_left_castle(x_path, y_path) == true
+        @piece.white_left_castle(x_path, y_path)
+        flash[:notice] = 'You have successfully completed Castling.'
+        @game.reload
+      end
     elsif @piece.valid_move?(x_path, y_path)
       @piece.move_to!(x_path, y_path)
       @piece.update(initial_position?: false)
@@ -39,11 +58,6 @@ class PiecesController < ApplicationController
     @game.reload
   end
 
-  def show
-    @game = @piece.game
-    @pieces = @game.pieces  
-  end
-
   private
 
   def find_piece
@@ -52,6 +66,6 @@ class PiecesController < ApplicationController
   end
 
   def piece_params
-    params.require(:piece).permit(:name, :color, :x_coord, :y_coord, :game_id, :player_id, :captured, :initial_position?, :promotion?, :promotion_type)
+    params.require(:piece).permit(:id, :name, :color, :x_coord, :y_coord, :game_id, :player_id, :captured, :initial_position?, :promotion?, :promotion_type, :title)
   end
 end
