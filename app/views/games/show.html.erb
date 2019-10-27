@@ -1,160 +1,20 @@
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=3.0, minimum-scale=0.86">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-</head>
+class PiecesController < ApplicationController
+  before_action :find_piece, only: [:update]
 
-<body>
-<section>
-  <div class="game" data-game-id=<%= @game.id %>>
-    <h1 class="text-center">
-        
-    </h1>
-    <br />
-    <div class="rotate">
-      <table>
-          <tr>
-              <td class="left">
-               <div class="captured_pieces" style="float-left">
-                <a href="#" data-toggle="capture-instructions" title="You may need to scroll to see all the pieces."><p>Captured Pieces</p></a>
-                  <% @game.pieces.where(captured: true, color: "white").each do |piece| %>
-                    <span class="captured_piece white_taken"><%= piece.unicode_symbol.html_safe %></span>
-                  <% end %>
-                  <br />
-                  <% @game.pieces.where(captured: true, color: 'black').each do |piece| %>
-                    <span class="captured_piece black_taken"><%= piece.unicode_symbol.html_safe %></span>
-                  <% end %>
-                </div>
-              </td>
-              <td>
-              <h1><%= @game.name %></h1>
-              </td>
-              <td class=right>
-              <br />
-                <p class="rotate-board" id="Flip_Board">Flip</p>
-              </td>
-          </tr>
-      </table>
-  </div>
-  <div class="set-board">
-    <div class="chess" align="center">
-        <div class="board">
-          <table>
-            <% (0..7).each do |y_coord| %>
-              <% (0..7).each do |x_coord| %>
-                <td data-x-coord=<%=x_coord %> data-y-coord=
-                    <%= y_coord %> class='tile
-                    <%= "#{(y_coord.odd? == x_coord.odd? ? "white-tile droppable-tile" : "black-tile droppable-tile")}" %>'>
-                    <% if board_piece = @pieces.select{|p| p.x_coord == x_coord && p.y_coord == y_coord}.first %>
-                      <div title="<%= board_piece.title %>" class="piece <%=board_piece.color %>" data-piece-id=
-                        <%= board_piece.id %> data-x_coord=
-                        <%= x_coord %> data-y_coord=
-                        <%= y_coord %> data-piece-id=
-                        <%= board_piece.id %> data-name=
-                        <%= board_piece.name %>>
-                          <%= board_piece.unicode_symbol.html_safe %>
-                          <% if (board_piece.name == "White_Pawn" && board_piece.y_coord == 0) || (board_piece.name == "Black_Pawn" && board_piece.y_coord == 7) %>
-                          <% board_piece.update(promotion?: true) %>
-                            <span class="promote">
-                              <%= link_to "Promote", edit_piece_path(board_piece.id.to_s) %>
-                            </span>
-                            <% @game.reload %>
-                          <% end %>
-                      </div>
-                    <% end %>
-                </td>
-              <% end %>
-              </tr>
-            <% end %>
-        </table>
-      </div>
-      <div id="labels">
-        <table class="y_labels">
-            <% for i in 8.downto(1) %>
-              <td>
-                <div class="label_square">
-                    <%= i %>
-                </div>
-            </td>
-            </tr>
-          <% end %>
-        </table>
-      </div>
-      <div id="labels">
-          <table class="x_labels">
-              <tr>
-                <% x_labels = { 0 => 'A', 1 => 'B', 2 => 'C', 3 => 'D', 4 => 'E', 5 => 'F', 6 => 'G', 7 => 'H' } %>
-                <% for i in 0..7 %>
-                  <td>
-                    <div class="letters">
-                        <%= x_labels[i].reverse %>
-                    </div>
-                  </td>
-                <% end %>
-              </tr>
-          </table>
-          <br />
-      </div>
-    </div>
-</section>
-  <% if current_user == @game.black_id %>
-    <% (0..7).reverse_each do |y_coord| %>
-              <% (0..7).reverse_each do |x_coord| %>
-                <td data-x-coord=<%=x_coord %> data-y-coord=
-                    <%= y_coord %> class='tile
-                    <%= "#{(y_coord.odd? == x_coord.odd? ? "white-tile droppable-tile" : "black-tile droppable-tile")}" %>'>
-                    <% if board_piece = @pieces.select{|p| p.x_coord == x_coord && p.y_coord == y_coord}.first %>
-                      <div title="<%= board_piece.title %>" class="piece <%=board_piece.color %>" data-piece-id=
-                        <%= board_piece.id %> data-x_coord=
-                        <%= x_coord %> data-y_coord=
-                        <%= y_coord %>>
-                          <%= board_piece.unicode_symbol.html_safe %>
-                          <% if (board_piece.name == "White Pawn" && board_piece.y_coord == 0) || (board_piece.name == "Black Pawn" && board_piece.y_coord == 7) %>
-                          <% board_piece.update(promotion?: true) %>
-                            <span class="promote">
-                              <%= link_to "Promote", edit_piece_path(board_piece.id.to_s) %>
-                            </span>
-                            <% @game.reload %>
-                          <% end %>
-                      </div>
-                    <% end %>
-                </td>
-              <% end %>
-              </tr>
-            <% end %>
-        </table>
-      </div>
-      <div id="labels">
-        <table class="y_labels">
-            <% for i in 8.downto(1) %>
-              <td>
-                <div class="label_square">
-                    <%= i.reverse %>
-                </div>
-            </td>
-            </tr>
-          <% end %>
-        </table>
-      </div>
-      <div id="labels">
-          <table class="x_labels">
-              <tr>
-                <% x_labels = { 0 => 'A', 1 => 'B', 2 => 'C', 3 => 'D', 4 => 'E', 5 => 'F', 6 => 'G', 7 => 'H' } %>
-                <% for i in 0..7 %>
-                  <td>
-                    <div class="letters">
-                        <%= x_labels[i].reverse %>
-                    </div>
-                  </td>
-                <% end %>
-              </tr>
-          </table>
-          <br />
-      </div>
-    </div>
+  
+  def create
+    @piece = game.pieces.create(piece_params)
+    if @piece.valid?
+      redirect_to games_path(@game)
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
 
-  <% end %>
+  def edit
+  end
 
+<<<<<<< HEAD
   </div>
   <div class="float-left" style="float-left">
   <% if @game.user_turn == 'black'%>
@@ -242,3 +102,60 @@
     });
   </script>
 </body>
+=======
+  def update
+    x_path = piece_params[:x_coord].to_i
+    y_path = piece_params[:y_coord].to_i
+    new_rank =  piece_params[:promotion_type].to_s
+    if @piece.promotion? == true
+      @piece.update(piece_params)
+      @piece.pawn_promote(new_rank)
+      redirect_to @game
+      flash[:notice] = 'You have successfully promoted your pawn! Please refresh the page.'
+      @game.reload
+    elsif piece = @piece.name == "Black_King"
+      if @piece.black_right_castle(x_path, y_path) == true 
+        @piece.black_right_castle(x_path, y_path)
+        flash[:notice] = 'You have successfully completed Castling.'
+        @game.reload
+      else
+        @piece.white_left_castle(x_path, y_path)
+        flash[:notice] = 'You have successfully completed Castling.'
+        @game.reload
+      end
+    elsif @piece.name == "White_King"
+      if @piece.white_right_castle(x_path, y_path) == true 
+        @piece.white_right_castle(x_path, y_path)
+        flash[:notice] = 'You have successfully completed Castling.'
+        @game.reload
+      else @piece.white_left_castle(x_path, y_path) == true
+        @piece.white_left_castle(x_path, y_path)
+        flash[:notice] = 'You have successfully completed Castling.'
+        @game.reload
+      end
+    elsif @piece.valid_move?(x_path, y_path)
+      @piece.move_to!(x_path, y_path)
+      @piece.update(initial_position?: false)
+      @piece.update_attributes(piece_params)
+      respond_to do |format|
+        format.html { render :show }
+        format.json { render json: @piece, status: :ok }
+      end
+        @game.reload
+        flash[:notice] = 'You move was successfully completed!'  
+    end
+    @game.reload
+  end
+
+  private
+
+  def find_piece
+    @piece = Piece.find(params[:id])
+    @game = @piece.game
+  end
+
+  def piece_params
+    params.require(:piece).permit(:id, :name, :color, :x_coord, :y_coord, :game_id, :player_id, :captured, :initial_position?, :promotion?, :promotion_type, :title)
+  end
+end
+>>>>>>> 5228cff4d8b4e9b1a91381e25648112451a2a2e2
