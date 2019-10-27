@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     member do
       patch :join
       patch :forfeit
+      patch :left_white_castle
     end
   end
 

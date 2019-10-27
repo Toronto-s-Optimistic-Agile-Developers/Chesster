@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  
+  attr_accessor :king_black, :king_white, :right_rook_black, :left_rook_black, :right_rook_black, :left_rook_white
   before_action :authenticate_user!
   
   def new

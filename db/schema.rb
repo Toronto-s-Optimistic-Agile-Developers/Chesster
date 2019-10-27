@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2019_10_25_043830) do
+=======
+ActiveRecord::Schema.define(version: 2019_10_26_164642) do
+>>>>>>> 29bdd4c74d20deb302421974c88a57a807d0c27f
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +62,10 @@ ActiveRecord::Schema.define(version: 2019_10_25_043830) do
     t.boolean "promotion?", default: false
     t.boolean "initial_position?", default: true
     t.string "promotion_type"
+<<<<<<< HEAD
+=======
+    t.string "title"
+>>>>>>> 29bdd4c74d20deb302421974c88a57a807d0c27f
     t.index ["game_id"], name: "index_pieces_on_game_id"
     t.index ["x_coord"], name: "index_pieces_on_x_coord"
     t.index ["y_coord"], name: "index_pieces_on_y_coord"

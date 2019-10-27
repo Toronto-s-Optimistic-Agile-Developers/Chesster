@@ -1,5 +1,5 @@
 class PiecesController < ApplicationController
-  before_action :find_piece, only: [:update, :show]
+  before_action :find_piece, only: [:update]
 
   
   def create
@@ -12,7 +12,6 @@ class PiecesController < ApplicationController
   end
 
   def edit
-    @piece = Piece.find(params[:id])
   end
 
   def update
@@ -24,26 +23,33 @@ class PiecesController < ApplicationController
       @game.reload
     elsif ((@piece.game.turn_user_validation == @piece.color) && (@piece.game.user_turn != @piece.color)) || ((@piece.game.user_turn == @piece.color) && (@piece.game.turn_user_validation != @piece.color))
       @game.reload
-    elsif @piece.name == "Black_King"  && ((@piece.x_coord == 0) || (@piece.x_coord == 7)) && (@piece.y_coord == 0)
-      @piece.castle(x_path, y_path)
-    elsif @piece.name == "White_King" && ((@piece.x_coord == 0) || (@piece.x_coord == 7)) && (@piece.y_coord == 7)
-      @piece.castle(x_path, y_path)
-    elsif @piece.promotion? == true
-      @piece.update(piece_params)
-      @piece.pawn_promote(new_rank)
-      redirect_to @game
-      flash[:notice] = 'You have successfully promoted your pawn! Please refresh the page.'
-      @game.reload
+    elsif (user_colors == @piece.color && @piece.game.turn_user_validation == @piece.color) 
+      @piece.valid_move?(x_path, y_path)
+    elsif piece = @piece.name == "Black_King"
+      if @piece.black_right_castle(x_path, y_path) == true 
+        @piece.black_right_castle(x_path, y_path)
+        flash[:notice] = 'You have successfully completed Castling.'
+        @game.reload
+      else
+        @piece.white_left_castle(x_path, y_path)
+        flash[:notice] = 'You have successfully completed Castling.'
+        @game.reload
+      end
+    elsif @piece.name == "White_King"
+      if @piece.white_right_castle(x_path, y_path) == true 
+        @piece.white_right_castle(x_path, y_path)
+        flash[:notice] = 'You have successfully completed Castling.'
+        @game.reload
+      else @piece.white_left_castle(x_path, y_path) == true
+        @piece.white_left_castle(x_path, y_path)
+        flash[:notice] = 'You have successfully completed Castling.'
+        @game.reload
+      end
     elsif (user_colors == @piece.color && @piece.game.turn_user_validation == @piece.color) 
       @piece.valid_move?(x_path, y_path)
       @piece.move_to!(x_path, y_path)
       @piece.update(initial_position?: false)
       @piece.update_attributes(piece_params)
-        ActionCable.server.broadcast 'pieces',
-          x_coord: @piece.x_coord,
-          game_id: @piece.game_id,
-          y_coord: @piece.y_coord
-        head :ok
       respond_to do |format|
         format.html { render :show }
         format.json { render json: @piece, status: :ok }
@@ -54,11 +60,6 @@ class PiecesController < ApplicationController
     @game.reload
   end
 
-  def show
-    @game = @piece.game
-    @pieces = @game.pieces  
-  end
-
   private
 
   def user_colors 
@@ -66,7 +67,7 @@ class PiecesController < ApplicationController
     @gameplayer2 = @piece.game.second_player_id.to_i
     if (current_user.id == @gameplayer) 
       return 'white'
-    else
+    elsif (current_user.id == @gameplayer2)
       return 'black'
     end
   end
@@ -77,6 +78,6 @@ class PiecesController < ApplicationController
   end
 
   def piece_params
-    params.require(:piece).permit(:id, :name, :color, :x_coord, :y_coord, :game_id, :player_id, :captured, :initial_position?, :promotion?, :promotion_type)
+    params.require(:piece).permit(:id, :name, :color, :x_coord, :y_coord, :game_id, :player_id, :captured, :initial_position?, :promotion?, :promotion_type, :title)
   end
 end

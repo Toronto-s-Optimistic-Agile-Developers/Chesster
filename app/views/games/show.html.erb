@@ -16,7 +16,7 @@
           <tr>
               <td class="left">
                <div class="captured_pieces" style="float-left">
-                <p>Captured Pieces</p>
+                <a href="#" data-toggle="capture-instructions" title="You may need to scroll to see all the pieces."><p>Captured Pieces</p></a>
                   <% @game.pieces.where(captured: true, color: "white").each do |piece| %>
                     <span class="captured_piece white_taken"><%= piece.unicode_symbol.html_safe %></span>
                   <% end %>
@@ -46,10 +46,12 @@
                     <%= y_coord %> class='tile
                     <%= "#{(y_coord.odd? == x_coord.odd? ? "white-tile droppable-tile" : "black-tile droppable-tile")}" %>'>
                     <% if board_piece = @pieces.select{|p| p.x_coord == x_coord && p.y_coord == y_coord}.first %>
-                      <div title="<%= board_piece.name %>" class="piece <%=board_piece.color %>" data-piece-id=
+                      <div title="<%= board_piece.title %>" class="piece <%=board_piece.color %>" data-piece-id=
                         <%= board_piece.id %> data-x_coord=
                         <%= x_coord %> data-y_coord=
-                        <%= y_coord %>>
+                        <%= y_coord %> data-piece-id=
+                        <%= board_piece.id %> data-name=
+                        <%= board_piece.name %>>
                           <%= board_piece.unicode_symbol.html_safe %>
                           <% if (board_piece.name == "White_Pawn" && board_piece.y_coord == 0) || (board_piece.name == "Black_Pawn" && board_piece.y_coord == 7) %>
                           <% board_piece.update(promotion?: true) %>
@@ -107,7 +109,7 @@
                         <%= x_coord %> data-y_coord=
                         <%= y_coord %>>
                           <%= board_piece.unicode_symbol.html_safe %>
-                          <% if (board_piece.name == "White Pawn" && board_piece.y_coord == 0) || (board_piece.name == "Black Pawn" && board_piece.y_coord == 7) %>
+                          <% if (board_piece.name == "White_Pawn" && board_piece.y_coord == 0) || (board_piece.name == "Black_Pawn" && board_piece.y_coord == 7) %>
                           <% board_piece.update(promotion?: true) %>
                             <span class="promote">
                               <%= link_to "Promote", edit_piece_path(board_piece.id.to_s) %>
@@ -179,6 +181,9 @@
     <% end %>
   </div>
   <script>
+    $(document).ready(function () {
+      $('[data-toggle="capture-instructions"]').tooltip();
+    });
     var rotation = 0;
     jQuery.fn.rotate = function (degrees) {
       $(this).css({
@@ -207,6 +212,7 @@
             id: piece.data('piece-id'),
             x_coord: destination_square.data('x-coord'),
             y_coord: destination_square.data('y-coord'),
+            name: destination_square.data('name'),
           }
           $.ajax({
             type: 'PATCH',
@@ -219,7 +225,8 @@
               piece: {
                 id: update_piece.id,
                 x_coord: update_piece.x_coord,
-                y_coord: update_piece.y_coord
+                y_coord: update_piece.y_coord,
+                name: update_piece.name
               }
             },
             success: function (data) {
