@@ -1,10 +1,14 @@
 class Piece < ApplicationRecord
   attr_accessor :rival_piece
+
+  after_create_commit {
+    PieceBroadcastJob.perform_later(self)
+  }
   belongs_to :game
   belongs_to :user, required: false
   
   def white?
-    piece.color == 'white'
+    self.color == 'white'
   end
 
   def black?
@@ -38,7 +42,7 @@ class Piece < ApplicationRecord
     end
   end 
 
-   def diagonal_move?(x_path, y_path)
+  def diagonal_move?(x_path, y_path)
     x_path == y_path
   end
 

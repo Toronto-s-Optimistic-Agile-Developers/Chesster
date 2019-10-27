@@ -33,18 +33,12 @@ class PiecesController < ApplicationController
       @piece.move_to!(x_path, y_path)
       @piece.update(initial_position?: false)
       @piece.update_attributes(piece_params)
-      if piece.update
-        ActionCable.server.broadcast 'pieces',
-          x_coord: @piece.x_coord,
-          y_coord: @piece.y_coord
-        head :ok
-      end
-      respond_to do |format|
-        format.html { render :show }
-        format.json { render json: @piece, status: :ok }
-      end
+        respond_to do |format|
+          format.html { render :show }
+          format.json { render json: @piece, status: :ok }
+        end
         @game.reload
-        flash[:notice] = 'You move was successfully completed!'  
+        flash[:notice] = 'Your move was successfully completed!' 
     end
     @game.reload
   end
