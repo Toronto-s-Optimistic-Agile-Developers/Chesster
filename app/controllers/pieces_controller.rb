@@ -12,7 +12,6 @@ class PiecesController < ApplicationController
   end
 
   def edit
-    @piece = Piece.find(params[:id])
   end
 
   def update
@@ -25,9 +24,26 @@ class PiecesController < ApplicationController
       redirect_to @game
       flash[:notice] = 'You have successfully promoted your pawn! Please refresh the page.'
       @game.reload
-    elsif (@piece.(name: "Black_King", x_coord: 0, initial_position?: true) || @piece.(name: "Black_King", x_coord: 7, initial_position?: true))  || (@piece.(name: "White_King", x_coord: 0, initial_position?: true) || @piece.(name: "White_King", x_coord: 7, initial_position?: true))
-      @piece.update(x_coord: x_coord)
-      castle(x_path, y_path)
+    elsif piece = @piece.name == "Black_King"
+      if @piece.black_right_castle(x_path, y_path) == true 
+        @piece.black_right_castle(x_path, y_path)
+        flash[:notice] = 'You have successfully completed Castling.'
+        @game.reload
+      else
+        @piece.white_left_castle(x_path, y_path)
+        flash[:notice] = 'You have successfully completed Castling.'
+        @game.reload
+      end
+    elsif @piece.name == "White_King"
+      if @piece.white_right_castle(x_path, y_path) == true 
+        @piece.white_right_castle(x_path, y_path)
+        flash[:notice] = 'You have successfully completed Castling.'
+        @game.reload
+      else @piece.white_left_castle(x_path, y_path) == true
+        @piece.white_left_castle(x_path, y_path)
+        flash[:notice] = 'You have successfully completed Castling.'
+        @game.reload
+      end
     elsif @piece.valid_move?(x_path, y_path)
       @piece.move_to!(x_path, y_path)
       @piece.update(initial_position?: false)

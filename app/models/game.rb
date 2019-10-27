@@ -28,7 +28,7 @@ class Game < ApplicationRecord
   end
 
   def tile_taken?(x_path, y_path)
-    pieces.where(x_coord: x_path, y_coord: y_path).first.present?  unless (self.pieces.where(name: "White_King", inititial_position: true)) || (self.pieces.where(name: "Black_King", inititial_position: true)) 
+    pieces.where(x_coord: x_path, y_coord: y_path).first.present? 
   end 
   
   def in_check?(color)
