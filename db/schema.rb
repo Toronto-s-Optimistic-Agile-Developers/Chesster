@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_20_173833) do
+ActiveRecord::Schema.define(version: 2019_10_26_164642) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2019_10_20_173833) do
     t.integer "winner"
     t.integer "loser"
     t.string "user_turn"
+    t.integer "second_player_id"
     t.index ["id"], name: "index_games_on_id"
     t.index ["player_id"], name: "index_games_on_player_id"
     t.index ["user_id"], name: "index_games_on_user_id"
@@ -57,6 +58,7 @@ ActiveRecord::Schema.define(version: 2019_10_20_173833) do
     t.boolean "promotion?", default: false
     t.boolean "initial_position?", default: true
     t.string "promotion_type"
+    t.string "title"
     t.index ["game_id"], name: "index_pieces_on_game_id"
     t.index ["x_coord"], name: "index_pieces_on_x_coord"
     t.index ["y_coord"], name: "index_pieces_on_y_coord"
