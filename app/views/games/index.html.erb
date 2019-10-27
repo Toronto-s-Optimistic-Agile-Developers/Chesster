@@ -12,7 +12,7 @@
         <% else %>
           <%= simple_form_for game, url: join_game_path(game) do |f| %>
             <%= f.input :black_id, as: :hidden, :input_html => { :value => current_user.id } %>
-            <%= f.submit "Join as black player", class: "btn btn-inverse" %>
+            <%= f.submit "Join as black player", class: "btn btn-secondary" %>
           <% end %>
           <% end %>
           <% end %>
