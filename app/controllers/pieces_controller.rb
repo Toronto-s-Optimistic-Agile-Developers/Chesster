@@ -12,6 +12,7 @@ class PiecesController < ApplicationController
   end
 
   def edit
+    @piece = Piece.find(params[:id])
   end
 
   def update
