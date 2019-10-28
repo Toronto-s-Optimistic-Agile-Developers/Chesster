@@ -33,7 +33,7 @@ class Game < ApplicationRecord
   
   def in_check?(color)
     @rival_causing_check = []
-    king = find_king(color)
+    king_in_check = pieces.find_by(color: color, type: king)
     if king
       opponents = opponent_pieces(color)
       opponents.each do |piece|
@@ -42,6 +42,17 @@ class Game < ApplicationRecord
     end
     return true if @rival_causing_check.any?
   end
+
+  def checkmate?(color)
+    king_in_check = pieces.find_by(color: color, type: king)
+    return false unless in_check?(color)
+    return false if king_in_check.valid_move?
+    return false if rival_causing_check.can_be_obstructed?(king_in_check)
+    return false if rival_causing_check.can_be_captured?(king_in_check)
+    return true
+  end
+
+
 
   #validates :name, presence: true
   def set_up_board!
