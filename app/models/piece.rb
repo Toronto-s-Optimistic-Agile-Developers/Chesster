@@ -61,15 +61,28 @@ class Piece < ApplicationRecord
   end
 
   def can_be_obstructed?(color)
-    @rival_causing_check = []
     king_in_check = pieces.find_by(color: color, type: king)
-    blockers = my_pieces(color)
-    blockers.each do |piece|
+    opponents = opponent_pieces(color)
+    opponents.each do |piece|
       while piece.valid_move? 
         if ! in_check(color)
           return true
         end
       end
+      false
+    end
+  end
+
+  def can_be_captured(color)
+    opponents = opponent_pieces(color)
+    opponents.each do |piece|
+      while piece.valid_move? 
+        if ! in_check(color)
+          return true
+        end
+      
+      false
+    end
   end
 
 
