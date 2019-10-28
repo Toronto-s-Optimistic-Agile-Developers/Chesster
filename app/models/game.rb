@@ -44,11 +44,12 @@ class Game < ApplicationRecord
   end
 
   def checkmate?(color)
+    @rival_causing_check = []
     king_in_check = pieces.find_by(color: color, type: king)
-    return false unless in_check?(color)
+    return false if in_check?(color)
     return false if king_in_check.valid_move?
-    return false if rival_causing_check.can_be_obstructed?(king_in_check)
-    return false if rival_causing_check.can_be_captured?(king_in_check)
+    return false if @rival_causing_check.can_be_obstructed?(king_in_check)
+    return false if @rival_causing_check.can_be_captured?(king_in_check)
     return true
   end
 

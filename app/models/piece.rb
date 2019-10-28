@@ -60,6 +60,22 @@ class Piece < ApplicationRecord
     false
   end
 
+  def can_be_obstructed?(color)
+    @rival_causing_check = []
+    king_in_check = pieces.find_by(color: color, type: king)
+    blockers = my_pieces(color)
+    blockers.each do |piece|
+      while piece.valid_move? 
+        if ! in_check(color)
+          return true
+        end
+      end
+  end
+
+
+  end
+
+
   def castle(x_path, y_path)
     king_black = Piece.find_by(x_coord: 4, y_coord: 0)
     king_white = Piece.find_by(x_coord: 4, y_coord: 7)
@@ -118,7 +134,7 @@ class Piece < ApplicationRecord
 
   def valid_move?(x_path, y_path)
     if on_the_board?(x_path, y_path) && ! ((x_coord == x_path) && (y_coord == y_path) && ! friendly_piece(x_path, y_path))
-      if legal_move?(x_path, y_path) && ! is_obstructed?(x_path, y_path)
+      if legal_move?(x_path, y_path) && ! is_obstructed?(x_path, y_path) && ! in_check?(color)
         return true
         game.pass_turn!(game.user_turn)
       else
@@ -126,6 +142,8 @@ class Piece < ApplicationRecord
       end
     end
   end
+
+
 
   def pawn_promote(new_rank)
     case new_rank.downcase
