@@ -25,13 +25,14 @@ class PiecesController < ApplicationController
       redirect_to @game
       flash[:notice] = 'You have successfully promoted your pawn! Please refresh the page.'
       @game.reload
-    elsif piece = @piece.name == "Black_King" && ! @piece.legal_move?(x_path, y_path)
+   elsif piece = @piece.name == "Black_King" && ! @piece.legal_move?(x_path, y_path)
       if @piece.black_right_castle(x_path, y_path) == true 
         @piece.black_right_castle(x_path, y_path)
         flash[:notice] = 'You have successfully completed Castling.'
         @game.reload
       else
-        @piece.white_left_castle(x_path, y_path)
+        @piece.black_left_castle(x_path, y_path) == true
+        @piece.black_left_castle(x_path, y_path)
         flash[:notice] = 'You have successfully completed Castling.'
         @game.reload
       end
@@ -40,7 +41,7 @@ class PiecesController < ApplicationController
         @piece.white_right_castle(x_path, y_path)
         flash[:notice] = 'You have successfully completed Castling.'
         @game.reload
-      else @piece.white_left_castle(x_path, y_path) == true
+      elsif @piece.white_left_castle(x_path, y_path) == true
         @piece.white_left_castle(x_path, y_path)
         flash[:notice] = 'You have successfully completed Castling.'
         @game.reload
@@ -56,7 +57,19 @@ class PiecesController < ApplicationController
         @game.reload
         flash[:notice] = 'Your move was successfully completed!' 
     end
-    @game.reload
+    if @piece.name == 'White_King' && @piece.in_check?(color) 
+       flash[:notice] = 'C H E C K'
+    elsif @piece.name == 'Black_King' && @piece.in_check?(color) 
+        flash[:notice] = 'C H E C K'
+    end
+
+
+    
+      
+
+    
+
+    
   end
 
   private

@@ -32,17 +32,32 @@ class Game < ApplicationRecord
   end 
   
   def in_check?(color)
-    @rival_causing_check = []
-    king = find_king(color)
-    if king
+    if @piece.name == 'White_King'
+      king_in_check = @piece
       opponents = opponent_pieces(color)
-      opponents.each do |piece|
-        @rival_causing_check << piece if piece.valid_move?(king.x_coord, king.y_coord) == true
-      end
-    end
-    return true if @rival_causing_check.any?
-  end
 
+      opponents.each do |piece|
+        if piece.valid_move?(king_in_check.x_coord, king_in_check.y_coord)
+         @rival_causing_check = piece
+          return true
+        end
+      end
+      false
+    elsif @piece.name == 'Black_King'
+      king_in_check = @piece
+      opponents = opponent_pieces(color)
+
+      opponents.each do |piece|
+        if piece.valid_move?(king_in_check.x_coord, king_in_check.y_coord)
+          @rival_causing_check = piece
+          return true
+        end
+      end
+      false
+    end
+  end
+     
+          
   #validates :name, presence: true
   def set_up_board!
   # Pawns
