@@ -33,7 +33,7 @@ class Game < ApplicationRecord
   
   def in_check?(color)
     if @piece.name == 'White_King'
-      king_in_check = @piece.find_by(name: 'White_King')
+      king_in_check = @piece
       opponents = opponent_pieces(color)
       opponents.each do |piece|
         if piece.valid_move?(king_in_check.x_coord, king_in_check.y_coord)
@@ -43,7 +43,7 @@ class Game < ApplicationRecord
       end
       false
     elsif @piece.name == 'Black_King'
-      king_in_check = @piece.find_by(name: 'Black_King')
+      king_in_check = @piece
       opponents = opponent_pieces(color)
 
       opponents.each do |piece|
