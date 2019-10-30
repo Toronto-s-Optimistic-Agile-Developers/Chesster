@@ -24,7 +24,7 @@ class PiecesController < ApplicationController
        @piece.pawn_promote(new_rank)
        redirect_to @game
        flash[:notice] = 'You have successfully promoted your pawn! Please refresh the page.'
-       @game.reload
+      @game.reload
     elsif piece = @piece.name == "Black_King" && ! @piece.legal_move?(x_path, y_path)
       if @piece.black_right_castle(x_path, y_path) == true 
         @piece.black_right_castle(x_path, y_path)
@@ -61,17 +61,9 @@ class PiecesController < ApplicationController
           flash[:notice] = 'C H E C K'
         else
           flash[:notice] = 'Your move was successfully completed!' 
-    end
+        end
+    end  
   end
-
-
-    
-      
-
-    
-
-    
-end
 
   private
 
