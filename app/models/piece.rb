@@ -50,6 +50,8 @@ class Piece < ApplicationRecord
     [arr1[0] + arr2[0], arr1[1] + arr2[1]]
   end
 
+
+
   def is_obstructed?(x_path, y_path) 
     return true if self.game.tile_taken?(x_path, y_path) && self.color == self.game.pieces.where(x_coord: x_path, y_coord: y_path).first.color
     return false if (self.type == "Knight")
@@ -178,6 +180,31 @@ class Piece < ApplicationRecord
     'Rook': 'Rook',
     'Queen': 'Queen'
   }
+
+  def in_check?(color)
+    if @piece.name == 'White_King'
+      king_in_check = @piece
+      opponents = opponent_pieces(color)
+      opponents.each do |piece|
+        if piece.valid_move?(king_in_check.x_coord, king_in_check.y_coord)
+         @rival_causing_check = piece
+          return true
+        end
+      end
+      false
+    elsif @piece.name == 'Black_King'
+      king_in_check = @piece
+      opponents = opponent_pieces(color)
+
+      opponents.each do |piece|
+        if piece.valid_move?(king_in_check.x_coord, king_in_check.y_coord)
+          @rival_causing_check = piece
+          return true
+        end
+      end
+      false
+    end
+  end
 
 end
 
