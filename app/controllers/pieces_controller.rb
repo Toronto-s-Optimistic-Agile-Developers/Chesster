@@ -19,13 +19,13 @@ class PiecesController < ApplicationController
     x_path = piece_params[:x_coord].to_i
     y_path = piece_params[:y_coord].to_i
     new_rank =  piece_params[:promotion_type].to_s
-   if @piece.promotion? == true
-      @piece.update(piece_params)
-      @piece.pawn_promote(new_rank)
-      redirect_to @game
-      flash[:notice] = 'You have successfully promoted your pawn! Please refresh the page.'
-      @game.reload
-   elsif piece = @piece.name == "Black_King" && ! @piece.legal_move?(x_path, y_path)
+    if @piece.promotion? == true
+       @piece.update(piece_params)
+       @piece.pawn_promote(new_rank)
+       redirect_to @game
+       flash[:notice] = 'You have successfully promoted your pawn! Please refresh the page.'
+       @game.reload
+    elsif piece = @piece.name == "Black_King" && ! @piece.legal_move?(x_path, y_path)
       if @piece.black_right_castle(x_path, y_path) == true 
         @piece.black_right_castle(x_path, y_path)
         flash[:notice] = 'You have successfully completed Castling.'
@@ -45,8 +45,8 @@ class PiecesController < ApplicationController
         @piece.white_left_castle(x_path, y_path)
         flash[:notice] = 'You have successfully completed Castling.'
         @game.reload
-     end    
-     elsif @piece.valid_move?(x_path, y_path)
+      end
+    elsif @piece.valid_move?(x_path, y_path)
       @piece.move_to!(x_path, y_path)
       @piece.update(initial_position?: false)
       @piece.update_attributes(piece_params)
@@ -61,7 +61,8 @@ class PiecesController < ApplicationController
           flash[:notice] = 'C H E C K'
         else
           flash[:notice] = 'Your move was successfully completed!' 
-        end
+    end
+  end
 
 
     
@@ -70,7 +71,7 @@ class PiecesController < ApplicationController
     
 
     
-  end
+end
 
   private
 
