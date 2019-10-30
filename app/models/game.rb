@@ -31,7 +31,29 @@ class Game < ApplicationRecord
     pieces.where(x_coord: x_path, y_coord: y_path).first.present? 
   end 
   
-  
+  def in_check?(color)
+    if @piece.name == 'White_King'
+      king_in_check = @piece
+      opponents = opponent_pieces(color)
+      opponents.each do |piece|
+        if piece.valid_move?(king_in_check.x_coord, king_in_check.y_coord)
+         @rival_causing_check = piece
+          return true
+        end
+      end
+      false
+    elsif @piece.name == 'Black_King'
+      king_in_check = @piece
+      opponents = opponent_pieces(color)
+      opponents.each do |piece|
+        if piece.valid_move?(king_in_check.x_coord, king_in_check.y_coord)
+          @rival_causing_check = piece
+          return true
+        end
+      end
+      false
+    end
+  end
      
           
   #validates :name, presence: true
