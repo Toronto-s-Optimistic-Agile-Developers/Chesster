@@ -36,9 +36,9 @@ class Game < ApplicationRecord
       king_in_check = @piece
       opponents = opponent_pieces(color)
       opponents.each do |piece|
-        if piece.valid_move?(king_in_check.x_coord, king_in_check.y_coord)
+        if piece.valid_move?(x_coord: king_in_check.x_coord, y_coord: king_in_check.y_coord)
          @rival_causing_check = piece
-          return true
+        return true
         end
       end
       false
@@ -46,9 +46,9 @@ class Game < ApplicationRecord
       king_in_check = @piece
       opponents = opponent_pieces(color)
       opponents.each do |piece|
-        if piece.valid_move?(king_in_check.x_coord, king_in_check.y_coord)
+        if piece.valid_move?(x_coord: king_in_check.x_coord, y_coord: king_in_check.y_coord)
           @rival_causing_check = piece
-          return true
+        return true
         end
       end
       false
