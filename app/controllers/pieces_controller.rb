@@ -55,9 +55,9 @@ class PiecesController < ApplicationController
           format.json { render json: @piece, status: :ok }
         end
       @game.reload
-        king_black = Piece.find_by(game_id: self.game_id, name: 'White_King', x_coord: x_coord, y_coord: y_coord, color: color)
-        king_white = Piece.find_by(game_id: self.game_id, name: 'Black_King', x_coord: x_coord, y_coord: y_coord, color: color)
-        if king_white.in_check?(color) || king_black.in_check?(color)
+        if @piece.name == "White_King" && @piece.in_check?(color)
+          flash[:notice] = 'C H E C K'
+        elsif @piece.name == "Black_King" && @piece.in_check?(color)
           flash[:notice] = 'C H E C K'
         else
           flash[:notice] = 'Your move was successfully completed!' 
