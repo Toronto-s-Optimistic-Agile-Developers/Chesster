@@ -32,10 +32,10 @@ class Game < ApplicationRecord
   end 
   
   def in_check?(color)
-    king_black = Piece.find_by(game_id: self.game_id, name: 'White_King', x_coord: x_coord, y_coord: y_coord)
-    king_white = Piece.find_by(game_id: self.game_id, name: 'Black_King', x_coord: x_coord, y_coord: y_coord)
+    king_black = Piece.find_by(game_id: self.game_id, name: 'White_King', x_coord: x_coord, y_coord: y_coord, color: color)
+    king_white = Piece.find_by(game_id: self.game_id, name: 'Black_King', x_coord: x_coord, y_coord: y_coord, color: color)
       if king_black
-        rival_piece = Piece.find_by(x_coord: x_path, y_coord: y_path, game_id: self.game_id)
+        rival_piece = Piece.find_by(x_coord: x_path, y_coord: y_path, game_id: self.game_id, color: !color)
         rival_piece.each do |piece|
           if piece.valid_move?(x_coord: king_black.x_coord, y_coord: king_black.y_coord)
             rival_causing_check = piece
@@ -43,7 +43,7 @@ class Game < ApplicationRecord
           end
         end
       elsif king_white
-        rival_piece = Piece.find_by(x_coord: x_path, y_coord: y_path, game_id: self.game_id)
+        rival_piece = Piece.find_by(x_coord: x_path, y_coord: y_path, game_id: self.game_id, color: !color)
         rival_piece.each do |piece|
           if piece.valid_move?(x_coord: king_white.x_coord, y_coord: king_white.y_coord)
             rival_causing_check = piece
