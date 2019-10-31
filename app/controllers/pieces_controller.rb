@@ -54,15 +54,16 @@ class PiecesController < ApplicationController
           format.html { render :show }
           format.json { render json: @piece, status: :ok }
         end
-        @game.reload
-        if @piece.name == 'White_King' && @piece.in_check?(color) 
-          flash[:notice] = 'C H E C K'
-        elsif @piece.name == 'Black_King' && @piece.in_check?(color) 
-          flash[:notice] = 'C H E C K'
-        else
-          flash[:notice] = 'Your move was successfully completed!' 
-        end
-    end  
+      @game.reload
+      flash[:notice] = 'Your move was successfully completed!' 
+       #if king_white.in_check?(color) || king_black.in_check?(color)
+      #flash[:notice] = 'C H E C K'
+      
+    end
+
+    
+   
+      
   end
 
   private

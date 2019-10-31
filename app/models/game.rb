@@ -32,28 +32,28 @@ class Game < ApplicationRecord
   end 
   
   def in_check?(color)
-    if @piece.name == 'White_King'
-      king_in_check = @piece
-      opponents = opponent_pieces(color)
-      opponents.each do |piece|
-        if piece.valid_move?(x_coord: king_in_check.x_coord, y_coord: king_in_check.y_coord)
-         @rival_causing_check = piece
-        return true
+    king_black = Piece.find_by(game_id: self.game_id, name: 'White_King', x_coord: x_coord, y_coord: y_coord)
+    king_white = Piece.find_by(game_id: self.game_id, name: 'Black_King', x_coord: x_coord, y_coord: y_coord)
+      if king_black
+        rival_piece = Piece.find_by(x_coord: x_path, y_coord: y_path, game_id: self.game_id)
+        rival_piece.each do |piece|
+          if piece.valid_move?(x_coord: king_black.x_coord, y_coord: king_black.y_coord)
+            rival_causing_check = piece
+          return true
+          end
+        end
+      elsif king_white
+        rival_piece = Piece.find_by(x_coord: x_path, y_coord: y_path, game_id: self.game_id)
+        rival_piece.each do |piece|
+          if piece.valid_move?(x_coord: king_white.x_coord, y_coord: king_white.y_coord)
+            rival_causing_check = piece
+          return true
+          end
         end
       end
       false
-    elsif @piece.name == 'Black_King'
-      king_in_check = @piece
-      opponents = opponent_pieces(color)
-      opponents.each do |piece|
-        if piece.valid_move?(x_coord: king_in_check.x_coord, y_coord: king_in_check.y_coord)
-          @rival_causing_check = piece
-        return true
-        end
-      end
-      false
-    end
   end
+  
      
           
   #validates :name, presence: true
@@ -104,7 +104,7 @@ class Game < ApplicationRecord
     Queen.create(game_id: id, color: "white", x_coord: 3, y_coord: 7, name: "White_Queen",  title: "Queen")
 
     Queen.create(game_id: id, color: "black", x_coord: 3, y_coord: 0,  name: "Black_Queen",  title: "Queen")
-  
+  end
   def opponent_pieces(color)
     rival_color = if color == 'black'
       'white'
@@ -124,4 +124,4 @@ class Game < ApplicationRecord
   end
 
   end
-end
+
