@@ -32,17 +32,30 @@ class Game < ApplicationRecord
   end 
   
   def in_check?(color)
-    @rival_causing_check = []
-    king = find_king(color)
-    if king
-      opponents = opponent_pieces(color)
-      opponents.each do |piece|
-        @rival_causing_check << piece if piece.valid_move?(king.x_coord, king.y_coord) == true
+    king_black = Piece.find_by(game_id: self.game_id, name: 'White_King', x_coord: x_coord, y_coord: y_coord, color: color)
+    king_white = Piece.find_by(game_id: self.game_id, name: 'Black_King', x_coord: x_coord, y_coord: y_coord, color: color)
+      if king_black
+        rival_piece = Piece.find_by(x_coord: x_path, y_coord: y_path, game_id: self.game_id, color: !color)
+        rival_piece.each do |piece|
+          if piece.valid_move?(x_coord: king_black.x_coord, y_coord: king_black.y_coord)
+            rival_causing_check = piece
+          return true
+          end
+        end
+      elsif king_white
+        rival_piece = Piece.find_by(x_coord: x_path, y_coord: y_path, game_id: self.game_id, color: !color)
+        rival_piece.each do |piece|
+          if piece.valid_move?(x_coord: king_white.x_coord, y_coord: king_white.y_coord)
+            rival_causing_check = piece
+          return true
+          end
+        end
       end
-    end
-    return true if @rival_causing_check.any?
+      false
   end
-
+  
+     
+          
   #validates :name, presence: true
   def set_up_board!
   # Pawns
@@ -91,7 +104,7 @@ class Game < ApplicationRecord
     Queen.create(game_id: id, color: "white", x_coord: 3, y_coord: 7, name: "White_Queen",  title: "Queen")
 
     Queen.create(game_id: id, color: "black", x_coord: 3, y_coord: 0,  name: "Black_Queen",  title: "Queen")
-  
+  end
   def opponent_pieces(color)
     rival_color = if color == 'black'
       'white'
@@ -111,4 +124,4 @@ class Game < ApplicationRecord
   end
 
   end
-end
+

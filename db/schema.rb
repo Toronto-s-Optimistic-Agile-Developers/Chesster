@@ -38,7 +38,6 @@ ActiveRecord::Schema.define(version: 2019_10_26_164642) do
     t.integer "winner"
     t.integer "loser"
     t.string "user_turn"
-    t.integer "second_player_id"
     t.index ["id"], name: "index_games_on_id"
     t.index ["player_id"], name: "index_games_on_player_id"
     t.index ["user_id"], name: "index_games_on_user_id"
@@ -78,17 +77,16 @@ ActiveRecord::Schema.define(version: 2019_10_26_164642) do
     t.inet "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "username"
     t.string "slug"
     t.string "provider"
     t.string "uid"
+    t.string "username"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["id"], name: "index_users_on_id"
     t.index ["provider"], name: "index_users_on_provider"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_users_on_slug", unique: true
     t.index ["uid"], name: "index_users_on_uid"
-    t.index ["username"], name: "index_users_on_username"
   end
 
 end
