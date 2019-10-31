@@ -50,29 +50,6 @@ class Piece < ApplicationRecord
     [arr1[0] + arr2[0], arr1[1] + arr2[1]]
   end
 
-  def in_check?(color)
-    @king_black = Piece.find_by(game_id: self.game_id, name: 'White_King', x_coord: x_coord, y_coord: y_coord)
-    @king_white = Piece.find_by(game_id: self.game_id, name: 'Black_King', x_coord: x_coord, y_coord: y_coord)
-      if @king_black
-        rival_piece = Piece.find_by(x_coord: x_path, y_coord: y_path, game_id: self.game_id)
-        rival_piece.each do |piece|
-          if piece.valid_move?(x_coord: @king_black.x_coord, y_coord: @king_black.y_coord)
-            rival_causing_check = piece
-          return true
-          end
-        end
-      elsif @king_white
-        rival_piece = Piece.find_by(x_coord: x_path, y_coord: y_path, game_id: self.game_id)
-        rival_piece.each do |piece|
-          if piece.valid_move?(x_coord: @king_white.x_coord, y_coord: @king_white.y_coord)
-            rival_causing_check = piece
-          return true
-          end
-        end
-      end
-      false
-  end
-
   def is_obstructed?(x_path, y_path) 
     return true if self.game.tile_taken?(x_path, y_path) && self.color == self.game.pieces.where(x_coord: x_path, y_coord: y_path).first.color
     return false if (self.type == "Knight")
