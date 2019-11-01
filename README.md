@@ -4,16 +4,15 @@
     <img src="http://freshcupmedia.com/portfolio/toad.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">TOAD - CHESSTER</h3>
+  # TOAD - CHESSTER
 
-  <p align="center">
-    An Agile software development team building a chess application. Under the guidance of a senior team lead, we had weekly Agile team     meetings for code reviews, sprint planning, and feature assignments. This app was developed as part of the University of Toronto -       Full Stack Web Development - Coding Bootcamp. 
-    <br />
-    <br />
-    <a href="https://toad-chesster.herokuapp.com/">View Demo</a>
-    ·
-    <a href="https://github.com/Toronto-s-Optimistic-Agile-Developers/Chesste/issues">Report Bug</a>
-    </p>
+An Agile software development team building a chess application. Under the guidance of a senior team lead, we had weekly Agile team     meetings for code reviews, sprint planning, and feature assignments. This app was developed as part of the University of Toronto -       Full Stack Web Development - Coding Bootcamp. 
+<br />
+<br />
+<a href="https://toad-chesster.herokuapp.com/">View Demo</a>
+·
+<a href="https://github.com/Toronto-s-Optimistic-Agile-Developers/Chesste/issues">Report Bug</a>
+  
 
 
 
