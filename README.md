@@ -8,7 +8,7 @@ Developers:
 
 Stephen Melnick - [github](https://github.com/freshcup/)
 
-Devan Potter-Bonar - [github](https://github.com/freshcup/)
+Devan Potter-Bonar - [github](https://github.com/Adpbonar)
 
 Mike Tracz - [github](https://github.com/freshcup/)
 
