@@ -19,21 +19,18 @@ class PiecesController < ApplicationController
     x_path = piece_params[:x_coord].to_i
     y_path = piece_params[:y_coord].to_i
     new_rank =  piece_params[:promotion_type].to_s
-    if @piece.promotion? == true
+  if @piece.promotion? == true
        @piece.update(piece_params)
        @piece.pawn_promote(new_rank)
        redirect_to @game
-       flash[:notice] = 'You have successfully promoted your pawn! Please refresh the page.'
+       flash[:notice] = 'You have successfully promoted your pawn!'
       @game.reload
     elsif piece = @piece.name == "Black_King" && ! @piece.legal_move?(x_path, y_path)
-      if @piece.black_right_castle(x_path, y_path) == true 
-        @piece.black_right_castle(x_path, y_path)
-        @game.reload
-      else
-        @piece.black_left_castle(x_path, y_path) == true
+      if @piece.black_left_castle(x_path, y_path) == true
         @piece.black_left_castle(x_path, y_path)
+        @game.reload
         flash[:notice] = 'You have successfully completed Castling.'
-      elsif @piece.black_left(x_path, y_path) 
+      elsif @piece.black_left(x_path, y_path) == true
         @piece.black_left_castle(x_path, y_path)
         @game.reload
         flash[:notice] = 'You have successfully completed Castling.'
@@ -57,19 +54,13 @@ class PiecesController < ApplicationController
           format.json { render json: @piece, status: :ok }
         end
       @game.reload
-        if @piece.name == "White_King" && @piece.in_check?(color)
-          flash[:notice] = 'C H E C K'
-        elsif @piece.name == "Black_King" && @piece.in_check?(color)
-          flash[:notice] = 'C H E C K'
-        else
-          flash[:notice] = 'Your move was successfully completed!' 
-        end
-      
+    elsif @piece.name == "White_King" && @piece.in_check?(color)
+      flash[:alert] = 'C H E C K'
+    elsif @piece.name == "Black_King" && @piece.in_check?(color)
+      flash[:alert] = 'C H E C K'
+    else
+      flash[:notice] = 'Your move was successfully completed!' 
     end
-
-    
-   
-      
   end
 
   private
