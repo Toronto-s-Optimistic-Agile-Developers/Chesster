@@ -35,7 +35,7 @@ Wilson Horrell - [github](https://github.com/BigPhatNerd)
 
 ## Screenshot
 
-<img src="http://freshcupmedia.com/portfolio/chess.png" alt="Logo" width="600" height="277">
+<img src="http://freshcupmedia.com/portfolio/chess.png" alt="screenshot">
   
 
 
