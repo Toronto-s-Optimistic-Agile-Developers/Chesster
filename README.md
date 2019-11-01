@@ -33,4 +33,9 @@ Mason Traylor - [github](https://github.com/Mason-T) *Team Lead
 
 Wilson Horrell - [github](https://github.com/BigPhatNerd)
 
+## Screenshot
+
+<img src="http://freshcupmedia.com/portfolio/chess.png" alt="Logo" width="600" height="277">
+  
+
 
