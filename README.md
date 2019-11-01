@@ -20,17 +20,17 @@ An Agile software development team building a chess application. Under the guida
 ## Contributors
 ### Developers:
 
-Stephen Melnick - [github](https://github.com/StephenMelnick)
+Stephen Melnick  [github](https://github.com/StephenMelnick)
 
-Devan Potter-Bonar - [github](https://github.com/Adpbonar)
+Devan Potter-Bonar  [github](https://github.com/Adpbonar)
 
-Mike Tracz - [github](https://github.com/freshcup/)
+Mike Tracz  [github](https://github.com/freshcup)
 
 
 ### Guidance:
 
-Mason Traylor - Team Lead
+Mason Traylor  [github](https://github.com/Mason-T) *Team Lead 
 
-Wilson Horrell
+Wilson Horrell  [github](https://github.com/BigPhatNerd)
 
 
