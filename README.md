@@ -4,7 +4,7 @@ An Agile software development team building a chess application. Under the guida
 
 
 ## Contributors
-###Developers:
+### Developers:
 
 Stephen Melnick - [github](https://github.com/StephenMelnick)
 
@@ -13,7 +13,7 @@ Devan Potter-Bonar - [github](https://github.com/Adpbonar)
 Mike Tracz - [github](https://github.com/freshcup/)
 
 
-###Guidance:
+### Guidance:
 
 Mason Traylor - Team Lead
 
