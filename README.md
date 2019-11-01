@@ -1,5 +1,5 @@
 <br />
-<p align="center">
+
   <a href="https://github.com/Toronto-s-Optimistic-Agile-Developers/Chesster">
     <img src="http://freshcupmedia.com/portfolio/toad.png" alt="Logo" width="80" height="80">
   </a>
@@ -12,7 +12,7 @@
     <br />
     <a href="https://toad-chesster.herokuapp.com/">View Demo</a>
     ·
-    <a href="https://github.com/Toronto-s-Optimistic-Agile-Developers/Chesste/rissues">Report Bug</a>
+    <a href="https://github.com/Toronto-s-Optimistic-Agile-Developers/Chesste/issues">Report Bug</a>
     </p>
 
 
@@ -33,5 +33,5 @@ Mike Tracz - [github](https://github.com/freshcup/)
 Mason Traylor - Team Lead
 
 Wilson Horrell
-</p>
+
 
