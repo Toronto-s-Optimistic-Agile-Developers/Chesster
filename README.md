@@ -1,24 +1,15 @@
-# README
+# TOAD - Chesster
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+An Agile software development team building a chess application. Under the guidance of a senior team lead, we had weekly Agile team meetings for code reviews, sprint planning, and feature assignments. This app was developed as part of the University of Toronto - Full Stack Web Development - Coding Bootcamp.  
 
-Things you may want to cover:
 
-* Ruby version
+## Contributors
+Developers:
+Stephen Melnick - [github](https://github.com/freshcup/)
+Devan Potter-Bonar - [github](https://github.com/freshcup/)
+Mike Tracz - [github](https://github.com/freshcup/)
 
-* System dependencies
+Guidance:
+Mason Traylor - Team Lead
+Wilson Horrell
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
