@@ -11,7 +11,7 @@ An Agile software development team building a chess application. Under the guida
 <br />
 <a href="https://toad-chesster.herokuapp.com/">View Demo</a>
 ·
-<a href="https://github.com/Toronto-s-Optimistic-Agile-Developers/Chesste/issues">Report Bug</a>
+<a href="https://github.com/Toronto-s-Optimistic-Agile-Developers/Chesster/issues">Report Bug</a>
   
 
 
