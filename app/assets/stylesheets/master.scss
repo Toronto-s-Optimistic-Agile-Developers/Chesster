@@ -24,6 +24,7 @@ body {
   border: 1px solid grey;
   color: grey !important;
   font-weight: bold;
+  text-shadow: 1px 1px 0 #E8E8E8, 1px -1px 0 #E8E8E8, -1px 1px 0 #E8E8E8, -1px -1px 0 #E8E8E8, 1px 0px 0 #E8E8E8, 0px 1px 0 #E8E8E8, -1px 0px 0 #E8E8E8, 0px -1px 0 #E8E8E8;
 }
 
 .btn-primary,
@@ -539,9 +540,7 @@ table ::selection {
   .white {
     vertical-align: middle;
     font-size: 20px !important;
-    ;
     font-weight: 500 !important;
-    ;
     text-align: center;
     vertical-align: middle;
   }
