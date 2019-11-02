@@ -225,6 +225,10 @@ btn-lg a {
   margin-bottom: -25px;
 }
 
+.show-topper {
+  background: none;
+}
+
 table {
   height: 500px;
   width: 500px;
@@ -232,6 +236,7 @@ table {
   -webkit-box-shadow: 1px 1px 1px 1px #707070;
   box-shadow: 1px 1px 1px 1px #707070;
   z-index: 2px;
+  background-color: white;
 }
 
 table ::selection {
@@ -380,6 +385,7 @@ table ::selection {
   font-size: 15px;
   overflow-y: scroll;
   height: 70px;
+  margin-top: -4px;
 }
 
 .captured_pieces p {
