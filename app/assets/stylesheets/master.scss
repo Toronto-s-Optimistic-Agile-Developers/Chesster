@@ -15,8 +15,14 @@ body {
   width: 100%;
 }
 
-.btn-primary, btn-lg {
+.show-play-join {
   border: 1px solid white;
+}
+
+.show-play-join:hover, .show-play-join:focus {
+  border: 1px solid grey;
+  color: grey !important;
+  font-weight: bold;
 }
 
 .btn-primary, btn-lg a {
