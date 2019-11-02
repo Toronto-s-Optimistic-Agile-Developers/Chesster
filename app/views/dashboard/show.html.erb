@@ -8,7 +8,7 @@
     <% else %>
       <b>Account Provider:</b><%= current_user.provider %><br />
     <% end %>
-    <b>Member Since:</b> <%= current_user.created_at.strftime('%A %B %e, %y%n%l:%M %p') %><br />
+    <b>Member Since:</b> <%= current_user.created_at.strftime('%A %B %e, %Y%n at %l:%M %p') %><br />
   </p>
 </section>
 <br />
