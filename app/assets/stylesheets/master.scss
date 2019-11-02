@@ -6,7 +6,7 @@ body {
 }
 
 .white-text {
-  color:white;
+  color: white;
 }
 
 .center {
@@ -19,13 +19,15 @@ body {
   border: 1px solid white;
 }
 
-.show-play-join:hover, .show-play-join:focus {
+.show-play-join:hover,
+.show-play-join:focus {
   border: 1px solid grey;
   color: grey !important;
   font-weight: bold;
 }
 
-.btn-primary, btn-lg a {
+.btn-primary,
+btn-lg a {
   color: white !important;
 }
 
@@ -607,6 +609,7 @@ table ::selection {
   border: 1px dotted grey;
 }
 
-.white-box p, ul {
+.white-box p,
+ul {
   text-align: left
 }
