@@ -15,6 +15,16 @@ body {
   width: 100%;
 }
 
+.btn-primary, btn-lg {
+  border: 1px solid white;
+}
+
+.btn-primary, btn-lg a {
+  color: white !important;
+}
+
+
+
 .box {
   background-color: rgb(13, 124, 199);
   border-color: #5DADE2 #2874A6 #2874A6 #5DADE2;
