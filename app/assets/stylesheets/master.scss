@@ -79,7 +79,21 @@ btn-lg a {
   padding: 20px;
   height: 70px;
   color: white;
+  overflow: scroll;
 }
+
+.game-box::-webkit-scrollbar {
+  width: 0 !important
+}
+
+.game-box {
+  -ms-overflow-style: none;
+}
+
+.game-box {
+  overflow: -moz-scrollbars-none;
+}
+
 
 .btn.btn-secondary {
   border: 1px solid white;
