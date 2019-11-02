@@ -6,7 +6,6 @@ App.pieces = App.cable.subscriptions.create("PiecesChannel", {
     console.log("Disconnected to the Pieces channel")
   },
   received: function(data) {
-    var playPiece = $('.piece')
-    playPiece.append(data[piece])
+   
   }
 });

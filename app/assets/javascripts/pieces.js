@@ -1,19 +1,6 @@
 $(document).ready(function () {
   $('[data-toggle="capture-instructions"]').tooltip();
 });
-var rotation = 0;
-jQuery.fn.rotate = function (degrees) {
-  $(this).css({
-    '-webkit-transform': 'rotate(' + degrees + 'deg)',
-    '-moz-transform': 'rotate(' + degrees + 'deg)',
-    '-ms-transform': 'rotate(' + degrees + 'deg)',
-    'transform': 'rotate(' + degrees + 'deg)'
-  });
-};
-$('#Flip_Board').click(function () {
-  rotation -= 180;
-  $('.set-board, .chess td, #labels td').rotate(rotation);
-});
 $(document).ready(function () {
   $('.piece').draggable({
     snap: '.droppable-tile',
