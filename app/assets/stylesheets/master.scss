@@ -1,6 +1,11 @@
 @import "bootstrap";
 @import "font-awesome";
 
+body {
+  background: image_url('chess-background.jpg') center fixed;
+}
+
+
 .booyah-box {
   -moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
   -webkit-box-shadow: 1px 1px 2px 0 #d0d0d0;
