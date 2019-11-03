@@ -23,7 +23,7 @@
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
           Games 
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="vertical-align:middle;">
           <%= link_to new_game_path, class: 'dropdown-item' do %>
           Create a Game
           <% end %>
@@ -33,10 +33,26 @@
           <% end %>
         </div>
       </li>
+      <% if current_user %>
         <li class="nav-item">
-        <%= link_to dashboard_path, class: 'nav-link' do %> 
-        Dashboard
-        <% end %>
+          <%= link_to dashboard_path, class: 'nav-link' do %> 
+            Dashboard
+          <% end %>`
+        </li>
+      <% end %>
+    </ul>
+     <ul class="navbar-nav ml-auto">
+      <% if current_user %>
+        <%= link_to'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-danger btn-sm logout' %>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to user_session, class: 'btn btn-success' do %> 
+            Sign in
+          <% end %>`
+        </li>
+      <% end %>
+        <li class="nav-item"> 
+        <center><a class="git-link" title="Project GitHub Page" target="_blank" href="https://github.com/Toronto-s-Optimistic-Agile-Developers/Chesster"><i class="fa fa-github"></i></a></center>
       </li>
     </ul>
   </div>

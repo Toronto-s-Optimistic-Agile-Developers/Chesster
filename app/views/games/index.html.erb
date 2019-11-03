@@ -1,20 +1,23 @@
 
-<h1> Available Games </h1>
-
-  <% if @unmatched_games.present? %>
-    <% @unmatched_games.each do |game| %>
-      <h5 class="text-center"><%= "Game #{game.id}" %></h5>
+<br />
+<section class="col-12 box">
+  <h1> Available Games </h1>
+    <% if @unmatched_games.present? %>
+      <% @unmatched_games.each do |game| %>
+        <h5 class="text-center"><%= "Game #{game.id}" %></h5>
         <% if game.white_id.blank? %>
           <%= simple_form_for game, url: join_game_path(game) do |f| %>
             <%= f.input :white_id, as: :hidden, :input_html => { :value => current_user.id } %>
             <%= f.submit "Join as white player", class: "btn btn-secondary" %>
-            <% end %>       
+          <% end %>       
         <% else %>
           <%= simple_form_for game, url: join_game_path(game) do |f| %>
             <%= f.input :black_id, as: :hidden, :input_html => { :value => current_user.id } %>
             <%= f.submit "Join as black player", class: "btn btn-secondary" %>
           <% end %>
-          <% end %>
-          <% end %>
-          <% end %>
-          
+        <% end %>
+      <% end %>
+    <% end %>
+    <br class="clear">
+</section>
+            

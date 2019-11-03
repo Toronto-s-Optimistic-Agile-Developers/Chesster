@@ -1,6 +1,11 @@
+   <br />
+   <section class="col-12 box">
     <h1>Create a Game</h1>
     <%= simple_form_for @game do |f| %>
       <%= f.input   :name %>
       <%= f.input   :white_id, as: :hidden, :input_html => { :value => current_user.id } %>
-      <%= f.button  :submit %>
+      <br />
+      <%= f.button  :submit, class: 'btn btn-secondary' %>
     <% end %>
+    <br class="clear" />
+    </section>

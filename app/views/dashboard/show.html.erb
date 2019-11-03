@@ -1,5 +1,26 @@
-<% if current_user %>
-  <% current_user.attributes.each do |k, v| %>
-    <b><%= k %>:</b> <%= v %> <br>
-  <% end %>
-<% end %>
+<br />
+<section class="col-12 box">
+  <h1>User Information</h1>
+  <p class="white-text">
+    <%= current_user.username %><br />
+    <% if current_user.email.present? %>
+      <b>Email:</b> <%= current_user.email %><br />
+    <% else %>
+      <b>Account Provider:</b><%= current_user.provider %><br />
+    <% end %>
+    <b>Member Since:</b> <%= current_user.created_at.strftime('%A %B %e, %Y%n at %l:%M %p') %><br />
+  </p>
+</section>
+<br />
+<section class="col-12 white-box">
+  <h1>Game Stats</h1>
+  <br />
+  <div class="row">
+  <p class="col-sm-3 center"><b>Number of games played:</b> <%= current_user.games.count %></p> 
+  <% 
+    gamewinner = Game.where(winner: current_user.id).count
+    gameloser = Game.where(loser: current_user.id).count
+  %>
+  <p class="col-sm-3 center"><b>Wining games:</b> <%= gamewinner %><p class="col-sm-3 center"><b>Losing games:</b> <%= gameloser %></p>
+  </div>
+</section>

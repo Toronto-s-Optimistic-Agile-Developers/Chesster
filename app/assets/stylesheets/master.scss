@@ -1,16 +1,126 @@
 @import "bootstrap";
 @import "font-awesome";
 
-.booyah-box {
-  -moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
-  -webkit-box-shadow: 1px 1px 2px 0 #d0d0d0;
-  box-shadow: 1px 1px 2px 0 #d0d0d0;
-  background: #fff;
+.white-text {
+  color: white;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.show-play-join {
+  border: 1px solid rgb(112, 108, 108);
+}
+
+.git-link,
+.git-link a {
+  font-size: 30px;
+  text-decoration: none !important;
+}
+
+.fa.fa-github {
+  padding: 5px !important;
+  color: silver;
+}
+
+.fa.fa-github:hover,
+.fa.fa-github:focus {
+  color: rgb(88, 85, 85);
+}
+
+.git-link a:hover,
+.git-link a:focus,
+.git-link a:active {
+  font-size: 25px;
+  text-decoration: none !important;
+}
+
+.show-play-join:hover,
+.show-play-join:focus {
+  border: 1px solid grey;
+  color: grey !important;
+  font-weight: bold;
+  text-shadow: 1px 1px 0 #E8E8E8, 1px -1px 0 #E8E8E8, -1px 1px 0 #E8E8E8, -1px -1px 0 #E8E8E8, 1px 0px 0 #E8E8E8, 0px 1px 0 #E8E8E8, -1px 0px 0 #E8E8E8, 0px -1px 0 #E8E8E8;
+}
+
+.btn-primary,
+btn-lg a {
+  color: white !important;
+  background-color: #ee8899;
+}
+
+
+
+.box {
+  background-color: rgb(13, 124, 199);
+  border-color: #5DADE2 #2874A6 #2874A6 #5DADE2;
+  border-width: 2px 2px 2px 2px;
+  border-style: solid;
+  padding: 20px;
+  margin: 10px;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 5px;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.box a {
+  color: white;
+  font-family: "Helvetica Neue", Helvetica;
+  font-weight: 100;
+  font-size: 15px;
+}
+
+.box h1 {
+  color: white;
+  font-family: "Helvetica Neue", Helvetica;
+  font-weight: 100;
+  font-size: 2em;
+}
+
+.box a b {
+  font-weight: 100;
+  font-size: 25px;
+}
+
+.game-box {
+  -moz-box-shadow: 1px 1px 2px 0 #726bc0;
+  -webkit-box-shadow: 1px 1px 2px 0 #726bc0;
+  box-shadow: 1px 1px 2px 0 #726bc0;
+  background: rgb(74, 85, 211);
   border: 1px solid #ccc;
-  border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
+  border-color: #430aff #430aff #430aff #430aff;
   margin-top: 10px;
   margin-bottom: 15px;
   padding: 20px;
+  height: 70px;
+  color: white;
+  overflow: scroll;
+}
+
+.game-box::-webkit-scrollbar {
+  width: 0 !important
+}
+
+.game-box {
+  -ms-overflow-style: none;
+}
+
+.game-box {
+  overflow: -moz-scrollbars-none;
+}
+
+
+.btn.btn-secondary {
+  border: 1px solid white;
+}
+
+.clear {
+  clear: both;
 }
 
 .navbar {
@@ -82,18 +192,21 @@
 
 .rotate-board {
   cursor: pointer;
-  font-size: 12px;
+  font-size: 40px;
+  text-align: center;
   color: rgb(247, 244, 244);
-  background-color: #5553e9;
+  background-color: #0d09e7;
   letter-spacing: 2px;
-  padding: 2px;
+  padding: 20px;
   border-radius: 2px;
   border-top: 1px solid rgb(82, 80, 80);
   border-left: 1px solid rgb(82, 80, 80);
   border-bottom: 1px solid rgb(17, 16, 16);
   border-right: 1px solid rgb(17, 16, 16);
-  width: 70px;
-  text-align: center;
+  height: 70px;
+  vertical-align: middle;
+  margin-top: -8px;
+
 }
 
 .alert {
@@ -146,6 +259,10 @@
   margin-bottom: -25px;
 }
 
+.show-topper {
+  background: none;
+}
+
 table {
   height: 500px;
   width: 500px;
@@ -153,6 +270,7 @@ table {
   -webkit-box-shadow: 1px 1px 1px 1px #707070;
   box-shadow: 1px 1px 1px 1px #707070;
   z-index: 2px;
+  background-color: white;
 }
 
 table ::selection {
@@ -235,10 +353,12 @@ table ::selection {
 }
 
 #promote {
+
   .was-validated .form-control:valid,
   .form-control.is-valid {
     background-image: none !important;
   }
+
   text-align: center;
 }
 
@@ -257,6 +377,7 @@ table ::selection {
   text-align: center;
   border-radius: 2px;
   z-index: 10;
+  text-shadow: none !important;
 }
 
 .promote a:hover,
@@ -286,19 +407,19 @@ table ::selection {
 .captured_pieces {
   cursor: default;
   background-color: red;
-  width: 80%;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
   padding: 2px;
   border-radius: 2px;
   border: 1px solid rgb(139, 138, 138);
-  -moz-box-shadow: 1px 1px 1px 1px rgb(216, 211, 211);
-  -webkit-box-shadow: 1px 1px 1px 1px rgb(216, 211, 211);
-  box-shadow: 1px 1px 1px 1px rgb(216, 211, 211);
+  -moz-box-shadow: 1px 0px 1px 0px rgb(49, 15, 61);
+  -webkit-box-shadow: 1px 0px 1px 0px rgb(49, 15, 61);
+  box-shadow: 1px 0px 1px 0px rgb(49, 15, 61);
   font-size: 15px;
   overflow-y: scroll;
   height: 70px;
+  margin-top: -4px;
 }
 
 .captured_pieces p {
@@ -339,6 +460,21 @@ table ::selection {
 
 .btn.btn-danger {
   color: white;
+}
+
+.nav-item {
+  font-weight: bold;
+  padding: 2px;
+  vertical-align: middle !important;
+}
+
+.logout {
+  margin-top: 12px !important;
+  border: 1px solid white;
+}
+
+.nav-link {
+  vertical-align: middle;
 }
 
 .back {
@@ -447,21 +583,17 @@ table ::selection {
   }
 
   .white {
-    color: rgb(129, 126, 124) !important;
     vertical-align: middle;
-    text-shadow: #636060 1px 1px 0;
-    font-size: 20px;
-    font-weight: 500;
+    font-size: 20px !important;
+    font-weight: 500 !important;
     text-align: center;
     vertical-align: middle;
   }
 
   .black {
-    color: rgb(87, 72, 65) !important;
     vertical-align: middle;
-    text-shadow: #d6d4d4 1px 1px 0;
-    font-size: 20px;
-    font-weight: 500;
+    font-size: 20px !important;
+    font-weight: 500 !important;
     text-align: center !important;
     vertical-align: middle;
   }
@@ -498,4 +630,30 @@ table ::selection {
   border-radius: 0;
   color: whitesmoke;
   border: 1px dotted white;
+}
+
+.white-box h1 {
+  font-family: "Helvetica Neue", Helvetica;
+  font-weight: 100;
+  font-size: 2em;
+}
+
+.white-box {
+  background-color: rgb(202, 199, 199);
+  padding: 20px;
+  margin: 10px;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 5px;
+  vertical-align: middle;
+  text-align: center;
+  -moz-box-shadow: 1px 1px 1px 1px #707070;
+  -webkit-box-shadow: 1px 1px 1px 1px #707070;
+  box-shadow: 1px 1px 1px 1px #707070;
+  border: 1px dotted grey;
+}
+
+.white-box p,
+ul {
+  text-align: left
 }

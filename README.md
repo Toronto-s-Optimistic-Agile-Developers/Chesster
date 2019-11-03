@@ -1,24 +1,41 @@
-# README
+<br />
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+  <a href="https://github.com/Toronto-s-Optimistic-Agile-Developers/Chesster">
+    <img src="http://freshcupmedia.com/portfolio/toad.png" alt="Logo" width="80" height="80">
+  </a>
 
-Things you may want to cover:
+  # TOAD - CHESSTER
 
-* Ruby version
+An Agile software development team building a chess application. Under the guidance of a senior team lead, we had weekly Agile team     meetings for code reviews, sprint planning, and feature assignments. This app was developed as part of the University of Toronto -       Full Stack Web Development - Coding Bootcamp. 
+<br />
+<br />
+<a href="https://toad-chesster.herokuapp.com/">View Demo</a>
+·
+<a href="https://github.com/Toronto-s-Optimistic-Agile-Developers/Chesster/issues">Report Bug</a>
+  
 
-* System dependencies
 
-* Configuration
 
-* Database creation
 
-* Database initialization
+## Contributors
+### Developers:
 
-* How to run the test suite
+Stephen Melnick - [github](https://github.com/StephenMelnick)
 
-* Services (job queues, cache servers, search engines, etc.)
+Devan Potter-Bonar - [github](https://github.com/Adpbonar)
 
-* Deployment instructions
+Mike Tracz - [github](https://github.com/freshcup)
 
-* ...
+
+### Guidance:
+
+Mason Traylor - [github](https://github.com/Mason-T) *Team Lead 
+
+Wilson Horrell - [github](https://github.com/BigPhatNerd)
+
+## Screenshot
+
+<img src="http://freshcupmedia.com/portfolio/chess.png" alt="screenshot">
+  
+
+
