@@ -18,5 +18,4 @@ end
   has_many :pieces
   extend FriendlyId
   friendly_id :username, use: :slugged
-  #validates :user, presence: true
 end

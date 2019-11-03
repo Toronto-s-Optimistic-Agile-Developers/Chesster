@@ -22,7 +22,8 @@ class PiecesController < ApplicationController
     if @piece.game.in_play? == false
       flash[:alert] = 'There must be two players before you can begin.'
       @game.reload
-    elsif ((@piece.game.turn_user_validation == @piece.color) && (@piece.game.user_turn != @piece.color)) || ((@piece.game.user_turn == @piece.color) && (@piece.game.turn_user_validation != @piece.color))
+    elsif ! (user_colors == @piece.color && @piece.game.turn_user_validation == @piece.color)
+      flash[:alert] = 'You can only move a piece that belongs, and you can only do so your turn.'
       @game.reload
     elsif @piece.name == "Black_King"  && ((@piece.x_coord == 0) || (@piece.x_coord == 7)) && (@piece.y_coord == 0)
       @piece.castle(x_path, y_path)
@@ -32,27 +33,39 @@ class PiecesController < ApplicationController
       @piece.update(piece_params)
       @piece.pawn_promote(new_rank)
       redirect_to @game
-      flash[:notice] = 'You have successfully promoted your pawn! Please refresh the page.'
+      flash[:notice] = 'You have successfully promoted your pawn! Please refresh the page to complete the transformation.'
       @game.reload
-    elsif (user_colors == @piece.color && @piece.game.turn_user_validation == @piece.color) 
+    elsif piece = @piece.name == "Black_King" && ! @piece.legal_move?(x_path, y_path)
+      if @piece.black_right_castle(x_path, y_path) == true 
+        @piece.black_right_castle(x_path, y_path)
+        @game.reload
+        flash[:notice] = 'You have successfully completed Castling.'
+      elsif @piece.black_left(x_path, y_path) 
+        @piece.black_left_castle(x_path, y_path)
+        @game.reload
+        flash[:notice] = 'You have successfully completed Castling.'
+      end
+    elsif @piece.name == "White_King" && ! @piece.legal_move?(x_path, y_path)
+      if @piece.white_right_castle(x_path, y_path) == true 
+        @piece.white_right_castle(x_path, y_path)
+        @game.reload
+        flash[:notice] = 'You have successfully completed Castling.'
+      elsif @piece.white_left(x_path, y_path) == true
+        @game.reload
+     end    
+     elsif (user_colors == @piece.color && @piece.game.turn_user_validation == @piece.color)  
       @piece.valid_move?(x_path, y_path)
       @piece.move_to!(x_path, y_path)
       @piece.update(initial_position?: false)
       @piece.update_attributes(piece_params)
-      # if @piece.update
-      #   ActionCable.server.broadcast 'pieces',
-      #     x_coord: @piece.x_coord,
-      #     y_coord: @piece.y_coord
-      #   head :ok
-      # end
       respond_to do |format|
         format.html { render :show }
         format.json { render json: @piece, status: :ok }
       end
       @game.reload
-      flash[:notice] = 'You move was successfully completed!'  
-    @game.reload
+      flash[:notice] = 'Your move was successfully completed!' 
     end
+    @game.reload
   end
 
   def show
@@ -78,6 +91,6 @@ class PiecesController < ApplicationController
   end
 
   def piece_params
-    params.require(:piece).permit(:id, :name, :color, :x_coord, :y_coord, :game_id, :player_id, :captured, :initial_position?, :promotion?, :promotion_type)
+    params.require(:piece).permit(:id, :name, :color, :x_coord, :y_coord, :game_id, :player_id, :captured, :initial_position?, :promotion?, :promotion_type, :title)
   end
 end
