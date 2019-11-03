@@ -104,11 +104,17 @@ class Game < ApplicationRecord
     pieces.where(color: friendly_pieces).to_a
   end
 
-  def in_check?(color)
-    king_black = Piece.find_by(game_id: self.game_id, name: 'White_King', x_coord: x_coord, y_coord: y_coord, color: color)
-    king_white = Piece.find_by(game_id: self.game_id, name: 'Black_King', x_coord: x_coord, y_coord: y_coord, color: color)
+  attr_accessor :black
+
+  def in_check?(color, x_path, y_path)
+    @king_white = Piece.find_by(game_id: self.id, name: 'White_King')
+    @king_black = Piece.find_by(game_id: self.id, name: 'Black_King')
+    @x = x_path
+    @y = y_path
+    @id = id
       if king_black
-        rival_piece = Piece.find_by(x_coord: x_path, y_coord: y_path, game_id: self.game_id, color: !color)
+        rival_piece = Piece.find_by(x_coord: x_path, y_coord: y_path, game_id: self.id, color: color)
+        @rivals = rival_piece
         rival_piece.each do |piece|
           if piece.valid_move?(x_coord: king_black.x_coord, y_coord: king_black.y_coord)
             rival_causing_check == piece
@@ -118,11 +124,12 @@ class Game < ApplicationRecord
           end
         end
           elsif king_white
-            rival_piece = Piece.find_by(x_coord: x_path, y_coord: y_path, game_id: self.game_id, color: !color)
+            rival_piece = Piece.find_by(x_coord: x_path, y_coord: y_path, game_id: self.id, color: color)
+            @rivals = rival_piece
             rival_piece.each do |piece|
             if piece.valid_move?(x_coord: king_white.x_coord, y_coord: king_white.y_coord)
               rival_causing_check == piece
-            return true
+              return true
             else 
               return false
             end
