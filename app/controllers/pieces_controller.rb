@@ -19,11 +19,19 @@ class PiecesController < ApplicationController
     x_path = piece_params[:x_coord].to_i
     y_path = piece_params[:y_coord].to_i
     new_rank =  piece_params[:promotion_type].to_s
+<<<<<<< HEAD
   if @piece.promotion? == true
        @piece.update(piece_params)
        @piece.pawn_promote(new_rank)
        redirect_to @game
        flash[:notice] = 'You have successfully promoted your pawn!'
+=======
+   if @piece.promotion? == true
+      @piece.update(piece_params)
+      @piece.pawn_promote(new_rank)
+      redirect_to @game
+      flash[:notice] = 'You have successfully promoted your pawn!'
+>>>>>>> cf4a81053fa033ed50b9a8d6e08bf7407b40c3be
       @game.reload
     elsif piece = @piece.name == "Black_King" && ! @piece.legal_move?(x_path, y_path)
       if @piece.black_left_castle(x_path, y_path) == true
