@@ -43,7 +43,7 @@
             <% (0..7).each do |y_coord| %>
               <% (0..7).each do |x_coord| %>
                 <td data-x-coord=<%=x_coord %> data-y-coord=
-                    <%= y_coord %> class='tile
+                    <%= y_coord %> class="tile" %>
                     <%= "#{(y_coord.odd? == x_coord.odd? ? "white-tile droppable-tile" : "black-tile droppable-tile")}" %>'>
                     <% if board_piece = @pieces.select{|p| p.x_coord == x_coord && p.y_coord == y_coord}.first %>
                       <div title="<%= board_piece.title %>" class="piece <%=board_piece.color %>" data-piece-id=
