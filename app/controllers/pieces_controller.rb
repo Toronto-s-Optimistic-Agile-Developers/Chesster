@@ -23,7 +23,7 @@ class PiecesController < ApplicationController
       flash[:alert] = 'There must be two players before you can begin.'
       @game.reload
     elsif ! (user_colors == @piece.color && @piece.game.turn_user_validation == @piece.color)
-      flash[:alert] = 'You can only move a piece that belongs, and you can only do so your turn.'
+      flash[:alert] = 'You can only move a piece that belongs, and you can only do so when it is your turn.'
       @game.reload
     elsif @piece.name == "Black_King"  && ((@piece.x_coord == 0) || (@piece.x_coord == 7)) && (@piece.y_coord == 0)
       @piece.castle(x_path, y_path)
