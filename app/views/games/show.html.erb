@@ -156,13 +156,7 @@
   <% end %>
 
   </div>
-  <div class="float-left" style="float-left">
-  <% if @game.user_turn == 'black'%>
-    <p class="black_turn"><%= @game.user_turn %></p>
-  <% else %>
-    <p class="white_turn"><%= @game.user_turn %></p>
-  <% end %>
-  </div>
+  
   <br /><br />
   <div id="forfeit">
     <% if @game.in_play? %>
