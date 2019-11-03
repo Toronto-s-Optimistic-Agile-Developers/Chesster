@@ -12,7 +12,30 @@
 }
 
 .show-play-join {
-  border: 1px solid white;
+  border: 1px solid rgb(112, 108, 108);
+}
+
+.git-link,
+.git-link a {
+  font-size: 30px;
+  text-decoration: none !important;
+}
+
+.fa.fa-github {
+  padding: 5px !important;
+  color: silver;
+}
+
+.fa.fa-github:hover,
+.fa.fa-github:focus {
+  color: rgb(88, 85, 85);
+}
+
+.git-link a:hover,
+.git-link a:focus,
+.git-link a:active {
+  font-size: 25px;
+  text-decoration: none !important;
 }
 
 .show-play-join:hover,
@@ -26,6 +49,7 @@
 .btn-primary,
 btn-lg a {
   color: white !important;
+  background-color: #ee8899;
 }
 
 
