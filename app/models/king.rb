@@ -4,6 +4,7 @@ class King < Piece
 		return "&#9818;"
 	end
 
+
   def legal_move?(x_path, y_path)
     x_dif = (x_path - x_coord).abs
     y_dif = (y_path - y_coord).abs
@@ -14,5 +15,17 @@ class King < Piece
     else (x_dif <= 1) && (y_dif <= 1) && (x_dif + y_dif > 0)
       return true
     end
+  end
+
+
+  def in_check?(x_coord, y_coord)
+    @x_coord = x_coord
+    @y_coord = y_coord
+    @game.pieces.each do |piece|
+      if piece.valid_move?(x_coord, y_coord)
+          rival_causing_check = piece
+            return true
+          end
+      end
   end
 end

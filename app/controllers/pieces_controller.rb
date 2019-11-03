@@ -19,20 +19,14 @@ class PiecesController < ApplicationController
     x_path = piece_params[:x_coord].to_i
     y_path = piece_params[:y_coord].to_i
     new_rank =  piece_params[:promotion_type].to_s
-<<<<<<< HEAD
-  if @piece.promotion? == true
+
+    if @piece.promotion? == true
        @piece.update(piece_params)
        @piece.pawn_promote(new_rank)
        redirect_to @game
        flash[:notice] = 'You have successfully promoted your pawn!'
-=======
-   if @piece.promotion? == true
-      @piece.update(piece_params)
-      @piece.pawn_promote(new_rank)
-      redirect_to @game
-      flash[:notice] = 'You have successfully promoted your pawn!'
->>>>>>> cf4a81053fa033ed50b9a8d6e08bf7407b40c3be
-      @game.reload
+
+    @game.reload
     elsif piece = @piece.name == "Black_King" && ! @piece.legal_move?(x_path, y_path)
       if @piece.black_left_castle(x_path, y_path) == true
         @piece.black_left_castle(x_path, y_path)
@@ -62,12 +56,17 @@ class PiecesController < ApplicationController
           format.json { render json: @piece, status: :ok }
         end
       @game.reload
-      @game.in_check?('black', x_path, y_path)
-      if @piece.name == "White_King" && @piece.in_check?(color)
-        flash[:alert] = 'C H E C K'
-      elsif @piece.name == "Black_King" && @piece.in_check?(color)
-        flash[:alert] = 'C H E C K'
+      the_white_king = @game.pieces.where(name: 'White_King')
+      the_black_king = @game.pieces.where(name: 'Black_King')
+      puts the_white_king
+      puts the_black_king
+      if the_white_king.in_check?(@x_coord, @y_coord)
+            flash[:alert] = 'White king in CHECK'
+      elsif the_black_king.in_check?(@x_coord, @y_coord)
+            flash[:alert] = 'Black king in CHECK'
+        
       else
+
         flash[:notice] = 'Your move was successfully completed!' 
       end
     end

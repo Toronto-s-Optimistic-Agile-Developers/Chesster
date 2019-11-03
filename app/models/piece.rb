@@ -1,5 +1,5 @@
 class Piece < ApplicationRecord
-  attr_accessor :rival_piece
+  attr_accessor :rival_piece, :king_white, :king_black
   belongs_to :game
   belongs_to :user, required: false
 

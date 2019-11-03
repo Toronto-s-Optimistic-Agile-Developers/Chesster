@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Game < ApplicationRecord
-  attr_reader :color
+  attr_reader :color 
 
   belongs_to :white_player, class_name: 'User', optional: true
   belongs_to :black_player, class_name: 'User', optional: true
@@ -82,12 +82,13 @@ class Game < ApplicationRecord
 
     Queen.create(game_id: id, color: "black", x_coord: 3, y_coord: 0,  name: "Black_Queen",  title: "Queen")
   end
+
   def opponent_pieces(color)
-    if slef.pieces.color == 'black'
-    rival_color = 'black'
+    if self.pieces.color == 'black'
+    rival_color = 'white'
      return 'white'
     else
-      rival_color = 'white'
+      rival_color = 'black'
       return 'black'
     end
     pieces.where(color: rival_color).to_a
@@ -104,37 +105,7 @@ class Game < ApplicationRecord
     pieces.where(color: friendly_pieces).to_a
   end
 
-  attr_accessor :black
+  
+ 
 
-  def in_check?(color, x_path, y_path)
-    @king_white = Piece.find_by(game_id: self.id, name: 'White_King')
-    @king_black = Piece.find_by(game_id: self.id, name: 'Black_King')
-    @x = x_path
-    @y = y_path
-    @id = id
-      if king_black
-        rival_piece = Piece.find_by(x_coord: x_path, y_coord: y_path, game_id: self.id, color: color)
-        @rivals = rival_piece
-        rival_piece.each do |piece|
-          if piece.valid_move?(x_coord: king_black.x_coord, y_coord: king_black.y_coord)
-            rival_causing_check == piece
-            return true
-          else
-            return false
-          end
-        end
-          elsif king_white
-            rival_piece = Piece.find_by(x_coord: x_path, y_coord: y_path, game_id: self.id, color: color)
-            @rivals = rival_piece
-            rival_piece.each do |piece|
-            if piece.valid_move?(x_coord: king_white.x_coord, y_coord: king_white.y_coord)
-              rival_causing_check == piece
-              return true
-            else 
-              return false
-            end
-          end
-        false
-      end
-    end
-  end
+end
