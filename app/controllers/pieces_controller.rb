@@ -23,38 +23,36 @@ class PiecesController < ApplicationController
       @piece.update(piece_params)
       @piece.pawn_promote(new_rank)
       redirect_to @game
-      flash[:notice] = 'You have successfully promoted your pawn!'
+      flash[:notice] = 'You have successfully promoted your pawn! Please refresh the page to complete the transformation.'
       @game.reload
     elsif piece = @piece.name == "Black_King" && ! @piece.legal_move?(x_path, y_path)
       if @piece.black_right_castle(x_path, y_path) == true 
         @piece.black_right_castle(x_path, y_path)
-        flash[:notice] = 'You have successfully completed Castling.'
         @game.reload
-      else
-        @piece.white_left_castle(x_path, y_path)
         flash[:notice] = 'You have successfully completed Castling.'
+      elsif @piece.black_left(x_path, y_path) 
+        @piece.black_left_castle(x_path, y_path)
         @game.reload
+        flash[:notice] = 'You have successfully completed Castling.'
       end
     elsif @piece.name == "White_King" && ! @piece.legal_move?(x_path, y_path)
       if @piece.white_right_castle(x_path, y_path) == true 
         @piece.white_right_castle(x_path, y_path)
-        flash[:notice] = 'You have successfully completed Castling.'
         @game.reload
-      else @piece.white_left_castle(x_path, y_path) == true
-        @piece.white_left_castle(x_path, y_path)
         flash[:notice] = 'You have successfully completed Castling.'
+      elsif @piece.white_left(x_path, y_path) == true
         @game.reload
      end    
      elsif @piece.valid_move?(x_path, y_path)
       @piece.move_to!(x_path, y_path)
       @piece.update(initial_position?: false)
       @piece.update_attributes(piece_params)
-        respond_to do |format|
-          format.html { render :show }
-          format.json { render json: @piece, status: :ok }
-        end
-        @game.reload
-        flash[:notice] = 'Your move was successfully completed!' 
+      respond_to do |format|
+        format.html { render :show }
+        format.json { render json: @piece, status: :ok }
+      end
+      @game.reload
+      flash[:notice] = 'Your move was successfully completed!' 
     end
     @game.reload
   end
