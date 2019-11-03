@@ -159,13 +159,13 @@
   <% if @game.in_play? %>
     <div class="float-left user_turn">
     <% if @game.user_turn == 'black'%>
-      <center><span class="black_turn"><%= "It is #{@game.user_turn}'s turn." %></span></center>
+      <center><span class="wlack_turn"><%= "It is" %><br /><%= "#{@game.user_turn.capitalize}'s turn." %></span></center>
     <% else %>
-      <center><span class="white_turn"><%= "It is #{@game.user_turn}'s turn." %></span></center>
+      <center><span class="white_turn"><%= "It is"%><br /><%= "#{@game.user_turn.capitalize}'s turn." %></span></center>
     <% end %>
     </div>
   <% end %>
-  <br /><br />
+  <br /><br /><br />
   <div id="forfeit">
     <% if @game.in_play? %>
       <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>
