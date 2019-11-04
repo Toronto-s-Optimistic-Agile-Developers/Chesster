@@ -42,15 +42,15 @@
           <table>
             <% (0..7).each do |y_coord| %>
               <% (0..7).each do |x_coord| %>
-                <td data-x-coord=<%=x_coord %> 
-                    <%= y_coord %> 
-                    <%= "#{(y_coord.odd? == x_coord.odd? ? "white-tile droppable-tile" : "black-tile droppable-tile")}" %> 
+                <td data-x-coord=<%=x_coord %> data-y-coord=
+                    <%= y_coord %> class='tile
+                    <%= "#{(y_coord.odd? == x_coord.odd? ? "white-tile droppable-tile" : "black-tile droppable-tile")}" %>'>
                     <% if board_piece = @pieces.select{|p| p.x_coord == x_coord && p.y_coord == y_coord}.first %>
-                      <div title="<%= board_piece.title %>" class="piece <%=board_piece.color %>
-                        <%= board_piece.id %>
-                        <%= x_coord %>
-                        <%= y_coord %>
-                        <%= board_piece.id %>
+                      <div title="<%= board_piece.title %>" class="piece <%=board_piece.color %>" data-piece-id=
+                        <%= board_piece.id %> data-x_coord=
+                        <%= x_coord %> data-y_coord=
+                        <%= y_coord %> data-piece-id=
+                        <%= board_piece.id %> data-name=
                         <%= board_piece.name %>>
                           <%= board_piece.unicode_symbol.html_safe %>
                           <% if (board_piece.name == "White_Pawn" && board_piece.y_coord == 0) || (board_piece.name == "Black_Pawn" && board_piece.y_coord == 7) %>
@@ -97,67 +97,7 @@
       </div>
     </div>
 </section>
-  <% if current_user == @game.black_id %>
-    <% (0..7).reverse_each do |y_coord| %>
-              <% (0..7).reverse_each do |x_coord| %>
-                <td data-x-coord=<%=x_coord %> data-y-coord=
-                    <%= y_coord %> class='tile
-                    <%= "#{(y_coord.odd? == x_coord.odd? ? "white-tile droppable-tile" : "black-tile droppable-tile")}" %>'>
-                    <% if board_piece = @pieces.select{|p| p.x_coord == x_coord && p.y_coord == y_coord}.first %>
-                      <div title="<%= board_piece.title %>" class="piece <%=board_piece.color %>" data-piece-id=
-                        <%= board_piece.id %> data-x_coord=
-                        <%= x_coord %> data-y_coord=
-                        <%= y_coord %>>
-                          <%= board_piece.unicode_symbol.html_safe %>
-                          <% if (board_piece.name == "White Pawn" && board_piece.y_coord == 0) || (board_piece.name == "Black Pawn" && board_piece.y_coord == 7) %>
-                          <% board_piece.update(promotion?: true) %>
-                            <span class="promote">
-                              <%= link_to "Promote", edit_piece_path(board_piece.id.to_s) %>
-                            </span>
-                            <% @game.reload %>
-                          <% end %>
-                      </div>
-                    <% end %>
-                </td>
-              <% end %>
-              </tr>
-            <% end %>
-        </table>
-      </div>
-      <div id="labels">
-        <table class="y_labels">
-            <% for i in 8.downto(1) %>
-              <td>
-                <div class="label_square">
-                    <%= i.reverse %>
-                </div>
-            </td>
-            </tr>
-          <% end %>
-        </table>
-      </div>
-      <div id="labels">
-          <table class="x_labels">
-              <tr>
-                <% x_labels = { 0 => 'A', 1 => 'B', 2 => 'C', 3 => 'D', 4 => 'E', 5 => 'F', 6 => 'G', 7 => 'H' } %>
-                <% for i in 0..7 %>
-                  <td>
-                    <div class="letters">
-                        <%= x_labels[i].reverse %>
-                    </div>
-                  </td>
-                <% end %>
-              </tr>
-          </table>
-          <br />
-      </div>
-    </div>
-
-  <% end %>
-
-  </div>
-  
-  <br /><br />
+ <br /><br />
   <div id="forfeit">
     <% if @game.in_play? %>
       <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>
@@ -190,3 +130,4 @@
     });
   </script>  
 </body>
+
