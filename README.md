@@ -35,8 +35,4 @@ Wilson Horrell - [github](https://github.com/BigPhatNerd)
 
 ## Screenshot
 
-<img src="http://freshcupmedia.com/portfolio/chess.png" alt="screenshot">
-  
-
-
->>>>>>> d12ecf51ca9568329b317c581b223c31204eea1f
+<img src="http://www.devanpotterbonar.com/assets/chess-6ab033ee27e9e1e7e03c0aa823835482bb340a1c66c29c1973896046906518e4.png" alt="screenshot">
