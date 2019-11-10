@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_26_164642) do
+ActiveRecord::Schema.define(version: 2019_11_02_204732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,7 +41,9 @@ ActiveRecord::Schema.define(version: 2019_10_26_164642) do
     t.integer "second_player_id"
     t.index ["id"], name: "index_games_on_id"
     t.index ["player_id"], name: "index_games_on_player_id"
+    t.index ["second_player_id"], name: "index_games_on_second_player_id"
     t.index ["user_id"], name: "index_games_on_user_id"
+    t.index ["user_turn"], name: "index_games_on_user_turn"
   end
 
   create_table "pieces", force: :cascade do |t|
@@ -60,6 +62,8 @@ ActiveRecord::Schema.define(version: 2019_10_26_164642) do
     t.string "promotion_type"
     t.string "title"
     t.index ["game_id"], name: "index_pieces_on_game_id"
+    t.index ["name"], name: "index_pieces_on_name"
+    t.index ["title"], name: "index_pieces_on_title"
     t.index ["x_coord"], name: "index_pieces_on_x_coord"
     t.index ["y_coord"], name: "index_pieces_on_y_coord"
   end

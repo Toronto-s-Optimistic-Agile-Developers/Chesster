@@ -19,12 +19,23 @@ class Game < ApplicationRecord
   end
 
   def first_turn!
-    update(user_turn: 'white_id')
+    update(user_turn: 'white')
   end
 
-  def pass_turn!(color)
-    player_turn = color == 'white_id' ? 'black_id' : 'white_id'
-    update(user_turn: player_turn)
+  def turn_user_validation
+    if (user_turn == 'white') && (self.white_id == self.player_id) && (self.pieces.where(color: "white"))
+      return 'white'
+    elsif (user_turn == 'black') && (self.black_id == self.second_player_id) && (self.pieces.where(color: "black"))
+      return 'black'
+    end
+  end
+
+  def pass_turn!
+    if (self.user_turn == 'white') 
+      update(user_turn: 'black')
+    elsif (self.user_turn == 'black')
+      update(user_turn: 'white')
+    end
   end
 
   def tile_taken?(x_path, y_path)

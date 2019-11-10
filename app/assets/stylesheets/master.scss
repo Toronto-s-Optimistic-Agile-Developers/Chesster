@@ -38,6 +38,14 @@
   text-decoration: none !important;
 }
 
+.black_turn {
+  color: black;
+}
+
+.white_turn {
+  color: white;
+}
+
 .show-play-join:hover,
 .show-play-join:focus {
   border: 1px solid grey;
@@ -651,6 +659,22 @@ table ::selection {
   -webkit-box-shadow: 1px 1px 1px 1px #707070;
   box-shadow: 1px 1px 1px 1px #707070;
   border: 1px dotted grey;
+}
+
+.user_turn ::selection {
+  background-color: none;
+}
+
+.user_turn {
+  cursor: default;
+  background-color: rgb(182, 177, 177);
+  border: 1px dotted grey;
+  border-radius: 5px;
+  padding: 2px;
+  font-weight: bold;
+  text-align:center;
+  font-size: 10px;
+  line-height: 12px;
 }
 
 .white-box p,

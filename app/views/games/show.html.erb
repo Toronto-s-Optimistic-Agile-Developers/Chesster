@@ -97,36 +97,46 @@
       </div>
     </div>
 </section>
- <br /><br />
-  <div id="forfeit">
-    <% if @game.in_play? %>
-      <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>
-        <% if current_user.id == @game.white_id %>
-          <%= f.input :winner, as: :hidden, :input_html => { :value => @game.black_id } %>
-          <%= f.input :loser, as: :hidden, :input_html => { :value => @game.white_id } %>
-        <% else %>
-          <%= f.input :winner, as: :hidden, :input_html => { :value => @game.white_id } %>
-          <%= f.input :loser, as: :hidden, :input_html => { :value => @game.black_id } %>
-        <% end %>
-        <%= f.submit "Forfeit", class: "forfeit", data: { confirm: "Are you sure you want to concede the game?"} %>
-      <% end %>
-    <% else %>
-      <%= link_to 'Back', game_path(@game), method: :delete, class: 'btn btn-danger back', data: { confirm: "If you do this, the game will end before it begins. Are you sure?" } %>
-    <% end %>
+<% if @game.in_play? %>
+  <div class="float-left user_turn">
+  <% if @game.user_turn == 'black'%>
+    <center><span class="wlack_turn"><%= "It is" %><br /><%= "#{@game.user_turn.capitalize}'s turn." %></span></center>
+  <% else %>
+    <center><span class="white_turn"><%= "It is"%><br /><%= "#{@game.user_turn.capitalize}'s turn." %></span></center>
+  <% end %>
   </div>
-  <script>
-    var rotation = 0;
-    jQuery.fn.rotate = function (degrees) {
-      $(this).css({
-        '-webkit-transform': 'rotate(' + degrees + 'deg)',
-        '-moz-transform': 'rotate(' + degrees + 'deg)',
-        '-ms-transform': 'rotate(' + degrees + 'deg)',
-        'transform': 'rotate(' + degrees + 'deg)'
-      });
-    };
-    $('#Flip_Board').click(function () {
-      rotation -= 180;
-      $('.set-board, .chess td, #labels td').rotate(rotation);
+<% end %>
+<br /><br /><br />
+<div id="forfeit">
+  <% if @game.in_play? %>
+    <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>
+      <% if current_user.id == @game.white_id %>
+        <%= f.input :winner, as: :hidden, :input_html => { :value => @game.black_id } %>
+        <%= f.input :loser, as: :hidden, :input_html => { :value => @game.white_id } %>
+      <% else %>
+        <%= f.input :winner, as: :hidden, :input_html => { :value => @game.white_id } %>
+        <%= f.input :loser, as: :hidden, :input_html => { :value => @game.black_id } %>
+      <% end %>
+      <%= f.submit "Forfeit", class: "forfeit", data: { confirm: "Are you sure you want to concede the game?"} %>
+    <% end %>
+  <% else %>
+    <%= link_to 'Back', game_path(@game), method: :delete, class: 'btn btn-danger back', data: { confirm: "If you do this, the game will end before it begins. Are you sure?" } %>
+  <% end %>
+</div>
+<script>
+  setTimeout(function () { location.reload(1); }, 8000);
+  var rotation = 0;
+  jQuery.fn.rotate = function (degrees) {
+    $(this).css({
+      '-webkit-transform': 'rotate(' + degrees + 'deg)',
+      '-moz-transform': 'rotate(' + degrees + 'deg)',
+      '-ms-transform': 'rotate(' + degrees + 'deg)',
+      'transform': 'rotate(' + degrees + 'deg)'
     });
+  };
+  $('#Flip_Board').click(function () {
+    rotation -= 180;
+    $('.set-board, .chess td, #labels td').rotate(rotation);
+  });
   </script>  
 </body>

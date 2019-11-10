@@ -1,3 +1,29 @@
+<<<<<<< HEAD
+# README
+
+This README would normally document whatever steps are necessary to get the
+application up and running.
+
+Things you may want to cover:
+
+* Ruby version
+
+* System dependencies
+
+* Configuration
+
+* Database creation
+
+* Database initialization
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...
+=======
 <br />
 
   <a href="https://github.com/Toronto-s-Optimistic-Agile-Developers/Chesster">
@@ -39,3 +65,4 @@ Wilson Horrell - [github](https://github.com/BigPhatNerd)
   
 
 
+>>>>>>> d12ecf51ca9568329b317c581b223c31204eea1f

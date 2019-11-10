@@ -17,6 +17,6 @@ before_action :authenticate_user!, only: [:new]
   private
 
   def user_params
-    params.require(:user).permit(:name)
+    params.require(:user).permit(:id, :name)
   end
 end

@@ -1,5 +1,5 @@
 class PiecesController < ApplicationController
-  before_action :find_piece, only: [:update]
+  before_action :find_piece, only: [:update, :show]
 
   
   def create
@@ -19,7 +19,17 @@ class PiecesController < ApplicationController
     x_path = piece_params[:x_coord].to_i
     y_path = piece_params[:y_coord].to_i
     new_rank =  piece_params[:promotion_type].to_s
-   if @piece.promotion? == true
+    if @piece.game.in_play? == false
+      flash[:alert] = 'There must be two players before you can begin.'
+      @game.reload
+    elsif ! (user_colors == @piece.color && @piece.game.turn_user_validation == @piece.color)
+      flash[:alert] = 'You can only move a piece that belongs, and you can only do so when it is your turn.'
+      @game.reload
+    elsif @piece.name == "Black_King"  && ((@piece.x_coord == 0) || (@piece.x_coord == 7)) && (@piece.y_coord == 0)
+      @piece.castle(x_path, y_path)
+    elsif @piece.name == "White_King" && ((@piece.x_coord == 0) || (@piece.x_coord == 7)) && (@piece.y_coord == 7)
+      @piece.castle(x_path, y_path)
+    elsif @piece.promotion? == true
       @piece.update(piece_params)
       @piece.pawn_promote(new_rank)
       redirect_to @game
@@ -43,7 +53,8 @@ class PiecesController < ApplicationController
       elsif @piece.white_left(x_path, y_path) == true
         @game.reload
      end    
-     elsif @piece.valid_move?(x_path, y_path)
+     elsif (user_colors == @piece.color && @piece.game.turn_user_validation == @piece.color)  
+      @piece.valid_move?(x_path, y_path)
       @piece.move_to!(x_path, y_path)
       @piece.update(initial_position?: false)
       @piece.update_attributes(piece_params)
@@ -57,7 +68,22 @@ class PiecesController < ApplicationController
     @game.reload
   end
 
+  def show
+    @game = @piece.game
+    @pieces = @game.pieces  
+  end
+
   private
+
+  def user_colors 
+    @gameplayer = @piece.game.player_id.to_i
+    @gameplayer2 = @piece.game.second_player_id.to_i
+    if (current_user.id == @gameplayer) 
+      return 'white'
+    else
+      return 'black'
+    end
+  end
 
   def find_piece
     @piece = Piece.find(params[:id])
